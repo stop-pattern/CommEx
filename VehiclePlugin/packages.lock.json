@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "dependencies": {
+    ".NETFramework,Version=v4.8": {
+      "AtsEx.CoreExtensions": {
+        "type": "Direct",
+        "requested": "[1.0.0-rc7, )",
+        "resolved": "1.0.0-rc7",
+        "contentHash": "wpQIS8smxANiPt4gBD0LpWa3408wfLVY1gRvJvWeV4OFuIJHXMaTwEZgtpa+UsTmKxfX4S4KbdCCg1xBCDmaWg==",
+        "dependencies": {
+          "AtsEx.PluginHost": "1.0.0-rc1",
+          "ObjectiveHarmonyPatch": "1.1.0"
+        }
+      },
+      "AtsEx.PluginHost": {
+        "type": "Direct",
+        "requested": "[1.0.0-rc8, )",
+        "resolved": "1.0.0-rc8",
+        "contentHash": "W/1suCpKZ0y7E6dl2Y1iY10kJ5D9KD1m3XUWiz3Z1H5NHFcJU32Hz2ON+So9iDUCSIVG0C06RfbsHCpY9x4dvw==",
+        "dependencies": {
+          "SlimDX": "4.0.13.44",
+          "UnembeddedResources": "1.0.0"
+        }
+      },
+      "Lib.Harmony": {
+        "type": "Transitive",
+        "resolved": "2.2.2",
+        "contentHash": "70KvWz+DiUELxafsYL/LHxA/jH3PDWeApLo/VwtnrpTvRWQ/eUdPfS/l5funmhZWOy41QXw6UjVv+6C57Nx77A=="
+      },
+      "ObjectiveHarmonyPatch": {
+        "type": "Transitive",
+        "resolved": "1.1.0",
+        "contentHash": "tzKrRbZCURq3RpAGbTXZywNJ1sGI/4ia+8OJ6NiSPfhw0uCevXUcHGFlpIxgOQei/3JQKqUMH9aq+RvWUn/44g==",
+        "dependencies": {
+          "Lib.Harmony": "2.2.2"
+        }
+      },
+      "SlimDX": {
+        "type": "Transitive",
+        "resolved": "4.0.13.44",
+        "contentHash": "Oj8ICZ3tIGvd93s5W6wSWXckDb3payQCo4fWp7GKPwnnGck7wEHHBZwnwfJJTdNb+t+IYr4HJCu07YhZ82xrIg=="
+      },
+      "UnembeddedResources": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "cZJ8PtsQwQ4EzShUiUdKz2blvj/r6v0/Tg5+43SsWBTpHhX79P05Srtu6ypiSPgOKePnpB5D/SM5HCyoaMQN6g=="
+      }
+    }
+  }
+}
