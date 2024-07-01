@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using AtsEx.PluginHost.Plugins;
 using AtsEx.PluginHost.Plugins.Extensions;
 
-namespace CommEx
+namespace CommEx.Serial
 {
     /// <summary>
     /// プラグインの本体
@@ -15,15 +15,26 @@ namespace CommEx
     /// Plugin() の第二引数でこのプラグインが必要とするAtsEX本体の最低バージョンを指定（オプション）
     /// </summary>
     [Plugin(PluginType.Extension)]
-    internal class ExtensionMain : AssemblyPluginBase, IExtension
+    internal class Serial : AssemblyPluginBase, IExtension
     {
         /// <summary>
         /// プラグインが読み込まれた時に呼ばれる
         /// 初期化を実装する
         /// </summary>
         /// <param name="builder"></param>
-        public ExtensionMain(PluginBuilder builder) : base(builder)
+        public Serial(PluginBuilder builder) : base(builder)
         {
+            Extensions.AllExtensionsLoaded += Extensions_AllExtensionsLoaded;
+        }
+
+        /// <summary>
+        /// 全ての AtsEX 拡張機能が読み込まれ、AtsEx.PluginHost.Plugins.Extensions プロパティが取得可能になると発生
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Extensions_AllExtensionsLoaded(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -32,6 +43,7 @@ namespace CommEx
         /// </summary>
         public override void Dispose()
         {
+            Extensions.AllExtensionsLoaded -= Extensions_AllExtensionsLoaded;
         }
 
         /// <summary>
