@@ -5,23 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 
 using AtsEx.PluginHost.Plugins;
+using AtsEx.PluginHost.Plugins.Extensions;
 
-namespace AtsExCsTemplate.MapPlugin
+namespace CommEx
 {
     /// <summary>
     /// プラグインの本体
     /// Plugin() の第一引数でこのプラグインの仕様を指定
     /// Plugin() の第二引数でこのプラグインが必要とするAtsEX本体の最低バージョンを指定（オプション）
     /// </summary>
-    [Plugin(PluginType.MapPlugin)]
-    internal class MapPluginMain : AssemblyPluginBase
+    [Plugin(PluginType.Extension)]
+    internal class ExtensionMain : AssemblyPluginBase, IExtension
     {
         /// <summary>
         /// プラグインが読み込まれた時に呼ばれる
         /// 初期化を実装する
         /// </summary>
         /// <param name="builder"></param>
-        public MapPluginMain(PluginBuilder builder) : base(builder)
+        public ExtensionMain(PluginBuilder builder) : base(builder)
         {
         }
 
@@ -39,7 +40,7 @@ namespace AtsExCsTemplate.MapPlugin
         /// <param name="elapsed">前回フレームからの経過時間</param>
         public override TickResult Tick(TimeSpan elapsed)
         {
-            return new MapPluginTickResult();
+            return new ExtensionTickResult();
         }
     }
 }
