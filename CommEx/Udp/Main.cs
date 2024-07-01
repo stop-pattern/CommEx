@@ -15,8 +15,26 @@ namespace CommEx.Udp
     /// Plugin() の第二引数でこのプラグインが必要とするAtsEX本体の最低バージョンを指定（オプション）
     /// </summary>
     [Plugin(PluginType.Extension)]
-    internal class Udp : AssemblyPluginBase, IExtension
+    [Togglable]
+    internal class Udp : AssemblyPluginBase, ITogglableExtension, IExtension
     {
+        /// <inheritdoc/>
+        public override string Title { get; } = nameof(Udp);
+        /// <inheritdoc/>
+        public override string Description { get; } = "UDP";
+
+        /// <summary>
+        /// プラグインの有効・無効状態
+        /// </summary>
+        private bool status = false;
+        
+        /// <inheritdoc/>
+        public bool IsEnabled
+        {
+            get { return status; }
+            set { status = value; }
+        }
+
         /// <summary>
         /// プラグインが読み込まれた時に呼ばれる
         /// 初期化を実装する
@@ -24,17 +42,6 @@ namespace CommEx.Udp
         /// <param name="builder"></param>
         public Udp(PluginBuilder builder) : base(builder)
         {
-            Extensions.AllExtensionsLoaded += Extensions_AllExtensionsLoaded;
-        }
-
-        /// <summary>
-        /// 全ての AtsEX 拡張機能が読み込まれ、AtsEx.PluginHost.Plugins.Extensions プロパティが取得可能になると発生
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Extensions_AllExtensionsLoaded(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -43,7 +50,6 @@ namespace CommEx.Udp
         /// </summary>
         public override void Dispose()
         {
-            Extensions.AllExtensionsLoaded -= Extensions_AllExtensionsLoaded;
         }
 
         /// <summary>

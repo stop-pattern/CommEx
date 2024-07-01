@@ -15,8 +15,26 @@ namespace CommEx.Serial
     /// Plugin() の第二引数でこのプラグインが必要とするAtsEX本体の最低バージョンを指定（オプション）
     /// </summary>
     [Plugin(PluginType.Extension)]
-    internal class Serial : AssemblyPluginBase, IExtension
+    [Togglable]
+    internal class Serial : AssemblyPluginBase, ITogglableExtension, IExtension
     {
+        /// <inheritdoc/>
+        public override string Title { get; } = nameof(Serial);
+        /// <inheritdoc/>
+        public override string Description { get; } = "シリアル通信";
+
+        /// <summary>
+        /// プラグインの有効・無効状態
+        /// </summary>
+        private bool status = true;
+
+        /// <inheritdoc/>
+        public bool IsEnabled
+        {
+            get { return status; }
+            set { status = value; }
+        }
+
         /// <summary>
         /// プラグインが読み込まれた時に呼ばれる
         /// 初期化を実装する
@@ -34,7 +52,6 @@ namespace CommEx.Serial
         /// <param name="e"></param>
         private void Extensions_AllExtensionsLoaded(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
