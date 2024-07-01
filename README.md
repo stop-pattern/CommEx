@@ -1,13 +1,28 @@
-# AtsExCsTemplate
-[AtsEX](https://github.com/automatic9045/AtsEX)を使ったBve5またはBve6用のプラグインのためのテンプレート
+# CommEx
+[AtsEX](https://github.com/automatic9045/AtsEX)AtsEXを通してBveと外部で通信するプラグイン
 
 
-## プラグイン開発が初めての人へ
-~全然クイックじゃない~[クイックスタート](../../wiki/クイックスタート/)から取り掛かるのがおすすめです
+## プラグインの機能
+- [ ] シリアル通信
+    - [ ] バイナリ
+    - [ ] BIDS互換
+    - [ ] SerialOutput互換
+- [ ] ネットワーク
+    - [ ] UDP
 
 
-## ライセンス
-[MIT](LICENSE)
+## 導入方法
+### 1. AtsEXの導入
+[公式のダウンロードページ](https://automatic9045.github.io/AtsEX/download/)を参照してください
+### 2. 本プラグインの導入
+1. [Releases](releases/)から最新版がダウンロードできます
+1. AtsExの導入場所にある`Extensions`フォルダの中に本プラグインを配置します
+    - デフォルト: `C:\Users\Public\Documents\AtsEx\1.0\Extensions`
+    - プラグインはBveの起動と同時に読み込まれ、必要に応じて他のプラグインから利用されます
+1. Bveから拡張機能が有効になっているか確認
+    1. Bveを起動し右クリック
+    1. **AtsEX バージョン情報・プラグイン一覧** を開く
+    1. **CommEx** が有効になっていることを確認（デフォルトで有効）
 
 ## このテンプレートの機能
 - 取っ掛かりやすいように3種類のプラグインのファイル
@@ -78,25 +93,43 @@ git clone https://github.com/USERNAME/REPONAME.git
 BveからAtsExのバージョン情報を見たときに表示される内容を設定できます
 AtsExのバージョン情報画面から見えるのはファイル名と下の3項目です
 
-- AssemblyTitle
-    - プラグインの名前
-- AssemblyDescription
-    - プラグインの説明
-- AssemblyVersion
-    - プラグインのバージョン
+## ライセンス
+- [MIT](LICENSE)
+    - できること
+        - 商用利用
+        - 修正
+        - 配布
+        - 私的使用
+    - ダメなこと
+        - 著作者は一切責任を負わない
+        - 本プラグインは無保証で提供される
 
 ### 1. コードを書く
 頑張ってゴリゴリ書きましょう
 
-### 2. ドキュメントを書く
-1. githubリポジトリの詳細を設定する
-1. LICENSEの著作権表記を変更する
-1. README.md を消した後 README_TEMPLATE.md を README.md にリネームしてtodoを埋める
+## 動作環境
+- Windows
+    - Win10 22H2
+    - Win11 23H2 or later
+- [Bve](https://bvets.net/)
+    - BVE Trainsim Version 5.8.7554.391 or later
+    - BVE Trainsim Version 6.0.7554.619 or later
+- [AtsEX](https://github.com/automatic9045/AtsEX)
+    - [ver1.0-RC9 - v1.0.40627.1](https://github.com/automatic9045/AtsEX/releases/tag/v1.0.40627.1) or later
 
 ### 3. 公開する
 公開ができる状態になったらmainにpushしてtag打ってreleaseを作りましょう
 <!-- tagを打つとciが走って自動でreleaseが作られビルド生成物が添付されます -->
 
+## 開発環境
+- [AtsEX](https://github.com/automatic9045/AtsEX)
+    - [ver1.0-RC9 - v1.0.40627.1](https://github.com/automatic9045/AtsEX/releases/tag/v1.0.40627.1)
+- Win10 22H2
+    - Visual Studio 2022
+        - Microsoft Visual Studio Community 2022 (64 ビット) - Current Version 17.5.3
+- [Bve](https://bvets.net/)
+    - BVE Trainsim Version 5.8.7554.391
+    - BVE Trainsim Version 6.0.7554.619
 
 ## デバッグについて
 ※この項目に書いてあることは環境によって差異があるかもしれないので適宜自分の環境に合わせて読み替えること
@@ -129,11 +162,9 @@ AtsExのバージョン情報画面から見えるのはファイル名と下の
     - メニューバーのデバッグとテストの下あたりの開始ボタン（緑の三角形）
 1. 張ったブレークで止まるか見てみる
 
+## 依存環境
+- AtsEx.CoreExtensions (1.0.0-rc9)
+- AtsEx.PluginHost (1.0.0-rc9)
 
-## 備考・その他
-- C#は初めてなのでお作法がわかりません
-    - ミスとか良くないところがあったらissue立てるなりしてくれればできる範囲で対応します
-    - PR大歓迎！！！
-- 自分用に作ったので適当です、自分が欲しい機能をとりあえず入れてます
-- AtsExとAtsEXがどっちもあったのでここでは引用を除いてコードに準じてAtsExとしています
-    - AtsEXが正式な表記っぽい？
+(開発者向け)  
+間接参照を含めたすべての依存情報については、各プロジェクトのフォルダにある `packages.lock.json` をご確認ください。
