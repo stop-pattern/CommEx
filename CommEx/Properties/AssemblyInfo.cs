@@ -3,12 +3,12 @@
 // アセンブリに関する一般情報は以下を通して制御されます
 // 制御されます。アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("Extension")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("CommEx")]
+[assembly: AssemblyDescription("AtsEXを通してBveと外部で通信する")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Extension")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyCompany("stop-pattern")]
+[assembly: AssemblyProduct("CommEx")]
+[assembly: AssemblyCopyright("Copyright © 2024 stop-pattern")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -23,4 +23,4 @@
 // すべての値を指定するか、次を使用してビルド番号とリビジョン番号を既定に設定できます
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.11.*")]
+[assembly: AssemblyVersion("0.01.*")]
