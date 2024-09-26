@@ -26,6 +26,9 @@
 
 
 ## 使い方
+### シリアル通信の仕様
+[spreadsheet](https://docs.google.com/spreadsheets/d/1ScX5CCfMGIy2SJhocsE9RfQSSqe-My4DV7IYqSuNI9Q/edit?usp=sharing)
+
 
 ## ライセンス
 - [MIT](LICENSE)
