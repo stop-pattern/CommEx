@@ -158,7 +158,15 @@ namespace CommEx.Serial
             string header = str.Substring(0, 2).Trim();
             string body = str.Substring(2).Trim();
             string response = str.Trim() + "X";
-            //int num = 0;
+
+            int num = 0;
+            if (!Convert.ToBoolean(int.TryParse(body.Substring(1), out num)))
+            {
+                if (body.ElementAt(0) != 'I')
+                {
+                    CreateError(Errors.BadFormatInCode);
+                }
+            }
 
             if (header == "TR" || header == "EX")
             {
@@ -167,8 +175,6 @@ namespace CommEx.Serial
                     case 'A':   // 状態監視
                         return CreateError(Errors.ErrorInCodeSymbol);
                     case 'I':   // 運転情報
-                        {
-                            int num = 0;
                             if (!Convert.ToBoolean(int.TryParse(body.Substring(2), out num)))
                             {
                                 CreateError(Errors.BadFormatInCode);
@@ -297,15 +303,21 @@ namespace CommEx.Serial
                                     return CreateError(Errors.ErrorInCodeSymbol);
                             }
                             break;
-                        }
                     case 'R':   // レバーサー操作要求
+                        if (-1 <= num && num <= 1)
+                        {
+                            bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch = num;
+                            return response + 0.ToString();
+                        }
                         return CreateError(Errors.ErrorInCodeSymbol);
                     case 'S':   // ワンハンドル操作要求
                         return CreateError(Errors.ErrorInCodeSymbol);
                     case 'P':   // 力行操作要求
-                        return CreateError(Errors.ErrorInCodeSymbol);
+                        bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num;
+                        return response + 0.ToString();
                     case 'B':   // 制動操作要求
-                        return CreateError(Errors.ErrorInCodeSymbol);
+                        bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num;
+                        return response + 0.ToString();
                     case 'K':   // キー操作要求
                         return CreateError(Errors.ErrorInCodeSymbol);
                     case 'V':   // バージョン情報
