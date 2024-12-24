@@ -319,6 +319,30 @@ namespace CommEx.Serial
                         bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num;
                         return response + 0.ToString();
                     case 'K':   // キー操作要求
+                        if (!Convert.ToBoolean(int.TryParse(body.Substring(1), out num)))
+                        {
+                            CreateError(Errors.BadFormatInCode);
+                        }
+
+                        switch (body.ElementAt(1))
+                        {
+                            case 'P':   // Pless
+                                if (num <= (int)AtsKeyName.L)
+                                {
+                                    bveHacker.InputManager.KeyDown_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num));
+                                    return response + 0.ToString();
+                                }
+                                return CreateError(Errors.ErrorInCodeNumber);
+                            case 'R':   // Release
+                                if (num <= (int)AtsKeyName.L)
+                                {
+                                    bveHacker.InputManager.KeyUp_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num));
+                                    return response + 0.ToString();
+                                }
+                                return CreateError(Errors.ErrorInCodeNumber);
+                            default:
+                                return CreateError(Errors.ErrorInCodeSymbol);
+                        }
                         return CreateError(Errors.ErrorInCodeSymbol);
                     case 'V':   // バージョン情報
                         return header + version.ToString();
