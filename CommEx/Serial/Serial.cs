@@ -159,8 +159,8 @@ namespace CommEx.Serial
             string body = str.Substring(2).Trim();
             string response = str.Trim() + "X";
 
-            int num = 0;
-            if (!Convert.ToBoolean(int.TryParse(body.Substring(1), out num)))
+            int num1 = 0;
+            if (!Convert.ToBoolean(int.TryParse(body.Substring(1), out num1)))
             {
                 if (body.ElementAt(0) != 'I')
                 {
@@ -175,7 +175,8 @@ namespace CommEx.Serial
                     case 'A':   // 状態監視
                         return CreateError(Errors.ErrorInCodeSymbol);
                     case 'I':   // 運転情報
-                            if (!Convert.ToBoolean(int.TryParse(body.Substring(2), out num)))
+                        int num2 = 0;
+                        if (!Convert.ToBoolean(int.TryParse(body.Substring(2), out num2)))
                             {
                                 CreateError(Errors.BadFormatInCode);
                             }
@@ -183,7 +184,7 @@ namespace CommEx.Serial
                             switch (body.ElementAt(1))
                             {
                                 case 'C':   // Spec
-                                    switch (num)
+                                switch (num2)
                                     {
                                         case 0: // Bノッチ数
                                             return response + native.VehicleSpec.BrakeNotches.ToString();
@@ -201,7 +202,7 @@ namespace CommEx.Serial
                                     }
                                     break;
                                 case 'E':   // Status
-                                    switch (num)
+                                switch (num2)
                                     {
                                         case 0: // 列車位置[m]
                                             return response + native.VehicleState.Location.ToString();
@@ -238,7 +239,7 @@ namespace CommEx.Serial
                                     }
                                     break;
                                 case 'H':   // Handle
-                                    switch (num)
+                                switch (num2)
                                     {
                                         case 0: // Bノッチ位置
                                             return response + bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch.ToString();
@@ -256,8 +257,8 @@ namespace CommEx.Serial
                                     {
                                         try
                                         {
-                                            return response + native.AtsPanelArray[num].ToString();
-                                            //int val = bveHacker.Scenario.Vehicle.Instruments.AtsPlugin.PanelArray[num];
+                                        return response + native.AtsPanelArray[num2].ToString();
+                                        //int val = bveHacker.Scenario.Vehicle.Instruments.AtsPlugin.PanelArray[num2];
                                             //return response + val.ToString();
                                         }
                                         catch (Exception e)
@@ -275,8 +276,8 @@ namespace CommEx.Serial
                                     {
                                         try
                                         {
-                                            return response + native.AtsSoundArray[num].ToString();
-                                            //int val = bveHacker.Scenario.Vehicle.Instruments.AtsPlugin.SoundArray[num];
+                                        return response + native.AtsSoundArray[num2].ToString();
+                                        //int val = bveHacker.Scenario.Vehicle.Instruments.AtsPlugin.SoundArray[num2];
                                             //return response + val.ToString();
                                         }
                                         catch (Exception e)
@@ -290,7 +291,7 @@ namespace CommEx.Serial
                                     }
                                     return CreateError(Errors.ErrorInCodeNumber);
                                 case 'D':   // ドア状態
-                                    switch (num)
+                                switch (num2)
                                     {
                                         case 0:     // 全体
                                             return response + bveHacker.Scenario.Vehicle.Conductor.Doors.AreAllClosed;
@@ -304,39 +305,52 @@ namespace CommEx.Serial
                             }
                             break;
                     case 'R':   // レバーサー操作要求
-                        if (-1 <= num && num <= 1)
+                        if (-1 <= num1 && num1 <= 1)
                         {
-                            bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch = num;
+                            bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch = num1;
                             return response + 0.ToString();
                         }
                         return CreateError(Errors.ErrorInCodeSymbol);
                     case 'S':   // ワンハンドル操作要求
+                        //if (num1 > 0)
+                        //{
+                        //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num1;
+                        //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num1;
+                        //    return response + 0.ToString();
+                        //}
+                        //else if (num1 < 0)
+                        //{
+                        //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num1;
+                        //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num1;
+                        //    return response + 0.ToString();
+                        //}
+                        //else if (num1 == 0)
+                        //{
+                        //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch = 0;
+                        //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch = 0;
+                        //    return response + 0.ToString();
+                        //}
                         return CreateError(Errors.ErrorInCodeSymbol);
                     case 'P':   // 力行操作要求
-                        bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num;
+                        bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num1;
                         return response + 0.ToString();
                     case 'B':   // 制動操作要求
-                        bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num;
+                        bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num1;
                         return response + 0.ToString();
                     case 'K':   // キー操作要求
-                        if (!Convert.ToBoolean(int.TryParse(body.Substring(1), out num)))
-                        {
-                            CreateError(Errors.BadFormatInCode);
-                        }
-
                         switch (body.ElementAt(1))
                         {
                             case 'P':   // Pless
-                                if (num <= (int)AtsKeyName.L)
+                                if (num1 <= (int)AtsKeyName.L)
                                 {
-                                    bveHacker.InputManager.KeyDown_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num));
+                                    bveHacker.InputManager.KeyDown_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num1));
                                     return response + 0.ToString();
                                 }
                                 return CreateError(Errors.ErrorInCodeNumber);
                             case 'R':   // Release
-                                if (num <= (int)AtsKeyName.L)
+                                if (num1 <= (int)AtsKeyName.L)
                                 {
-                                    bveHacker.InputManager.KeyUp_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num));
+                                    bveHacker.InputManager.KeyUp_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num1));
                                     return response + 0.ToString();
                                 }
                                 return CreateError(Errors.ErrorInCodeNumber);
