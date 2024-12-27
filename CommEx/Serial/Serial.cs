@@ -18,7 +18,27 @@ using System.Windows.Media.Animation;
 
 namespace CommEx.Serial
 {
-    internal class SerialControl
+    interface ISerialControl
+    {
+        /// <summary>
+        /// ポートを開ける前に呼ばれる
+        /// </summary>
+        void PortOpen();
+
+        /// <summary>
+        /// ポートを閉じた後に呼ばれる
+        /// </summary>
+        void PortClose();
+
+        /// <summary>
+        /// シリアルポートの受信時に呼ばれる
+        /// </summary>
+        /// <param name="sender"><see cref="SerialPort"/></param>
+        /// <param name="e"></param>
+        void DataReceived(object sender, SerialDataReceivedEventArgs e);
+    }
+
+    internal class SerialControl : ISerialControl
     {
         private enum Errors
         {
@@ -97,7 +117,7 @@ namespace CommEx.Serial
         }
 
 
-        internal void PortOpen()
+        public void PortOpen()
         {
             port = new SerialPort();
             port.PortName = "COM0"; //SetPortName(_serialPort.PortName);
@@ -136,13 +156,13 @@ namespace CommEx.Serial
             }
         }
 
-        internal void PortClose()
+        public void PortClose()
         {
             port.Close();
             port.DataReceived -= DataReceived;
         }
 
-        private void DataReceived(object sender, SerialDataReceivedEventArgs e)
+        public void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string str = port.ReadLine();
             str = str.Trim();
