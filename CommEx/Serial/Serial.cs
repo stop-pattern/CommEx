@@ -184,7 +184,7 @@ namespace CommEx.Serial
             {
                 if (body.ElementAt(0) != 'I')
                 {
-                    CreateError(Errors.BadFormatInCode);
+                    return CreateError(Errors.BadFormatInCode);
                 }
             }
 
