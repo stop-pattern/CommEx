@@ -31,6 +31,28 @@ namespace CommEx.Serial
         public override string Description { get; } = "シリアル通信";
 
         /// <summary>
+        /// シナリオ
+        /// </summary>
+        private Scenario scenario;
+
+        /// <summary>
+        /// BveHacker
+        /// </summary>
+        private IBveHacker bveHacker;
+
+        INative native;
+
+        /// <summary>
+        /// ContextMenuHacker
+        /// </summary>
+        private IContextMenuHacker cmx;
+
+        /// <summary>
+        /// 設定ボタン
+        /// </summary>
+        private ToolStripMenuItem setting;
+
+        /// <summary>
         /// プラグインの有効・無効状態
         /// </summary>
         private bool status = true;
@@ -54,16 +76,46 @@ namespace CommEx.Serial
         /// <param name="builder"></param>
         public Serial(PluginBuilder builder) : base(builder)
         {
-            Extensions.AllExtensionsLoaded += Extensions_AllExtensionsLoaded;
+            Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
+            Debug.AutoFlush = true;
+            Extensions.AllExtensionsLoaded += AllExtensionsLoaded;
+            BveHacker.ScenarioCreated += OnScenarioCreated;
+            BveHacker.ScenarioClosed += ScenarioClosed;
+            window = new SettingWindow();
+            window.Hide();
         }
 
         /// <summary>
-        /// 全ての AtsEX 拡張機能が読み込まれ、AtsEx.PluginHost.Plugins.Extensions プロパティが取得可能になると発生
+        /// 全ての BveEx 拡張機能が読み込まれ、BveEx.PluginHost.Plugins.Extensions プロパティが取得可能になると発生
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Extensions_AllExtensionsLoaded(object sender, EventArgs e)
+        private void AllExtensionsLoaded(object sender, EventArgs e)
         {
+            cmx = Extensions.GetExtension<IContextMenuHacker>();
+            setting = cmx.AddCheckableMenuItem("シリアル通信設定", MenuItemCheckedChanged, ContextMenuItemType.CoreAndExtensions);
+        }
+
+        /// <summary>
+        /// 右クリックメニューのボタンイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void MenuItemCheckedChanged(object sender, EventArgs e)
+        {
+            if (setting == null)
+            {
+                window = new SettingWindow();
+            }
+            if (setting.Checked)
+            {
+                window.Show();
+            }
+            else
+            {
+                window.Hide();
+            }
         }
 
         /// <summary>
@@ -72,16 +124,73 @@ namespace CommEx.Serial
         /// </summary>
         public override void Dispose()
         {
-            Extensions.AllExtensionsLoaded -= Extensions_AllExtensionsLoaded;
+            Extensions.AllExtensionsLoaded -= AllExtensionsLoaded;
+            BveHacker.ScenarioCreated -= OnScenarioCreated;
+            BveHacker.ScenarioClosed -= ScenarioClosed;
         }
 
         /// <summary>
         /// シナリオ読み込み中に毎フレーム呼び出される
         /// </summary>
         /// <param name="elapsed">前回フレームからの経過時間</param>
-        public override TickResult Tick(TimeSpan elapsed)
+        public override void Tick(TimeSpan elapsed)
         {
-            return new ExtensionTickResult();
+
+        }
+
+        /// <summary>
+        /// シナリオ読み込み
+        /// </summary>
+        /// <param name="e"></param>
+        private void OnScenarioCreated(ScenarioCreatedEventArgs e)
+        {
+            scenario = e.Scenario;
+            bveHacker = BveHacker;
+
+            Bids.Load(bveHacker);
+
+            //try
+            //{
+            //    _ExtendedBeacons = ExtendedBeaconSet.Load(Native, BveHacker, e.Scenario);
+            //}
+            //catch (Exception ex)
+            //{
+            //    switch (ex)
+            //    {
+            //        case BveFileLoadException exception:
+            //            BveHacker.LoadErrorManager.Throw(exception.Message, exception.SenderFileName, exception.LineIndex, exception.CharIndex);
+            //            break;
+
+            //        case CompilationException exception:
+            //            foreach (Diagnostic diagnostic in exception.CompilationErrors)
+            //            {
+            //                string message = diagnostic.GetMessage();
+            //                string fileName = Path.GetFileName(diagnostic.Location.SourceTree.FilePath);
+
+            //                LinePosition position = diagnostic.Location.GetLineSpan().StartLinePosition;
+            //                int lineIndex = position.Line;
+            //                int charIndex = position.Character;
+
+            //                BveHacker.LoadErrorManager.Throw(message, fileName, lineIndex, charIndex);
+            //            }
+            //            break;
+
+            //        default:
+            //            BveHacker.LoadErrorManager.Throw(ex.Message);
+            //            _ = MessageBox.Show(ex.ToString(), App.Instance.ProductName);
+            //            break;
+            //    }
+            //}
+        }
+
+        /// <summary>
+        /// シナリオ終了
+        /// </summary>
+        /// <param name="e"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void ScenarioClosed(EventArgs e)
+        {
+            //throw new NotImplementedException();
         }
     }
 }
