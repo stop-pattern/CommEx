@@ -43,12 +43,13 @@ namespace CommEx.Serial
         INative native;
 
         /// <summary>
+        /// 右クリックメニュー操作用
         /// ContextMenuHacker
         /// </summary>
         private IContextMenuHacker cmx;
 
         /// <summary>
-        /// 設定ボタン
+        /// 右クリックメニューの設定ボタン
         /// </summary>
         private ToolStripMenuItem setting;
 
@@ -67,7 +68,7 @@ namespace CommEx.Serial
         /// <summary>
         /// 設定ウィンドウ
         /// </summary>
-        private SettingWindow window = new SettingWindow();
+        private readonly SettingWindow window;
 
         /// <summary>
         /// プラグインが読み込まれた時に呼ばれる
@@ -82,7 +83,21 @@ namespace CommEx.Serial
             BveHacker.ScenarioCreated += OnScenarioCreated;
             BveHacker.ScenarioClosed += ScenarioClosed;
             window = new SettingWindow();
+            window.Closing += WindowClosing;
             window.Hide();
+        }
+
+        /// <summary>
+        /// 閉じるボタンのコールバック
+        /// </summary>
+        /// <param name="sender"><see cref="SettingWindow">SettingWindow</see></param>
+        /// <param name="e">キャンセルできるイベントのデータ</param>
+        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            SettingWindow window = (SettingWindow)sender;
+            window.Hide();
+            setting.Checked = false;
         }
 
         /// <summary>
@@ -104,10 +119,8 @@ namespace CommEx.Serial
         /// <exception cref="NotImplementedException"></exception>
         private void MenuItemCheckedChanged(object sender, EventArgs e)
         {
-            if (setting == null)
+            if (setting != null)
             {
-                window = new SettingWindow();
-            }
             if (setting.Checked)
             {
                 window.Show();
@@ -116,6 +129,7 @@ namespace CommEx.Serial
             {
                 window.Hide();
             }
+        }
         }
 
         /// <summary>
@@ -127,6 +141,8 @@ namespace CommEx.Serial
             Extensions.AllExtensionsLoaded -= AllExtensionsLoaded;
             BveHacker.ScenarioCreated -= OnScenarioCreated;
             BveHacker.ScenarioClosed -= ScenarioClosed;
+            window.Closing -= WindowClosing;
+            window.Close();
         }
 
         /// <summary>
