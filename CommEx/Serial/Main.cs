@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using AtsEx.PluginHost.Plugins;
-using AtsEx.PluginHost.Plugins.Extensions;
+using System.Windows.Forms;
+using System.Xml.Linq;
+using BveEx.Extensions.ContextMenuHacker;
+using BveEx.PluginHost;
+//using BveEx.PluginHost.Scripting;
+using BveEx.PluginHost.Plugins;
+using BveEx.PluginHost.Plugins.Extensions;
+using BveTypes.ClassWrappers;
+using BveEx.Extensions.Native;
 
 namespace CommEx.Serial
 {
     /// <summary>
     /// プラグインの本体
     /// Plugin() の第一引数でこのプラグインの仕様を指定
-    /// Plugin() の第二引数でこのプラグインが必要とするAtsEX本体の最低バージョンを指定（オプション）
+    /// Plugin() の第二引数でこのプラグインが必要とするBveEx本体の最低バージョンを指定（オプション）
     /// </summary>
     [Plugin(PluginType.Extension)]
     [Togglable]
@@ -34,6 +41,11 @@ namespace CommEx.Serial
             get { return status; }
             set { status = value; }
         }
+
+        /// <summary>
+        /// 設定ウィンドウ
+        /// </summary>
+        private SettingWindow window = new SettingWindow();
 
         /// <summary>
         /// プラグインが読み込まれた時に呼ばれる
