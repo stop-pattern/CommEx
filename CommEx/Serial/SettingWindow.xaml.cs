@@ -17,6 +17,41 @@ using BveEx.Diagnostics;
 namespace CommEx.Serial
 {
     /// <summary>
+    /// シリアルループバック
+    /// </summary>
+    internal class Default : ISerialControl
+    {
+        /// <inheritdoc/>
+        public void PortOpen(SerialPort serialPort)
+        {
+            serialPort.DataReceived += DataReceived;
+        }
+
+        // 送られてきた情報をそっくりそのまま返す
+        private void DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                SerialPort serialPort = (SerialPort)sender;
+                string str = serialPort.ReadLine();
+                serialPort.WriteLine(str);
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                ErrorDialog.Show(new ErrorDialogInfo("通信エラー", ex.Source, ex.Message));
+#endif
+            }
+        }
+
+        /// <inheritdoc/>
+        public void PortClose(SerialPort serialPort)
+        {
+            serialPort.DataReceived -= DataReceived;
+        }
+    }
+
+    /// <summary>
     /// SettingWindow.xaml の相互作用ロジック
     /// </summary>
     public partial class SettingWindow : Window
@@ -29,7 +64,7 @@ namespace CommEx.Serial
         /// <summary>
         /// シリアルの制御
         /// </summary>
-        private ISerialControl control = new Bids.Bids();
+        private ISerialControl control = new Default();
 
         public SettingWindow()
         {
