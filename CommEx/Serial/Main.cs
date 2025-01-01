@@ -25,10 +25,21 @@ namespace CommEx.Serial
     [Togglable]
     internal class Serial : AssemblyPluginBase, ITogglableExtension, IExtension
     {
+        #region Plugin Settings
+
         /// <inheritdoc/>
         public override string Title { get; } = nameof(Serial);
         /// <inheritdoc/>
         public override string Description { get; } = "シリアル通信";
+
+        #endregion
+
+        #region Variables
+
+        /// <summary>
+        /// プラグインの有効・無効状態
+        /// </summary>
+        private bool status = true;
 
         /// <summary>
         /// シナリオ
@@ -57,9 +68,13 @@ namespace CommEx.Serial
         private ToolStripMenuItem setting;
 
         /// <summary>
-        /// プラグインの有効・無効状態
+        /// 設定ウィンドウ
         /// </summary>
-        private bool status = true;
+        private readonly SettingWindow window;
+
+        #endregion
+
+        #region Properties
 
         /// <inheritdoc/>
         public bool IsEnabled
@@ -68,10 +83,9 @@ namespace CommEx.Serial
             set { status = value; }
         }
 
-        /// <summary>
-        /// 設定ウィンドウ
-        /// </summary>
-        private readonly SettingWindow window;
+        #endregion
+
+        #region Class Functions
 
         /// <summary>
         /// プラグインが読み込まれた時に呼ばれる
@@ -90,18 +104,29 @@ namespace CommEx.Serial
             window.Hide();
         }
 
-        /// <summary>
-        /// 閉じるボタンのコールバック
-        /// </summary>
-        /// <param name="sender"><see cref="SettingWindow">SettingWindow</see></param>
-        /// <param name="e">キャンセルできるイベントのデータ</param>
-        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        #endregion
+
+        #region BveEx Functions
+
+        /// <inheritdoc/>
+        public override void Dispose()
         {
-            e.Cancel = true;
-            SettingWindow window = (SettingWindow)sender;
-            window.Hide();
-            setting.Checked = false;
+            Extensions.AllExtensionsLoaded -= AllExtensionsLoaded;
+            BveHacker.ScenarioCreated -= OnScenarioCreated;
+            BveHacker.ScenarioClosed -= ScenarioClosed;
+            window.Closing -= WindowClosing;
+            window.Close();
         }
+
+        /// <inheritdoc/>
+        public override void Tick(TimeSpan elapsed)
+        {
+
+        }
+
+        #endregion
+
+        #region BveEx Event Handlers
 
         /// <summary>
         /// 全ての BveEx 拡張機能が読み込まれ、BveEx.PluginHost.Plugins.Extensions プロパティが取得可能になると発生
@@ -112,49 +137,6 @@ namespace CommEx.Serial
         {
             cmx = Extensions.GetExtension<IContextMenuHacker>();
             setting = cmx.AddCheckableMenuItem("シリアル通信設定", MenuItemCheckedChanged, ContextMenuItemType.CoreAndExtensions);
-        }
-
-        /// <summary>
-        /// 右クリックメニューのボタンイベント
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        private void MenuItemCheckedChanged(object sender, EventArgs e)
-        {
-            if (setting != null)
-            {
-                if (setting.Checked)
-                {
-                    window.Show();
-                }
-                else
-                {
-                    window.Hide();
-                }
-            }
-        }
-
-        /// <summary>
-        /// プラグインが解放されたときに呼ばれる
-        /// 後処理を実装する
-        /// </summary>
-        public override void Dispose()
-        {
-            Extensions.AllExtensionsLoaded -= AllExtensionsLoaded;
-            BveHacker.ScenarioCreated -= OnScenarioCreated;
-            BveHacker.ScenarioClosed -= ScenarioClosed;
-            window.Closing -= WindowClosing;
-            window.Close();
-        }
-
-        /// <summary>
-        /// シナリオ読み込み中に毎フレーム呼び出される
-        /// </summary>
-        /// <param name="elapsed">前回フレームからの経過時間</param>
-        public override void Tick(TimeSpan elapsed)
-        {
-
         }
 
         /// <summary>
@@ -211,5 +193,45 @@ namespace CommEx.Serial
         {
             //throw new NotImplementedException();
         }
+
+        #endregion
+
+
+        #region Event Handlers
+
+        /// <summary>
+        /// 右クリックメニューのクリックイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItemCheckedChanged(object sender, EventArgs e)
+        {
+            if (setting != null)
+            {
+                if (setting.Checked)
+                {
+                    window.Show();
+                }
+                else
+                {
+                    window.Hide();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 設定ウィンドウの閉じるボタンのクリックイベントハンドラ
+        /// </summary>
+        /// <param name="sender"><see cref="SettingWindow">SettingWindow</see></param>
+        /// <param name="e">キャンセルできるイベントのデータ</param>
+        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            SettingWindow window = (SettingWindow)sender;
+            window.Hide();
+            setting.Checked = false;
+        }
+
+        #endregion
     }
 }
