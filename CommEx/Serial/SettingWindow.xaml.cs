@@ -29,7 +29,7 @@ namespace CommEx.Serial
         /// <summary>
         /// シリアルの制御
         /// </summary>
-        private ISerialControl bids = new Bids.Bids();
+        private ISerialControl control = new Bids.Bids();
 
         public SettingWindow()
         {
@@ -58,7 +58,7 @@ namespace CommEx.Serial
         /// </summary>
         private void PortClose()
         {
-            bids.PortClose(_serialPort);
+            control.PortClose(_serialPort);
             _serialPort.Close();
             OpenButton.Content = "Open Port";
             //MessageBox.Show("Serial port closed.");
@@ -108,7 +108,7 @@ namespace CommEx.Serial
             try
             {
                 // ポートを開く
-                bids.PortOpen(_serialPort);
+                control.PortOpen(_serialPort);
                 _serialPort.Open();
                 OpenButton.Content = "Close Port";
                 //MessageBox.Show("Serial port opened.");
