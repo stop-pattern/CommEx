@@ -37,11 +37,11 @@
 
             <!-- ポート名 -->
             <Label Content="Port Name:" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox Name="PortNameComboBox" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150"/>
+            <ComboBox x:Name="PortNameComboBox" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150"/>
 
             <!-- ボーレート -->
             <Label Content="Baud Rate:" Grid.Column="1" Grid.Row="3"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox Name="BaudRateComboBox" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150">
+            <ComboBox x:Name="BaudRateComboBox" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150">
                 <ComboBoxItem Content="9600" />
                 <ComboBoxItem Content="19200" />
                 <ComboBoxItem Content="38400" />
@@ -51,14 +51,14 @@
 
             <!-- データビット -->
             <Label Content="Data Bits:" Grid.Column="1" Grid.Row="5"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox Name="DataBitsComboBox" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150">
+            <ComboBox x:Name="DataBitsComboBox" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150">
                 <ComboBoxItem Content="7" />
                 <ComboBoxItem Content="8" />
             </ComboBox>
 
             <!-- ストップビット -->
             <Label Content="Stop Bits:" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox Name="StopBitsComboBox" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150">
+            <ComboBox x:Name="StopBitsComboBox" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150">
                 <ComboBoxItem Content="1" />
                 <ComboBoxItem Content="1.5" />
                 <ComboBoxItem Content="2" />
@@ -66,7 +66,7 @@
 
             <!-- パリティ -->
             <Label Content="Parity:" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox Name="ParityComboBox" Grid.Column="2" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150">
+            <ComboBox x:Name="ParityComboBox" Grid.Column="2" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150">
                 <ComboBoxItem Content="None" />
                 <ComboBoxItem Content="Odd" />
                 <ComboBoxItem Content="Even" />
@@ -74,7 +74,7 @@
 
             <!-- フロー制御 -->
             <Label Content="Flow Control:" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox Name="FlowControlComboBox" Grid.Column="2" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150">
+            <ComboBox x:Name="FlowControlComboBox" Grid.Column="2" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150">
                 <ComboBoxItem Content="None" />
                 <ComboBoxItem Content="Xon/Xoff" />
                 <ComboBoxItem Content="RTS/CTS" />
@@ -82,7 +82,7 @@
             </ComboBox>
 
             <!-- ポートを開閉するボタン -->
-            <Button Name="OpenButton" Content="Open Port" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Click="OpenButton_Click" />
+            <Button x:Name="OpenButton" Content="Open Port" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Click="OpenButton_Click" />
         </Grid>
 
     </Viewbox>
