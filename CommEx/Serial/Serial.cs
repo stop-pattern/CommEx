@@ -23,19 +23,21 @@ namespace CommEx.Serial
         /// <summary>
         /// ポートを開ける前に呼ばれる
         /// </summary>
-        void PortOpen();
+        /// <param name="serialPort"><see cref="SerialPort"/></param>
+        void PortOpen(SerialPort serialPort);
 
         /// <summary>
         /// ポートを閉じた後に呼ばれる
         /// </summary>
-        void PortClose();
+        /// <param name="serialPort"><see cref="SerialPort"/></param>
+        void PortClose(SerialPort serialPort);
 
         /// <summary>
         /// シリアルポートの受信時に呼ばれる
         /// </summary>
         /// <param name="sender"><see cref="SerialPort"/></param>
         /// <param name="e"></param>
-        void DataReceived(object sender, SerialDataReceivedEventArgs e);
+        //void DataReceived(object sender, SerialDataReceivedEventArgs e);
     }
 
     internal class SerialControl : ISerialControl
@@ -98,18 +100,14 @@ namespace CommEx.Serial
 
         const int version = 300;
 
-        private SerialPort port;
-
-        private INative native;
-        private IBveHacker bveHacker;
+        private static bool isAvailable = false;
+        private static INative native;
+        private static IBveHacker bveHacker;
 
         /// <summary>
         /// 改行コード
         /// </summary>
         private string lineBreak = "\r\n";
-
-        //IBveHacker bveHacker;
-        //INative native;
 
         struct AutoSend
         {
