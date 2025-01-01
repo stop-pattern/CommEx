@@ -16,7 +16,7 @@ using BveEx.PluginHost.Input;
 using BveEx.Extensions.Native.Input;
 using System.Windows.Media.Animation;
 
-namespace CommEx.Serial
+namespace CommEx.Serial.Bids
 {
     internal enum Errors
     {
@@ -74,7 +74,7 @@ namespace CommEx.Serial
         OutOfRange,
     }
 
-    internal class SerialControl : ISerialControl
+    internal class Bids : ISerialControl
     {
         const int version = 300;
 
