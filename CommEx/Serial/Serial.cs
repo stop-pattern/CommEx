@@ -114,56 +114,55 @@ namespace CommEx.Serial
             
         }
 
-
-        public void PortOpen()
+        /// <inheritdoc/>
+        public void PortOpen(SerialPort serialPort)
         {
-            port = new SerialPort();
-            port.PortName = "COM0"; //SetPortName(_serialPort.PortName);
-            port.BaudRate = 115200;//SetPortBaudRate(_serialPort.BaudRate);
-            port.Parity = Parity.None;//SetPortParity(_serialPort.Parity);
-            port.DataBits = 8;//SetPortDataBits(_serialPort.DataBits);
-            port.StopBits = StopBits.One;//SetPortStopBits(_serialPort.StopBits);
-            port.Handshake = Handshake.None;//SetPortHandshake(_serialPort.Handshake);
-            port.Open();
-        }
-        internal void PortOpen(SerialPort serialPort)
-        {
-            port = serialPort;
-            port.Open();
-            port.DataReceived += DataReceived;
+            serialPort.NewLine = lineBreak;
+            serialPort.DataReceived += DataReceived;
         }
 
-        internal void Open()
+        /// <inheritdoc/>
+        public void PortClose(SerialPort serialPort)
         {
-            port.NewLine = "\r\n";
-            port.DataReceived += DataReceived;
+            serialPort.DataReceived -= DataReceived;
+        }
+
+        /// <summary>
+        /// シリアルポートの受信時に呼ばれる
+        /// </summary>
+        /// <param name="sender"><see cref="SerialPort"/></param>
+        /// <param name="e">event args</param>
+        private void DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort port = (SerialPort)sender;
+            string str = "";
             try
             {
-                port.Open();
+                str = port.ReadLine();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //MessageBox.Show(e.Message, "ポートオープンエラー", MessageBoxButton.OK, MessageBoxImage.Error);
-                ErrorDialogInfo info = new ErrorDialogInfo(
-                    "ポートオープンエラー",
-                    e.Source,
-                    e.Message
-                );
-                ErrorDialog.Show(info);
-                //throw;
-            }
+#if DEBUG
+                ErrorDialog.Show(new ErrorDialogInfo("エラー：シリアル読み込み失敗", ex.Source, ex.Message));
+#endif
+                return;
         }
-
-        public void PortClose()
-        {
-            port.Close();
-            port.DataReceived -= DataReceived;
-        }
-
-        public void DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            string str = port.ReadLine();
             str = str.Trim();
+            Debug.Print("Serial Receive Data" + str);
+
+            if (str.Length < 5 || !isAvailable)
+        {
+                return;
+        }
+            if (str.StartsWith("EX") || str.StartsWith("TR"))
+            {
+                string response = CreateResponse(str);
+                if (response != null)
+        {
+                    Debug.Print("Serial Send Data" + response);
+                    port.WriteLine(response);
+                }
+            }
         }
 
         /// <summary>
@@ -186,8 +185,6 @@ namespace CommEx.Serial
                 }
             }
 
-            if (header == "TR" || header == "EX")
-            {
                 switch (body.ElementAt(0))
                 {
                     case 'A':   // 状態監視
@@ -385,7 +382,6 @@ namespace CommEx.Serial
                     default:
                         return CreateError(Errors.ErrorInCodeSymbol);
                 }
-            }
             return null;
         }
 
