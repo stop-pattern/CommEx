@@ -40,6 +40,9 @@ namespace CommEx.Serial
         /// </summary>
         private IBveHacker bveHacker;
 
+        /// <summary>
+        /// Native
+        /// </summary>
         INative native;
 
         /// <summary>
@@ -163,7 +166,7 @@ namespace CommEx.Serial
             scenario = e.Scenario;
             bveHacker = BveHacker;
 
-            Bids.Load(bveHacker);
+            //Bids.Load(bveHacker);
 
             //try
             //{
