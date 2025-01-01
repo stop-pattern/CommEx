@@ -124,15 +124,15 @@ namespace CommEx.Serial
         {
             if (setting != null)
             {
-            if (setting.Checked)
-            {
-                window.Show();
+                if (setting.Checked)
+                {
+                    window.Show();
+                }
+                else
+                {
+                    window.Hide();
+                }
             }
-            else
-            {
-                window.Hide();
-            }
-        }
         }
 
         /// <summary>
