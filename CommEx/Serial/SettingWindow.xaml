@@ -80,6 +80,9 @@
                 <ComboBoxItem Content="RTS/CTS" />
                 <ComboBoxItem Content="DSR/DTR" />
             </ComboBox>
+            
+            <!-- 接続状況表示 -->
+            <Ellipse x:Name="PortStaus" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Fill="Red"/>
 
             <!-- ポートを開閉するボタン -->
             <Button x:Name="OpenButton" Content="Open Port" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Click="OpenButton_Click" />

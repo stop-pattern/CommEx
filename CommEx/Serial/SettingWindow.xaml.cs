@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO.Ports;
+using BveEx.Diagnostics;
 
 namespace CommEx.Serial
 {
@@ -20,7 +21,16 @@ namespace CommEx.Serial
     /// </summary>
     public partial class SettingWindow : Window
     {
-        private SerialPort _serialPort;
+        /// <summary>
+        /// シリアルポート
+        /// </summary>
+        private SerialPort _serialPort = new SerialPort();
+
+        /// <summary>
+        /// シリアルの制御
+        /// </summary>
+        private ISerialControl bids = new Bids.Bids();
+
         public SettingWindow()
         {
             InitializeComponent();
@@ -43,40 +53,92 @@ namespace CommEx.Serial
             FlowControlComboBox.SelectedIndex = 0; // None
         }
 
+        /// <summary>
+        /// ポートを閉じる
+        /// </summary>
+        private void PortClose()
+        {
+            bids.PortClose(_serialPort);
+            _serialPort.Close();
+            OpenButton.Content = "Open Port";
+            //MessageBox.Show("Serial port closed.");
+
+            // UIを有効化
+            PortNameComboBox.IsEnabled = true;
+            BaudRateComboBox.IsEnabled = true;
+            DataBitsComboBox.IsEnabled = true;
+            StopBitsComboBox.IsEnabled = true;
+            ParityComboBox.IsEnabled = true;
+            FlowControlComboBox.IsEnabled = true;
+            PortStaus.Fill = new SolidColorBrush(Colors.Red);
+        }
+
+        /// <summary>
+        /// ポートを開く
+        /// </summary>
+        private void PortOpen()
+        {
+            // ポート設定
+            try
+            {
+                _serialPort.PortName = PortNameComboBox.Text;
+                _serialPort.BaudRate = int.Parse(BaudRateComboBox.Text);
+                _serialPort.DataBits = int.Parse(DataBitsComboBox.Text);
+                _serialPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), StopBitsComboBox.Text);
+                _serialPort.Parity = (Parity)Enum.Parse(typeof(Parity), ParityComboBox.Text);
+                _serialPort.Handshake = (Handshake)Enum.Parse(typeof(Handshake), FlowControlComboBox.Text);
+                
+                _serialPort = new SerialPort
+                {
+                    PortName = PortNameComboBox.Text,
+                    BaudRate = int.Parse(BaudRateComboBox.Text),
+                    DataBits = int.Parse(DataBitsComboBox.Text),
+                    StopBits = (StopBits)Enum.Parse(typeof(StopBits), StopBitsComboBox.Text),
+                    Parity = (Parity)Enum.Parse(typeof(Parity), ParityComboBox.Text),
+                    Handshake = (Handshake)Enum.Parse(typeof(Handshake), FlowControlComboBox.Text)
+                };
+            }
+            catch (Exception e)
+            {
+                ErrorDialog.Show(new ErrorDialogInfo("Serial setting error", e.Source, e.Message));
+                return;
+            }
+
+            // ポートを開く
+            try
+            {
+                // ポートを開く
+                bids.PortOpen(_serialPort);
+                _serialPort.Open();
+                OpenButton.Content = "Close Port";
+                //MessageBox.Show("Serial port opened.");
+            }
+            catch (Exception e)
+            {
+                ErrorDialog.Show(new ErrorDialogInfo("Serial opening error", e.Source, e.Message));
+                //MessageBox.Show($"Error opening serial port: {ex.Message}");
+            }
+
+            // UIを無効化
+            PortNameComboBox.IsEnabled = false;
+            BaudRateComboBox.IsEnabled = false;
+            DataBitsComboBox.IsEnabled = false;
+            StopBitsComboBox.IsEnabled = false;
+            ParityComboBox.IsEnabled = false;
+            FlowControlComboBox.IsEnabled = false;
+            PortStaus.Fill = new SolidColorBrush(Colors.Green);
+        }
+
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             // シリアルポートが既に開かれているか確認
             if (_serialPort != null && _serialPort.IsOpen)
             {
-                // ポートを閉じる
-                _serialPort.Close();
-                OpenButton.Content = "Open Port";
-                MessageBox.Show("Serial port closed.");
+                PortClose();
             }
             else
             {
-                // シリアルポートの設定
-                try
-                {
-                    _serialPort = new SerialPort
-                    {
-                        PortName = PortNameComboBox.SelectedItem.ToString(),
-                        BaudRate = int.Parse(BaudRateComboBox.SelectedItem.ToString()),
-                        DataBits = int.Parse(DataBitsComboBox.SelectedItem.ToString()),
-                        StopBits = (StopBits)Enum.Parse(typeof(StopBits), StopBitsComboBox.SelectedItem.ToString()),
-                        Parity = (Parity)Enum.Parse(typeof(Parity), ParityComboBox.SelectedItem.ToString()),
-                        Handshake = (Handshake)Enum.Parse(typeof(Handshake), FlowControlComboBox.SelectedItem.ToString())
-                    };
-
-                    // ポートを開く
-                    _serialPort.Open();
-                    OpenButton.Content = "Close Port";
-                    MessageBox.Show("Serial port opened.");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error opening serial port: {ex.Message}");
-                }
+                PortOpen();
             }
         }
     }
