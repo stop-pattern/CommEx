@@ -13,6 +13,7 @@ using BveEx.PluginHost.Plugins;
 using BveEx.PluginHost.Plugins.Extensions;
 using BveTypes.ClassWrappers;
 using BveEx.Extensions.Native;
+using BveEx.Diagnostics;
 
 namespace CommEx.Serial
 {
@@ -54,7 +55,7 @@ namespace CommEx.Serial
         /// <summary>
         /// Native
         /// </summary>
-        private readonly INative native;
+        private INative native;
 
         /// <summary>
         /// 右クリックメニュー操作用
@@ -99,9 +100,6 @@ namespace CommEx.Serial
 
             Extensions.AllExtensionsLoaded += AllExtensionsLoaded;
 
-            cmx = Extensions.GetExtension<IContextMenuHacker>();
-            native = Extensions.GetExtension<INative>();
-
             BveHacker.ScenarioCreated += OnScenarioCreated;
             BveHacker.ScenarioClosed += ScenarioClosed;
 
@@ -141,8 +139,12 @@ namespace CommEx.Serial
         /// <param name="e"></param>
         private void AllExtensionsLoaded(object sender, EventArgs e)
         {
+            bveHacker = BveHacker;
             cmx = Extensions.GetExtension<IContextMenuHacker>();
+            native = Extensions.GetExtension<INative>();
+
             setting = cmx.AddCheckableMenuItem("シリアル通信設定", MenuItemCheckedChanged, ContextMenuItemType.CoreAndExtensions);
+            native.Started += NativeStarted; ;
         }
 
         /// <summary>
@@ -152,7 +154,6 @@ namespace CommEx.Serial
         private void OnScenarioCreated(ScenarioCreatedEventArgs e)
         {
             scenario = e.Scenario;
-            bveHacker = BveHacker;
 
             //Bids.Load(bveHacker);
 
@@ -204,6 +205,21 @@ namespace CommEx.Serial
 
 
         #region Event Handlers
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void NativeStarted(object sender, StartedEventArgs e)
+        {
+#if DEBUG
+            ErrorDialog.Show(new ErrorDialogInfo("started", "sender", "message"));
+#else
+            throw new NotImplementedException();
+#endif
+        }
 
         /// <summary>
         /// 右クリックメニューのクリックイベントハンドラ
