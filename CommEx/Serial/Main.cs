@@ -54,7 +54,7 @@ namespace CommEx.Serial
         /// <summary>
         /// Native
         /// </summary>
-        INative native;
+        private readonly INative native;
 
         /// <summary>
         /// 右クリックメニュー操作用
@@ -96,9 +96,15 @@ namespace CommEx.Serial
         {
             Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
             Debug.AutoFlush = true;
+
             Extensions.AllExtensionsLoaded += AllExtensionsLoaded;
+
+            cmx = Extensions.GetExtension<IContextMenuHacker>();
+            native = Extensions.GetExtension<INative>();
+
             BveHacker.ScenarioCreated += OnScenarioCreated;
             BveHacker.ScenarioClosed += ScenarioClosed;
+
             window = new SettingWindow();
             window.Closing += WindowClosing;
             window.Hide();
