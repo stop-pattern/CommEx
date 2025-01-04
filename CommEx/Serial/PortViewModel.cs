@@ -16,7 +16,15 @@ namespace CommEx.Serial
     {
         #region Fields
 
+        /// <summary>
+        /// シリアルポート
+        /// </summary>
         private SerialPort port;
+
+        /// <summary>
+        /// シリアルの制御
+        /// </summary>
+        private ISerialControl control = new Loopback();
 
         #endregion
 
@@ -238,6 +246,82 @@ namespace CommEx.Serial
         {
             port = serialPort;
         }
+
+        ///// <summary>
+        ///// ポートを開く
+        ///// </summary>
+        //private void PortOpen()
+        //{
+        //    // ポート設定
+        //    try
+        //    {
+        //        port.PortName = PortNameComboBox.Text;
+        //        port.BaudRate = int.Parse(BaudRateComboBox.Text);
+        //        port.DataBits = int.Parse(DataBitsComboBox.Text);
+        //        port.StopBits = (StopBits)Enum.Parse(typeof(StopBits), StopBitsComboBox.Text);
+        //        port.Parity = (Parity)Enum.Parse(typeof(Parity), ParityComboBox.Text);
+        //        port.Handshake = (Handshake)Enum.Parse(typeof(Handshake), FlowControlComboBox.Text);
+                
+        //        port = new SerialPort
+        //        {
+        //            PortName = PortNameComboBox.Text,
+        //            BaudRate = int.Parse(BaudRateComboBox.Text),
+        //            DataBits = int.Parse(DataBitsComboBox.Text),
+        //            StopBits = (StopBits)Enum.Parse(typeof(StopBits), StopBitsComboBox.Text),
+        //            Parity = (Parity)Enum.Parse(typeof(Parity), ParityComboBox.Text),
+        //            Handshake = (Handshake)Enum.Parse(typeof(Handshake), FlowControlComboBox.Text)
+        //        };
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ErrorDialog.Show(new ErrorDialogInfo("Serial setting error", e.Source, e.Message));
+        //        return;
+        //    }
+
+        //    // ポートを開く
+        //    try
+        //    {
+        //        // ポートを開く
+        //        control.PortOpen(port);
+        //        port.Open();
+        //        OpenButton.Content = "Close Port";
+        //        //MessageBox.Show("Serial port opened.");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ErrorDialog.Show(new ErrorDialogInfo("Serial opening error", e.Source, e.Message));
+        //        //MessageBox.Show($"Error opening serial port: {ex.Message}");
+        //    }
+
+        //    // UIを無効化
+        //    PortNameComboBox.IsEnabled = false;
+        //    BaudRateComboBox.IsEnabled = false;
+        //    DataBitsComboBox.IsEnabled = false;
+        //    StopBitsComboBox.IsEnabled = false;
+        //    ParityComboBox.IsEnabled = false;
+        //    FlowControlComboBox.IsEnabled = false;
+        //    PortStaus.Fill = new SolidColorBrush(Colors.Green);
+        //}
+
+        ///// <summary>
+        ///// ポートを閉じる
+        ///// </summary>
+        //private void PortClose()
+        //{
+        //    control.PortClose(port);
+        //    port.Close();
+        //    OpenButton.Content = "Open Port";
+        //    //MessageBox.Show("Serial port closed.");
+
+        //    // UIを有効化
+        //    PortNameComboBox.IsEnabled = true;
+        //    BaudRateComboBox.IsEnabled = true;
+        //    DataBitsComboBox.IsEnabled = true;
+        //    StopBitsComboBox.IsEnabled = true;
+        //    ParityComboBox.IsEnabled = true;
+        //    FlowControlComboBox.IsEnabled = true;
+        //    PortStaus.Fill = new SolidColorBrush(Colors.Red);
+        //}
 
         #endregion
 

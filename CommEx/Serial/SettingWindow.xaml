@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:CommEx.Serial"
         mc:Ignorable="d"
         Title="Serial Port Settings" Height="400" Width="400">
+    <Window.DataContext>
+        <local:PortViewModel/>
+    </Window.DataContext>
 
     <Viewbox>
 
