@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CommEx.Serial"
         mc:Ignorable="d"
-        Title="Serial Port Settings" Height="300" Width="400">
+        Title="Serial Port Settings" Height="400" Width="400">
 
     <Viewbox>
 
-        <Grid Height="300" Width="300">
+        <Grid Height="350" Width="300">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="110"/>
@@ -18,6 +18,8 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="10" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="10" />
                 <RowDefinition Height="30" />
@@ -78,14 +80,18 @@
                 <ComboBoxItem Content="None" />
                 <ComboBoxItem Content="Xon/Xoff" />
                 <ComboBoxItem Content="RTS/CTS" />
-                <ComboBoxItem Content="DSR/DTR" />
+                <ComboBoxItem Content="RTS/Xon" />
             </ComboBox>
             
+            <!-- DTR -->
+            <Label Content="DTR:" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <CheckBox x:Name="isDtr" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
             <!-- 接続状況表示 -->
-            <Ellipse x:Name="PortStaus" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Fill="Red"/>
+            <Ellipse x:Name="PortStaus" Grid.Column="1" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Fill="Red"/>
 
             <!-- ポートを開閉するボタン -->
-            <Button x:Name="OpenButton" Content="Open Port" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Click="OpenButton_Click" />
+            <Button x:Name="OpenButton" Content="Open Port" Grid.Column="2" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150"/>
         </Grid>
 
     </Viewbox>
