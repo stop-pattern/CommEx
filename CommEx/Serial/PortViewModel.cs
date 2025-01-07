@@ -129,11 +129,11 @@ namespace CommEx.Serial
         /// ポートの状態
         /// </summary>
         [Browsable(false)]
-        public bool IsOpen
+        public bool IsClosed
         {
             get
             {
-                return port.IsOpen;
+                return !port.IsOpen;
             }
         }
 
