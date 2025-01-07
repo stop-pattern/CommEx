@@ -9,10 +9,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows.Input;
+using BveEx.Diagnostics;
 
 namespace CommEx.Serial
 {
-    internal class PortViewModel : INotifyPropertyChanged
+    public class PortViewModel : INotifyPropertyChanged
     {
         #region Fields
 
@@ -102,7 +106,7 @@ namespace CommEx.Serial
             set
             {
                 port.Encoding = value;
-                RaisePropertyChanged();;
+                RaisePropertyChanged();
             }
         }
 
@@ -128,14 +132,22 @@ namespace CommEx.Serial
         /// <summary>
         /// ポートの状態
         /// </summary>
-        [Browsable(false)]
-        public bool IsClosed
+        [Browsable(true)]
+        [DefaultValue(Handshake.None)]
+        [MonitoringDescription("IsOpen")]
+        public bool IsOpen
         {
             get
             {
-                return !port.IsOpen;
+                return port.IsOpen;
             }
         }
+
+        /// <summary>
+        /// ポートの状態
+        /// </summary>
+        [Browsable(false)]
+        public bool IsClosed => !IsOpen;
 
         /// <summary>
         /// 改行文字
@@ -213,9 +225,49 @@ namespace CommEx.Serial
             }
         }
 
+        /// <summary>
+        /// 使用可能なポートの選択肢リスト
+        /// </summary>
+        public ObservableCollection<string> AvailablePorts { get; } = new ObservableCollection<string>();
+
+        /// <summary>
+        /// ボーレートの選択肢リスト
+        /// </summary>
+        public ObservableCollection<int> BaudRates { get; } = new ObservableCollection<int> { 9600, 19200, 38400, 57600, 115200 };
+
+        /// <summary>
+        /// データビットの選択肢リスト
+        /// </summary>
+        public ObservableCollection<int> DataBitsOptions { get; } = new ObservableCollection<int> { 5, 6, 7, 8 };
+
+        /// <summary>
+        /// ストップビットの選択肢リスト
+        /// </summary>
+        public ObservableCollection<StopBits> StopBitsOptions { get; } = new ObservableCollection<StopBits> { StopBits.One, StopBits.OnePointFive, StopBits.Two };
+
+        /// <summary>
+        /// パリティの選択肢リスト
+        /// </summary>
+        public ObservableCollection<Parity> ParityOptions { get; } = new ObservableCollection<Parity>(Enum.GetValues(typeof(Parity)) as Parity[]);
+
+        /// <summary>
+        /// フロー制御の選択肢リスト
+        /// </summary>
+        public ObservableCollection<Handshake> HandshakeOptions { get; } = new ObservableCollection<Handshake>(Enum.GetValues(typeof(Handshake)) as Handshake[]);
+
+        /// <summary>
+        /// ポートリストのアップデートコマンド
+        /// </summary>
+        public ICommand UpdatePortsCommand { get; }
+
+        /// <summary>
+        /// ポートの開閉コマンド
+        /// </summary>
+        public ICommand OpenClosePortCommand { get; }
+
         #endregion
 
-        #region Methods 
+        #region Methods
 
         /// <summary>
         /// ViewModel をデフォルト値で初期化
@@ -223,6 +275,11 @@ namespace CommEx.Serial
         public PortViewModel()
         {
             port = new SerialPort();
+
+            UpdatePortsCommand = new RelayCommand(UpdatePorts);
+            OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
+
+            //UpdatePorts();
         }
 
         /// <summary>
@@ -236,6 +293,11 @@ namespace CommEx.Serial
         public PortViewModel(string portName = "COM0", int baudRate = 115200, Parity parity = Parity.None, int dataBits = 8, StopBits stopBits = StopBits.One)
         {
             port = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
+
+            UpdatePortsCommand = new RelayCommand(UpdatePorts);
+            OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
+
+            //UpdatePorts();
         }
 
         /// <summary>
@@ -245,83 +307,83 @@ namespace CommEx.Serial
         public PortViewModel(SerialPort serialPort)
         {
             port = serialPort;
+
+            UpdatePortsCommand = new RelayCommand(UpdatePorts);
+            OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
+
+            //UpdatePorts();
         }
 
-        ///// <summary>
-        ///// ポートを開く
-        ///// </summary>
-        //private void PortOpen()
-        //{
-        //    // ポート設定
-        //    try
-        //    {
-        //        port.PortName = PortNameComboBox.Text;
-        //        port.BaudRate = int.Parse(BaudRateComboBox.Text);
-        //        port.DataBits = int.Parse(DataBitsComboBox.Text);
-        //        port.StopBits = (StopBits)Enum.Parse(typeof(StopBits), StopBitsComboBox.Text);
-        //        port.Parity = (Parity)Enum.Parse(typeof(Parity), ParityComboBox.Text);
-        //        port.Handshake = (Handshake)Enum.Parse(typeof(Handshake), FlowControlComboBox.Text);
-                
-        //        port = new SerialPort
-        //        {
-        //            PortName = PortNameComboBox.Text,
-        //            BaudRate = int.Parse(BaudRateComboBox.Text),
-        //            DataBits = int.Parse(DataBitsComboBox.Text),
-        //            StopBits = (StopBits)Enum.Parse(typeof(StopBits), StopBitsComboBox.Text),
-        //            Parity = (Parity)Enum.Parse(typeof(Parity), ParityComboBox.Text),
-        //            Handshake = (Handshake)Enum.Parse(typeof(Handshake), FlowControlComboBox.Text)
-        //        };
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        ErrorDialog.Show(new ErrorDialogInfo("Serial setting error", e.Source, e.Message));
-        //        return;
-        //    }
+        /// <summary>
+        /// ポートの開閉が可能か否か判定
+        /// </summary>
+        /// <returns>ポート操作可否</returns>
+        private bool CanOpenClosePort() => port != null && !string.IsNullOrEmpty(PortName);
 
-        //    // ポートを開く
-        //    try
-        //    {
-        //        // ポートを開く
-        //        control.PortOpen(port);
-        //        port.Open();
-        //        OpenButton.Content = "Close Port";
-        //        //MessageBox.Show("Serial port opened.");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        ErrorDialog.Show(new ErrorDialogInfo("Serial opening error", e.Source, e.Message));
-        //        //MessageBox.Show($"Error opening serial port: {ex.Message}");
-        //    }
+        /// <summary>
+        /// ポートリストのアップデート
+        /// </summary>
+        private void UpdatePorts()
+        {
+            AvailablePorts.Clear();
+            foreach (var port in SerialPort.GetPortNames())
+            {
+                AvailablePorts.Add(port);
+            }
+        }
 
-        //    // UIを無効化
-        //    PortNameComboBox.IsEnabled = false;
-        //    BaudRateComboBox.IsEnabled = false;
-        //    DataBitsComboBox.IsEnabled = false;
-        //    StopBitsComboBox.IsEnabled = false;
-        //    ParityComboBox.IsEnabled = false;
-        //    FlowControlComboBox.IsEnabled = false;
-        //    PortStaus.Fill = new SolidColorBrush(Colors.Green);
-        //}
-
-        ///// <summary>
-        ///// ポートを閉じる
-        ///// </summary>
-        //private void PortClose()
-        //{
-        //    control.PortClose(port);
-        //    port.Close();
-        //    OpenButton.Content = "Open Port";
-        //    //MessageBox.Show("Serial port closed.");
-
-        //    // UIを有効化
-        //    PortNameComboBox.IsEnabled = true;
-        //    BaudRateComboBox.IsEnabled = true;
-        //    DataBitsComboBox.IsEnabled = true;
-        //    StopBitsComboBox.IsEnabled = true;
-        //    ParityComboBox.IsEnabled = true;
-        //    FlowControlComboBox.IsEnabled = true;
-        //    PortStaus.Fill = new SolidColorBrush(Colors.Red);
-        //}
+        /// <summary>
+        /// ポートの開閉
+        /// </summary>
+        private void OpenClosePort()
+        {
+            if (!IsOpen)
+            {
+                // ポートを開ける
+                try
+                {
+                    // control.PortOpen(port);
+                    port.Open();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    ErrorDialog.Show(new ErrorDialogInfo("ポートが既に使われています。", ex.Source, ex.Message));
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    ErrorDialog.Show(new ErrorDialogInfo("ポートの設定が無効です。", ex.Source, ex.Message));
+                }
+                catch (ArgumentException ex)
+                {
+                    ErrorDialog.Show(new ErrorDialogInfo("このポートはサポートされていません。", ex.Source, ex.Message));
+                }
+                catch (IOException ex)
+                {
+                    ErrorDialog.Show(new ErrorDialogInfo("ポートが無効状態です。", ex.Source, ex.Message));
+                }
+                catch (Exception ex)
+                {
+                    ErrorDialog.Show(new ErrorDialogInfo("ポートのオープンに失敗しました。", ex.Source, ex.Message));
+                }
+            }
+            else
+            {
+                // ポートを閉じる
+                try
+                {
+                    port.Close();
+                    // control.PortClose(port);
+                }
+                catch (IOException ex)
+                {
+                    ErrorDialog.Show(new ErrorDialogInfo("ポートが無効状態です。", ex.Source, ex.Message));
+                }
+                catch (Exception ex)
+                {
+                    ErrorDialog.Show(new ErrorDialogInfo("ポートを閉じたときにエラーが発生しました。", ex.Source, ex.Message));
+                }
+            }
+        }
 
         #endregion
 
@@ -340,5 +402,25 @@ namespace CommEx.Serial
         }
 
         #endregion
+    }
+
+    public class RelayCommand : ICommand
+    {
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
+
+        public RelayCommand(Action execute, Func<bool> canExecute = null)
+        {
+            _execute = execute;
+            _canExecute = canExecute;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
+
+        public void Execute(object parameter) => _execute();
+
+        public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 }

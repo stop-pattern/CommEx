@@ -24,37 +24,21 @@ namespace CommEx.Serial
         public SettingWindow()
         {
             InitializeComponent();
-
-            // 使用可能なポート名をコンボボックスにセット
-            foreach (string portName in SerialPort.GetPortNames())
-            {
-                PortNameComboBox.Items.Add(portName);
-            }
-
-            // 初期選択を設定（最初のポートを選択）
-            if (PortNameComboBox.Items.Count > 0)
-                PortNameComboBox.SelectedIndex = 0;
-
-            // 初期設定としてデフォルト値を設定
-            BaudRateComboBox.SelectedIndex = 4; // 115200
-            DataBitsComboBox.SelectedIndex = 1; // 8
-            StopBitsComboBox.SelectedIndex = 0; // 1
-            ParityComboBox.SelectedIndex = 0; // None
-            FlowControlComboBox.SelectedIndex = 0; // None
+            DataContext = new PortViewModel();
         }
 
+        public SettingWindow(PortViewModel viewModel)
+        {
+            InitializeComponent();
+            DataContext = viewModel;
+        }
 
-        //private void OpenButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    // シリアルポートが既に開かれているか確認
-        //    if (_serialPort != null && _serialPort.IsOpen)
-        //    {
-        //        PortClose();
-        //    }
-        //    else
-        //    {
-        //        PortOpen();
-        //    }
-        //}
+        private void DropDownOpened(object sender, EventArgs e)
+        {
+            if (DataContext is PortViewModel viewModel)
+            {
+                viewModel.UpdatePortsCommand.Execute(null);
+            }
+        }
     }
 }

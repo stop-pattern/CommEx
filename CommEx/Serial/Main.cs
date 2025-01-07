@@ -73,6 +73,11 @@ namespace CommEx.Serial
         /// </summary>
         private readonly SettingWindow window;
 
+        /// <summary>
+        /// ビューモデル
+        /// </summary>
+        protected PortViewModel portViewModel;
+
         #endregion
 
         #region Properties
@@ -103,7 +108,9 @@ namespace CommEx.Serial
             BveHacker.ScenarioCreated += OnScenarioCreated;
             BveHacker.ScenarioClosed += ScenarioClosed;
 
-            window = new SettingWindow();
+            portViewModel = new PortViewModel();
+
+            window = new SettingWindow(portViewModel);
             window.Closing += WindowClosing;
             window.Hide();
         }

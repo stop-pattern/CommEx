@@ -49,59 +49,37 @@
 
             <!-- ポート名 -->
             <Label Content="Port Name:" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="PortNameComboBox" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" IsEnabled="{Binding IsClosed, Mode=OneWay}"/>
+            <ComboBox x:Name="PortNameComboBox" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" DropDownOpened="DropDownOpened" ItemsSource="{Binding AvailablePorts}" SelectedItem="{Binding Port}" IsEnabled="{Binding IsClosed}"/>
 
             <!-- ボーレート -->
             <Label Content="Baud Rate:" Grid.Column="1" Grid.Row="3"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="BaudRateComboBox" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" IsEditable="True" ItemsSource="{Binding BaudRate, Mode=TwoWay}" IsEnabled="{Binding IsClosed, Mode=OneWay}">
-                <ComboBoxItem Content="9600" />
-                <ComboBoxItem Content="19200" />
-                <ComboBoxItem Content="38400" />
-                <ComboBoxItem Content="57600" />
-                <ComboBoxItem Content="115200" />
-            </ComboBox>
+            <ComboBox x:Name="BaudRateComboBox" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" IsEditable="True" ItemsSource="{Binding BaudRates}" SelectedItem="{Binding BaudRate}" IsEnabled="{Binding IsClosed}"/>
 
             <!-- データビット -->
             <Label Content="Data Bits:" Grid.Column="1" Grid.Row="5"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="DataBitsComboBox" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding DataBits, Converter={StaticResource Int2ComboBoxItemConverter}, Mode=TwoWay}" IsEnabled="{Binding IsClosed, Mode=OneWay}">
-                <ComboBoxItem Content="7" />
-                <ComboBoxItem Content="8" />
-            </ComboBox>
+            <ComboBox x:Name="DataBitsComboBox" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding DataBitsOptions}" SelectedItem="{Binding DataBits}" IsEnabled="{Binding IsClosed}"/>
 
             <!-- ストップビット -->
             <Label Content="Stop Bits:" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="StopBitsComboBox" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding StopBits, Converter={StaticResource StopBits2ComboBoxItemConverter}, Mode=TwoWay}" IsEnabled="{Binding IsClosed, Mode=OneWay}">
-                <ComboBoxItem Content="1" />
-                <ComboBoxItem Content="1.5" />
-                <ComboBoxItem Content="2" />
-            </ComboBox>
+            <ComboBox x:Name="StopBitsComboBox" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding StopBitsOptions}" SelectedItem="{Binding StopBits}" IsEnabled="{Binding IsClosed}"/>
 
             <!-- パリティ -->
             <Label Content="Parity:" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="ParityComboBox" Grid.Column="2" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding Parity, Converter={StaticResource Parity2ComboBoxItemConverter}, Mode=TwoWay}" IsEnabled="{Binding IsClosed, Mode=OneWay}">
-                <ComboBoxItem Content="None" />
-                <ComboBoxItem Content="Odd" />
-                <ComboBoxItem Content="Even" />
-            </ComboBox>
+            <ComboBox x:Name="ParityComboBox" Grid.Column="2" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding ParityOptions}" SelectedItem="{Binding Parity}" IsEnabled="{Binding IsClosed}"/>
 
             <!-- フロー制御 -->
             <Label Content="Flow Control:" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="FlowControlComboBox" Grid.Column="2" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding Handshake, Converter={StaticResource Handshake2ComboBoxItemConverter}, Mode=TwoWay}" IsEnabled="{Binding IsClosed, Mode=OneWay}">
-                <ComboBoxItem Content="None" />
-                <ComboBoxItem Content="Xon/Xoff" />
-                <ComboBoxItem Content="RTS/CTS" />
-                <ComboBoxItem Content="RTS/Xon" />
-            </ComboBox>
+            <ComboBox x:Name="FlowControlComboBox" Grid.Column="2" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding HandshakeOptions}" SelectedItem="{Binding Handshake}" IsEnabled="{Binding IsClosed}"/>
 
             <!-- DTR -->
             <Label Content="DTR:" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <CheckBox x:Name="isDtr" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding DtrEnable, Mode=TwoWay}" IsEnabled="{Binding IsClosed, Mode=OneWay}"/>
+            <CheckBox x:Name="isDtr" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding DtrEnable}" IsEnabled="{Binding IsClosed}"/>
 
             <!-- 接続状況表示 -->
             <Ellipse x:Name="PortStaus" Grid.Column="1" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Fill="Red"/>
 
             <!-- ポートを開閉するボタン -->
-            <Button x:Name="OpenButton" Content="Open Port" Grid.Column="2" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150"/>
+            <Button x:Name="OpenButton" Content="Open/Close Port" Grid.Column="2" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Command="{Binding OpenClosePortCommand}"/>
         </Grid>
 
     </Viewbox>
