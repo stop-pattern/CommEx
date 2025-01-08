@@ -13,6 +13,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
 using BveEx.Diagnostics;
+using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace CommEx.Serial
 {
@@ -28,7 +31,7 @@ namespace CommEx.Serial
         /// <summary>
         /// シリアルの制御
         /// </summary>
-        private ISerialControl control = new Loopback();
+        private ISerialControl control;
 
         #endregion
 
@@ -275,6 +278,7 @@ namespace CommEx.Serial
         public PortViewModel()
         {
             port = new SerialPort();
+            control = new Loopback();
 
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
@@ -293,6 +297,7 @@ namespace CommEx.Serial
         public PortViewModel(string portName = "COM0", int baudRate = 115200, Parity parity = Parity.None, int dataBits = 8, StopBits stopBits = StopBits.One)
         {
             port = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
+            control = new Loopback();
 
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
@@ -307,6 +312,41 @@ namespace CommEx.Serial
         public PortViewModel(SerialPort serialPort)
         {
             port = serialPort;
+            control = new Loopback();
+
+            UpdatePortsCommand = new RelayCommand(UpdatePorts);
+            OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
+
+            //UpdatePorts();
+        }
+
+        /// <summary>
+        /// ISerialControl を指定して初期化
+        /// </summary>
+        /// <param name="serialControls">シリアル制御</param>
+        /// <param name="portName">ポート名</param>
+        /// <param name="baudRate">ボーレート</param>
+        /// <param name="parity">パリティ</param>
+        /// <param name="dataBits">データビット</param>
+        /// <param name="stopBits">ストップビット</param>
+        public PortViewModel(ISerialControl serialControls, string portName = "COM0", int baudRate = 115200, Parity parity = Parity.None, int dataBits = 8, StopBits stopBits = StopBits.One)
+        {
+            port = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
+            control = serialControls;
+
+            UpdatePortsCommand = new RelayCommand(UpdatePorts);
+            OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
+
+            //UpdatePorts();
+        }
+
+        /// <summary>
+        /// ViewModel をデフォルト値で ISerialControl を指定して初期化
+        /// </summary>
+        public PortViewModel(ISerialControl serialControls)
+        {
+            port = new SerialPort();
+            control = serialControls;
 
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
@@ -337,12 +377,12 @@ namespace CommEx.Serial
         /// </summary>
         private void OpenClosePort()
         {
-            if (!IsOpen)
+            if (IsClosed)
             {
                 // ポートを開ける
                 try
                 {
-                    // control.PortOpen(port);
+                    control.PortOpen(port);
                     port.Open();
                 }
                 catch (UnauthorizedAccessException ex)
@@ -372,7 +412,7 @@ namespace CommEx.Serial
                 try
                 {
                     port.Close();
-                    // control.PortClose(port);
+                    control.PortClose(port);
                 }
                 catch (IOException ex)
                 {
@@ -422,5 +462,39 @@ namespace CommEx.Serial
         public void Execute(object parameter) => _execute();
 
         public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public class BoolToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool isOpen)
+            {
+                return isOpen ? Brushes.Green : Brushes.Red;
+            }
+
+            return Brushes.Gray; // デフォルト色
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is Brush brush)
+            {
+                if (brush == Brushes.Green)
+                {
+                    return true;
+                }
+                else if (brush == Brushes.Red)
+                {
+                    return false;
+                }
+                else if (brush == Brushes.Gray)
+                {
+                    return false;
+                }
+            }
+
+            throw new InvalidOperationException("Unsupported conversion");
+        }
     }
 }
