@@ -423,6 +423,8 @@ namespace CommEx.Serial
                     ErrorDialog.Show(new ErrorDialogInfo("ポートを閉じたときにエラーが発生しました。", ex.Source, ex.Message));
                 }
             }
+            RaisePropertyChanged("IsOpen");
+            RaisePropertyChanged("IsClosed");
         }
 
         #endregion
