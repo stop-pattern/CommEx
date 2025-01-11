@@ -136,7 +136,7 @@ namespace CommEx.Serial
         /// ポートの状態
         /// </summary>
         [Browsable(true)]
-        [DefaultValue(Handshake.None)]
+        [DefaultValue(false)]
         [MonitoringDescription("IsOpen")]
         public bool IsOpen
         {
