@@ -33,4 +33,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Serial\Commands\" />
+    <Folder Include="Serial\Models\" />
+  </ItemGroup>
+
 </Project>
