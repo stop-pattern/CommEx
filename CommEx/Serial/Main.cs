@@ -177,41 +177,6 @@ namespace CommEx.Serial
         private void OnScenarioCreated(ScenarioCreatedEventArgs e)
         {
             scenario = e.Scenario;
-
-            //Bids.Load(bveHacker);
-
-            //try
-            //{
-            //    _ExtendedBeacons = ExtendedBeaconSet.Load(Native, BveHacker, e.Scenario);
-            //}
-            //catch (Exception ex)
-            //{
-            //    switch (ex)
-            //    {
-            //        case BveFileLoadException exception:
-            //            BveHacker.LoadErrorManager.Throw(exception.Message, exception.SenderFileName, exception.LineIndex, exception.CharIndex);
-            //            break;
-
-            //        case CompilationException exception:
-            //            foreach (Diagnostic diagnostic in exception.CompilationErrors)
-            //            {
-            //                string message = diagnostic.GetMessage();
-            //                string fileName = Path.GetFileName(diagnostic.Location.SourceTree.FilePath);
-
-            //                LinePosition position = diagnostic.Location.GetLineSpan().StartLinePosition;
-            //                int lineIndex = position.Line;
-            //                int charIndex = position.Character;
-
-            //                BveHacker.LoadErrorManager.Throw(message, fileName, lineIndex, charIndex);
-            //            }
-            //            break;
-
-            //        default:
-            //            BveHacker.LoadErrorManager.Throw(ex.Message);
-            //            _ = MessageBox.Show(ex.ToString(), App.Instance.ProductName);
-            //            break;
-            //    }
-            //}
         }
 
         /// <summary>
