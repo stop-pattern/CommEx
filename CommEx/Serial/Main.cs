@@ -161,7 +161,7 @@ namespace CommEx.Serial
             native = Extensions.GetExtension<INative>();
 
             setting = cmx.AddCheckableMenuItem("シリアル通信設定", MenuItemCheckedChanged, ContextMenuItemType.CoreAndExtensions);
-            native.Started += NativeStarted; ;
+            native.Started += NativeStarted;
 
 #if DEBUG
             setting.Checked = true;
