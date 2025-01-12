@@ -79,7 +79,7 @@ namespace CommEx.Serial.Bids
         NotStarted,
     }
 
-    public class Bids : ISerialControl
+    public class BidsSerial : ISerialControl
     {
         #region Fields
 

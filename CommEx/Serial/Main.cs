@@ -167,7 +167,7 @@ namespace CommEx.Serial
             setting.Checked = true;
 #endif
 
-            Bids.Bids.UpdateInfos(bveHacker, native);
+            BidsSerial.UpdateInfos(bveHacker, native);
         }
 
         /// <summary>
