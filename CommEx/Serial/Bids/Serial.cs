@@ -413,7 +413,14 @@ namespace CommEx.Serial.Bids
                 if (response != null)
                 {
                     Debug.Print("Serial Send Data" + response);
-                    port.WriteLine(response);
+                    try
+                    {
+                        port.WriteLine(response);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorDialog.Show(new ErrorDialogInfo("ポートが無効状態です。", ex.Source, ex.Message));
+                    }
                 }
             }
         }
