@@ -142,7 +142,7 @@ namespace CommEx.Serial
         /// <inheritdoc/>
         public override void Tick(TimeSpan elapsed)
         {
-
+            BidsSerial.SetStatus(true);
         }
 
         #endregion
@@ -186,7 +186,7 @@ namespace CommEx.Serial
         /// <exception cref="NotImplementedException"></exception>
         private void ScenarioClosed(EventArgs e)
         {
-            //throw new NotImplementedException();
+            BidsSerial.SetStatus(false);
         }
 
         #endregion

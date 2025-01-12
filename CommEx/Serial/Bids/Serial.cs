@@ -118,6 +118,15 @@ namespace CommEx.Serial.Bids
         }
 
         /// <summary>
+        /// 使用可否を設定
+        /// </summary>
+        /// <param name="status">使用可否</param>
+        public static void SetStatus(bool status)
+        {
+            isAvailable = status;
+        }
+
+        /// <summary>
         /// コマンドに応じた返答を生成
         /// </summary>
         /// <param name="str">コマンド</param>
@@ -401,7 +410,7 @@ namespace CommEx.Serial.Bids
                 {
                     response = CreateError(Errors.NotStarted);
                 }
-                else if (!native.IsAvailable)
+                else if (!isAvailable)
                 {
                     response = CreateError(Errors.NotStarted);
                 }
