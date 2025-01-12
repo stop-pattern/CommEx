@@ -17,9 +17,12 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 using CommEx.Serial.Common;
+using System.Xml.Serialization;
 
 namespace CommEx.Serial.ViewModel
 {
+    [Serializable]
+    [XmlRoot("Port")]
     public class PortViewModel : INotifyPropertyChanged
     {
         #region Fields
@@ -49,6 +52,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(true)]
         [DefaultValue(9600)]
         [MonitoringDescription("BaudRate")]
+        [XmlElement("BaudRate")]
         public int BaudRate
         {
             get
@@ -68,6 +72,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(true)]
         [DefaultValue(8)]
         [MonitoringDescription("DataBits")]
+        [XmlElement("DataBits")]
         public int DataBits
         {
             get
@@ -87,6 +92,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(true)]
         [DefaultValue(false)]
         [MonitoringDescription("DtrEnable")]
+        [XmlElement("DtrEnable")]
         public bool DtrEnable
         {
             get
@@ -106,6 +112,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [MonitoringDescription("Encoding")]
+        [XmlIgnore]
         public Encoding Encoding
         {
             get
@@ -125,6 +132,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(true)]
         [DefaultValue(Handshake.None)]
         [MonitoringDescription("Handshake")]
+        [XmlElement("Handshake")]
         public Handshake Handshake
         {
             get
@@ -144,6 +152,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(true)]
         [DefaultValue(false)]
         [MonitoringDescription("IsOpen")]
+        [XmlIgnore]
         public bool IsOpen
         {
             get
@@ -156,6 +165,7 @@ namespace CommEx.Serial.ViewModel
         /// ポートの状態
         /// </summary>
         [Browsable(false)]
+        [XmlIgnore]
         public bool IsClosed => !IsOpen;
 
         /// <summary>
@@ -164,6 +174,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(false)]
         [DefaultValue("\n")]
         [MonitoringDescription("NewLine")]
+        [XmlElement("NewLine")]
         public string NewLine
         {
             get
@@ -183,6 +194,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(true)]
         [DefaultValue(Parity.None)]
         [MonitoringDescription("Parity")]
+        [XmlElement("Parity")]
         public Parity Parity
         {
             get
@@ -202,6 +214,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(true)]
         [DefaultValue("COM1")]
         [MonitoringDescription("PortName")]
+        [XmlAttribute("PortName")]
         public string PortName
         {
             get
@@ -221,6 +234,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(true)]
         [DefaultValue(StopBits.One)]
         [MonitoringDescription("StopBits")]
+        [XmlElement("StopBits")]
         public StopBits StopBits
         {
             get
@@ -240,6 +254,7 @@ namespace CommEx.Serial.ViewModel
         [Browsable(true)]
         [DefaultValue(false)]
         [MonitoringDescription("IsAutoConnent")]
+        [XmlElement("IsAutoConnent")]
         public bool IsAutoConnent
         {
             get
@@ -256,41 +271,49 @@ namespace CommEx.Serial.ViewModel
         /// <summary>
         /// 使用可能なポートの選択肢リスト
         /// </summary>
+        [XmlIgnore]
         public ObservableCollection<string> AvailablePorts { get; } = new ObservableCollection<string>();
 
         /// <summary>
         /// ボーレートの選択肢リスト
         /// </summary>
+        [XmlIgnore]
         public ObservableCollection<int> BaudRates { get; } = new ObservableCollection<int> { 9600, 19200, 38400, 57600, 115200 };
 
         /// <summary>
         /// データビットの選択肢リスト
         /// </summary>
+        [XmlIgnore]
         public ObservableCollection<int> DataBitsOptions { get; } = new ObservableCollection<int> { 5, 6, 7, 8 };
 
         /// <summary>
         /// ストップビットの選択肢リスト
         /// </summary>
+        [XmlIgnore]
         public ObservableCollection<StopBits> StopBitsOptions { get; } = new ObservableCollection<StopBits> { StopBits.One, StopBits.OnePointFive, StopBits.Two };
 
         /// <summary>
         /// パリティの選択肢リスト
         /// </summary>
+        [XmlIgnore]
         public ObservableCollection<Parity> ParityOptions { get; } = new ObservableCollection<Parity>(Enum.GetValues(typeof(Parity)) as Parity[]);
 
         /// <summary>
         /// フロー制御の選択肢リスト
         /// </summary>
+        [XmlIgnore]
         public ObservableCollection<Handshake> HandshakeOptions { get; } = new ObservableCollection<Handshake>(Enum.GetValues(typeof(Handshake)) as Handshake[]);
 
         /// <summary>
         /// ポートリストのアップデートコマンド
         /// </summary>
+        [XmlIgnore]
         public ICommand UpdatePortsCommand { get; }
 
         /// <summary>
         /// ポートの開閉コマンド
         /// </summary>
+        [XmlIgnore]
         public ICommand OpenClosePortCommand { get; }
 
         #endregion
