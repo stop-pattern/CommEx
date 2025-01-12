@@ -86,8 +86,9 @@ namespace CommEx.Serial.Bids
         private const int version = 300;
 
         private static bool isAvailable = false;
-        private static INative native;
+
         private static IBveHacker hacker;
+        private static INative native;
 
         /// <summary>
         /// 改行コード
@@ -106,6 +107,15 @@ namespace CommEx.Serial.Bids
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// インスタンスの取り込み
+        /// </summary>
+        public static void UpdateInfos(IBveHacker bveHacker, INative bveNative)
+        {
+            hacker = bveHacker;
+            native = bveNative;
+        }
 
         /// <summary>
         /// コマンドに応じた返答を生成

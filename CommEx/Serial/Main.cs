@@ -17,6 +17,7 @@ using BveEx.Diagnostics;
 using CommEx.Serial.ViewModel;
 using CommEx.Serial.Views;
 using CommEx.Serial.Common;
+using CommEx.Serial.Bids;
 
 namespace CommEx.Serial
 {
@@ -165,6 +166,8 @@ namespace CommEx.Serial
 #if DEBUG
             setting.Checked = true;
 #endif
+
+            Bids.Bids.UpdateInfos(bveHacker, native);
         }
 
         /// <summary>
