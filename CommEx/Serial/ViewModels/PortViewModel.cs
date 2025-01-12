@@ -18,6 +18,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using CommEx.Serial.Common;
 using System.Xml.Serialization;
+using CommEx.Serial.Bids;
 
 namespace CommEx.Serial.ViewModel
 {
@@ -326,7 +327,7 @@ namespace CommEx.Serial.ViewModel
         public PortViewModel()
         {
             port = new SerialPort();
-            control = new Loopback();
+            control = new BidsSerial();
 
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
@@ -345,7 +346,7 @@ namespace CommEx.Serial.ViewModel
         public PortViewModel(string portName = "COM0", int baudRate = 115200, Parity parity = Parity.None, int dataBits = 8, StopBits stopBits = StopBits.One)
         {
             port = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
-            control = new Loopback();
+            control = new BidsSerial();
 
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
@@ -360,7 +361,7 @@ namespace CommEx.Serial.ViewModel
         public PortViewModel(SerialPort serialPort)
         {
             port = serialPort;
-            control = new Loopback();
+            control = new BidsSerial();
 
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
