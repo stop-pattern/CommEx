@@ -379,14 +379,19 @@ namespace CommEx.Serial.Bids
             str = str.Trim();
             Debug.Print("Serial Receive Data" + str);
 
-            if (str.Length < 5 || !isAvailable)
+            if (str.Length < 5)
             {
                 return;
             }
+
             if (str.StartsWith("EX") || str.StartsWith("TR"))
             {
                 string response;
-                if (!isAvailable)
+                if (native == null)
+                {
+                    response = CreateError(Errors.NotStarted);
+                }
+                else if (!native.IsAvailable)
                 {
                     response = CreateError(Errors.NotStarted);
                 }
