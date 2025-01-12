@@ -77,6 +77,8 @@ namespace CommEx.Serial.Bids
 
     internal class Bids : ISerialControl
     {
+        #region Fields
+
         const int version = 300;
 
         private static bool isAvailable = false;
@@ -88,61 +90,18 @@ namespace CommEx.Serial.Bids
         /// </summary>
         private string lineBreak = "\r\n";
 
+        #endregion
+
+        #region Structs
+
         struct AutoSend
         {
 
         }
 
-        /// <inheritdoc/>
-        public void PortOpen(SerialPort serialPort)
-        {
-            serialPort.NewLine = lineBreak;
-            serialPort.DataReceived += DataReceived;
-        }
+        #endregion
 
-        /// <inheritdoc/>
-        public void PortClose(SerialPort serialPort)
-        {
-            serialPort.DataReceived -= DataReceived;
-        }
-
-        /// <summary>
-        /// シリアルポートの受信時に呼ばれる
-        /// </summary>
-        /// <param name="sender"><see cref="SerialPort"/></param>
-        /// <param name="e">event args</param>
-        private void DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            SerialPort port = (SerialPort)sender;
-            string str = "";
-            try
-            {
-                str = port.ReadLine();
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                ErrorDialog.Show(new ErrorDialogInfo("エラー：シリアル読み込み失敗", ex.Source, ex.Message));
-#endif
-                return;
-            }
-            str = str.Trim();
-            Debug.Print("Serial Receive Data" + str);
-
-            if (str.Length < 5 || !isAvailable)
-            {
-                return;
-            }
-            if (str.StartsWith("EX") || str.StartsWith("TR"))
-            {
-                string response = CreateResponse(str);
-                if (response != null)
-                {
-                    Debug.Print("Serial Send Data" + response);
-                    port.WriteLine(response);
-                }
-            }
-        }
+        #region Methods
 
         /// <summary>
         /// コマンドに応じた返答を生成
@@ -372,5 +331,66 @@ namespace CommEx.Serial.Bids
             return header + "E" + err.ToString();
         }
 
+        #endregion
+
+        #region Interface Implementation
+
+        /// <inheritdoc/>
+        public void PortOpen(SerialPort serialPort)
+        {
+            serialPort.NewLine = lineBreak;
+            serialPort.DataReceived += DataReceived;
+        }
+
+        /// <inheritdoc/>
+        public void PortClose(SerialPort serialPort)
+        {
+            serialPort.DataReceived -= DataReceived;
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        /// <summary>
+        /// シリアルポートの受信時に呼ばれる
+        /// </summary>
+        /// <param name="sender"><see cref="SerialPort"/></param>
+        /// <param name="e">event args</param>
+        private void DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort port = (SerialPort)sender;
+            string str = "";
+            try
+            {
+                str = port.ReadLine();
+            }
+            catch (Exception ex)
+            {
+
+#if DEBUG
+                ErrorDialog.Show(new ErrorDialogInfo("エラー：シリアル読み込み失敗", ex.Source, ex.Message));
+#endif
+                return;
+            }
+            str = str.Trim();
+            Debug.Print("Serial Receive Data" + str);
+
+            if (str.Length < 5 || !isAvailable)
+            {
+                return;
+            }
+            if (str.StartsWith("EX") || str.StartsWith("TR"))
+            {
+                string response = CreateResponse(str);
+                if (response != null)
+                {
+                    Debug.Print("Serial Send Data" + response);
+                    port.WriteLine(response);
+                }
+            }
+        }
+
+        #endregion
     }
 }
