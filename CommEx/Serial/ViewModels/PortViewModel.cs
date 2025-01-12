@@ -343,7 +343,16 @@ namespace CommEx.Serial.ViewModel
                 control = serialControl;
             }
 
-            //UpdatePorts();
+            UpdatePorts();
+
+            if (isAutoConnent || IsClosed)
+            {
+                if (AvailablePorts.Contains(PortName))
+                {
+                    // 自動接続：ポート名の読み取りでコケる
+                    OpenClosePort();
+                }
+            }
         }
 
         /// <summary>
