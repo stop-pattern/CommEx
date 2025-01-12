@@ -73,6 +73,10 @@ namespace CommEx.Serial.Bids
         /// 配列の範囲外アクセス
         /// </summary>
         OutOfRange,
+        /// <summary>
+        /// シナリオが開始されていない
+        /// </summary>
+        NotStarted,
     }
 
     internal class Bids : ISerialControl
@@ -367,7 +371,6 @@ namespace CommEx.Serial.Bids
             }
             catch (Exception ex)
             {
-
 #if DEBUG
                 ErrorDialog.Show(new ErrorDialogInfo("エラー：シリアル読み込み失敗", ex.Source, ex.Message));
 #endif
@@ -382,7 +385,16 @@ namespace CommEx.Serial.Bids
             }
             if (str.StartsWith("EX") || str.StartsWith("TR"))
             {
-                string response = CreateResponse(str);
+                string response;
+                if (!isAvailable)
+                {
+                    response = CreateError(Errors.NotStarted);
+                }
+                else
+                {
+                    response = CreateResponse(str);
+                }
+
                 if (response != null)
                 {
                     Debug.Print("Serial Send Data" + response);
