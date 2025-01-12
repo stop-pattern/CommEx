@@ -322,17 +322,39 @@ namespace CommEx.Serial.ViewModel
         #region Methods
 
         /// <summary>
+        /// 初期化処理
+        /// </summary>
+        private void Initialize(SerialPort serialPort = null, ISerialControl serialControl = null)
+        {
+            if (serialPort == null)
+            {
+                port = new SerialPort();
+            }
+            else
+            {
+                port = serialPort;
+            }
+            if (serialControl == null)
+            {
+                control = new BidsSerial();
+            }
+            else
+            {
+                control = serialControl;
+            }
+
+            //UpdatePorts();
+        }
+
+        /// <summary>
         /// ViewModel をデフォルト値で初期化
         /// </summary>
         public PortViewModel()
         {
-            port = new SerialPort();
-            control = new BidsSerial();
-
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
 
-            //UpdatePorts();
+            Initialize();
         }
 
         /// <summary>
@@ -345,13 +367,10 @@ namespace CommEx.Serial.ViewModel
         /// <param name="stopBits">ストップビット</param>
         public PortViewModel(string portName = "COM0", int baudRate = 115200, Parity parity = Parity.None, int dataBits = 8, StopBits stopBits = StopBits.One)
         {
-            port = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
-            control = new BidsSerial();
-
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
 
-            //UpdatePorts();
+            Initialize(new SerialPort(portName, baudRate, parity, dataBits, stopBits));
         }
 
         /// <summary>
@@ -360,13 +379,10 @@ namespace CommEx.Serial.ViewModel
         /// <param name="serialPort">初期化に使用する <see cref="SerialPort"/></param>
         public PortViewModel(SerialPort serialPort)
         {
-            port = serialPort;
-            control = new BidsSerial();
-
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
 
-            //UpdatePorts();
+            Initialize(serialPort);
         }
 
         /// <summary>
