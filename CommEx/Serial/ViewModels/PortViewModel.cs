@@ -34,6 +34,11 @@ namespace CommEx.Serial.ViewModel
         /// </summary>
         private ISerialControl control;
 
+        /// <summary>
+        /// 自動接続の設定
+        /// </summary>
+        private bool isAutoConnent;
+
         #endregion
 
         #region Properties
@@ -225,6 +230,25 @@ namespace CommEx.Serial.ViewModel
             set
             {
                 port.StopBits = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// 自動接続設定
+        /// </summary>
+        [Browsable(true)]
+        [DefaultValue(false)]
+        [MonitoringDescription("IsAutoConnent")]
+        public bool IsAutoConnent
+        {
+            get
+            {
+                return isAutoConnent;
+            }
+            set
+            {
+                isAutoConnent = value;
                 RaisePropertyChanged();
             }
         }
