@@ -16,6 +16,7 @@ using BveEx.Extensions.Native;
 using BveEx.Diagnostics;
 using CommEx.Serial.ViewModel;
 using CommEx.Serial.Views;
+using CommEx.Serial.Common;
 
 namespace CommEx.Serial
 {
@@ -110,7 +111,7 @@ namespace CommEx.Serial
             BveHacker.ScenarioCreated += OnScenarioCreated;
             BveHacker.ScenarioClosed += ScenarioClosed;
 
-            portViewModel = new PortViewModel();
+            portViewModel = SaveSettings.Load();
 
             window = new SettingWindow(portViewModel);
             window.Closing += WindowClosing;
@@ -124,6 +125,8 @@ namespace CommEx.Serial
         /// <inheritdoc/>
         public override void Dispose()
         {
+            SaveSettings.Save(portViewModel);
+
             Extensions.AllExtensionsLoaded -= AllExtensionsLoaded;
             BveHacker.ScenarioCreated -= OnScenarioCreated;
             BveHacker.ScenarioClosed -= ScenarioClosed;
