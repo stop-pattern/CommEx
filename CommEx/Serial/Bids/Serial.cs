@@ -15,6 +15,7 @@ using System.Windows.Input;
 using BveEx.PluginHost.Input;
 using BveEx.Extensions.Native.Input;
 using System.Windows.Media.Animation;
+using CommEx.Serial.Common;
 
 namespace CommEx.Serial.Bids
 {

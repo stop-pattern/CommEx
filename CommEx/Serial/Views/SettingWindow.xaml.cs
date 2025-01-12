@@ -13,8 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO.Ports;
 using BveEx.Diagnostics;
+using CommEx.Serial.ViewModel;
 
-namespace CommEx.Serial
+namespace CommEx.Serial.Views
 {
     /// <summary>
     /// SettingWindow.xaml の相互作用ロジック

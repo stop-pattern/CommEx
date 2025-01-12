@@ -16,8 +16,9 @@ using BveEx.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
+using CommEx.Serial.Common;
 
-namespace CommEx.Serial
+namespace CommEx.Serial.ViewModel
 {
     public class PortViewModel : INotifyPropertyChanged
     {
