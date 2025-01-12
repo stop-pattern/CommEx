@@ -115,7 +115,11 @@ namespace CommEx.Serial
 
             window = new SettingWindow(portViewModel);
             window.Closing += WindowClosing;
+#if DEBUG
+            window.Show();
+#else
             window.Hide();
+#endif
         }
 
         #endregion
@@ -157,6 +161,10 @@ namespace CommEx.Serial
 
             setting = cmx.AddCheckableMenuItem("シリアル通信設定", MenuItemCheckedChanged, ContextMenuItemType.CoreAndExtensions);
             native.Started += NativeStarted; ;
+
+#if DEBUG
+            setting.Checked = true;
+#endif
         }
 
         /// <summary>
