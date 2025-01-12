@@ -79,15 +79,15 @@ namespace CommEx.Serial.Bids
         NotStarted,
     }
 
-    internal class Bids : ISerialControl
+    public class Bids : ISerialControl
     {
         #region Fields
 
-        const int version = 300;
+        private const int version = 300;
 
         private static bool isAvailable = false;
         private static INative native;
-        private static IBveHacker bveHacker;
+        private static IBveHacker hacker;
 
         /// <summary>
         /// 改行コード
@@ -112,7 +112,7 @@ namespace CommEx.Serial.Bids
         /// </summary>
         /// <param name="str">コマンド</param>
         /// <returns>返答</returns>
-        string CreateResponse(string str)
+        private string CreateResponse(string str)
         {
             string header = str.Substring(0, 2).Trim();
             string body = str.Substring(2).Trim();
@@ -180,8 +180,8 @@ namespace CommEx.Serial.Bids
                                 case 8: // 電流 [A]
                                     return response + native.VehicleState.Current.ToString();
                                 //case 9: // 電圧 [V]（準備工事）
-                                //    return response + bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch.ToString();
-                                //    return response + bveHacker.Scenario.Vehicle.Instruments.Electricity.
+                                //    return response + hacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch.ToString();
+                                //    return response + hacker.Scenario.Vehicle.Instruments.Electricity.
                                 case 10: // 現在時刻(HH)[時]
                                     return response + native.VehicleState.Time.Hours.ToString();
                                 case 11: // 現在時刻(MM)[分]
@@ -199,13 +199,13 @@ namespace CommEx.Serial.Bids
                             switch (num2)
                             {
                                 case 0: // Bノッチ位置
-                                    return response + bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch.ToString();
+                                    return response + hacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch.ToString();
                                 case 1: // Pノッチ位置
-                                    return response + bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch.ToString();
+                                    return response + hacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch.ToString();
                                 case 2: // レバーサー位置
-                                    return response + bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.ReverserPosition.ToString();
+                                    return response + hacker.Scenario.Vehicle.Instruments.Cab.Handles.ReverserPosition.ToString();
                                 case 3: // 定速状態（準備工事）
-                                    return response + bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.ConstantSpeedMode.ToString();
+                                    return response + hacker.Scenario.Vehicle.Instruments.Cab.Handles.ConstantSpeedMode.ToString();
                                 default:
                                     return CreateError(Errors.ErrorInCodeNumber);
                             }
@@ -215,7 +215,7 @@ namespace CommEx.Serial.Bids
                                 try
                                 {
                                     return response + native.AtsPanelArray[num2].ToString();
-                                    //int val = bveHacker.Scenario.Vehicle.Instruments.AtsPlugin.PanelArray[num2];
+                                    //int val = hacker.Scenario.Vehicle.Instruments.AtsPlugin.PanelArray[num2];
                                     //return response + val.ToString();
                                 }
                                 catch (Exception e)
@@ -234,7 +234,7 @@ namespace CommEx.Serial.Bids
                                 try
                                 {
                                     return response + native.AtsSoundArray[num2].ToString();
-                                    //int val = bveHacker.Scenario.Vehicle.Instruments.AtsPlugin.SoundArray[num2];
+                                    //int val = hacker.Scenario.Vehicle.Instruments.AtsPlugin.SoundArray[num2];
                                     //return response + val.ToString();
                                 }
                                 catch (Exception e)
@@ -251,7 +251,7 @@ namespace CommEx.Serial.Bids
                             switch (num2)
                             {
                                 case 0:     // 全体
-                                    return response + bveHacker.Scenario.Vehicle.Conductor.Doors.AreAllClosed;
+                                    return response + hacker.Scenario.Vehicle.Conductor.Doors.AreAllClosed;
                                 case -1:    // 左（準備工事）
                                 case 1:     // 右（準備工事）
                                 default:
@@ -264,35 +264,35 @@ namespace CommEx.Serial.Bids
                 case 'R':   // レバーサー操作要求
                     if (-1 <= num1 && num1 <= 1)
                     {
-                        bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch = num1;
+                        hacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch = num1;
                         return response + 0.ToString();
                     }
                     return CreateError(Errors.ErrorInCodeSymbol);
                 case 'S':   // ワンハンドル操作要求
                     //if (num1 > 0)
                     //{
-                    //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num1;
-                    //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num1;
+                    //    hacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num1;
+                    //    hacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num1;
                     //    return response + 0.ToString();
                     //}
                     //else if (num1 < 0)
                     //{
-                    //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num1;
-                    //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num1;
+                    //    hacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num1;
+                    //    hacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num1;
                     //    return response + 0.ToString();
                     //}
                     //else if (num1 == 0)
                     //{
-                    //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch = 0;
-                    //    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch = 0;
+                    //    hacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch = 0;
+                    //    hacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch = 0;
                     //    return response + 0.ToString();
                     //}
                     return CreateError(Errors.ErrorInCodeSymbol);
                 case 'P':   // 力行操作要求
-                    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num1;
+                    hacker.Scenario.Vehicle.Instruments.Cab.Handles.PowerNotch += num1;
                     return response + 0.ToString();
                 case 'B':   // 制動操作要求
-                    bveHacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num1;
+                    hacker.Scenario.Vehicle.Instruments.Cab.Handles.BrakeNotch += num1;
                     return response + 0.ToString();
                 case 'K':   // キー操作要求
                     switch (body.ElementAt(1))
@@ -300,14 +300,14 @@ namespace CommEx.Serial.Bids
                         case 'P':   // Pless
                             if (num1 <= (int)AtsKeyName.L)
                             {
-                                bveHacker.InputManager.KeyDown_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num1));
+                                hacker.InputManager.KeyDown_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num1));
                                 return response + 0.ToString();
                             }
                             return CreateError(Errors.ErrorInCodeNumber);
                         case 'R':   // Release
                             if (num1 <= (int)AtsKeyName.L)
                             {
-                                bveHacker.InputManager.KeyUp_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num1));
+                                hacker.InputManager.KeyUp_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num1));
                                 return response + 0.ToString();
                             }
                             return CreateError(Errors.ErrorInCodeNumber);
@@ -327,7 +327,7 @@ namespace CommEx.Serial.Bids
             return null;
         }
 
-        string CreateError(Errors err, string header = "EX")
+        private string CreateError(Errors err, string header = "EX")
         {
 #if DEBUG
             Debug.WriteLine(err.ToString());
