@@ -344,12 +344,17 @@ namespace CommEx.Serial.ViewModel
             }
 
             UpdatePorts();
+        }
 
+        /// <summary>
+        /// 自動接続処理
+        /// </summary>
+        public void CheckAutoConnect()
+        {
             if (isAutoConnent || IsClosed)
             {
                 if (AvailablePorts.Contains(PortName))
                 {
-                    // 自動接続：ポート名の読み取りでコケる
                     OpenClosePort();
                 }
             }

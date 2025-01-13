@@ -121,6 +121,8 @@ namespace CommEx.Serial
 #else
             window.Hide();
 #endif
+
+            portViewModel.CheckAutoConnect();
         }
 
         #endregion
