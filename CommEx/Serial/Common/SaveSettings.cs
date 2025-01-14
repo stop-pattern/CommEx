@@ -61,10 +61,10 @@ namespace CommEx.Serial.Common
 
                 if (!File.Exists(filePath)) return new PortViewModel();
 
-                using (var stream = new FileStream(filePath, FileMode.Open))
+                using (var reader = new StreamReader(filePath))
                 {
                     var serializer = new XmlSerializer(typeof(PortViewModel));
-                    var serializableObject = (PortViewModel)serializer.Deserialize(stream);
+                    var serializableObject = (PortViewModel)serializer.Deserialize(reader);
                     return serializableObject;
                 }
             }
