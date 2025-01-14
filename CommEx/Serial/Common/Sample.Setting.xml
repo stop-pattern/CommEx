@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Port xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PortName="COM1">
+<Port xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PortName="COM0">
   <BaudRate>115200</BaudRate>
   <DataBits>8</DataBits>
   <DtrEnable>false</DtrEnable>
   <Handshake>None</Handshake>
+  <NewLine>CRLF</NewLine>
   <Parity>None</Parity>
   <StopBits>One</StopBits>
   <IsAutoConnent>true</IsAutoConnent>

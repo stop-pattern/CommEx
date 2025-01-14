@@ -5,17 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:CommEx.Serial.ViewModel"
         mc:Ignorable="d"
-        Title="Serial Port Settings" Height="400" Width="400">
+        Title="Serial Port Settings" Height="400" Width="500">
     <Window.Resources>
         <vm:BoolToColorConverter x:Key="BoolToColorConverter"/>
     </Window.Resources>
 
     <Viewbox>
 
-        <Grid Height="350" Width="300">
+        <Grid Height="350" Width="500">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -66,19 +68,23 @@
             <Label Content="Flow Control:" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <ComboBox x:Name="FlowControlComboBox" Grid.Column="2" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding HandshakeOptions}" SelectedItem="{Binding Handshake}" IsEnabled="{Binding IsClosed}"/>
 
+            <!-- 改行文字 -->
+            <Label Content="New Line:" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="NewLineComboBox" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding NewLineOptions}" SelectedItem="{Binding NewLine}" IsEnabled="{Binding IsClosed}"/>
+
             <!-- DTR -->
-            <Label Content="DTR:" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <CheckBox x:Name="isDtr" Grid.Column="2" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding DtrEnable}" IsEnabled="{Binding IsClosed}"/>
+            <Label Content="DTR:" Grid.Column="1" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <CheckBox x:Name="isDtr" Grid.Column="2" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding DtrEnable}" IsEnabled="{Binding IsClosed}"/>
 
             <!-- AutoConnect -->
-            <Label Content="Auto Connect:" Grid.Column="1" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <CheckBox x:Name="isAutoConnect" Grid.Column="2" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding IsAutoConnent}"/>
+            <Label Content="Auto Connect:" Grid.Column="3" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <CheckBox x:Name="isAutoConnect" Grid.Column="4" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding IsAutoConnent}"/>
 
             <!-- 接続状況表示 -->
-            <Ellipse x:Name="PortStaus" Grid.Column="1" Grid.Row="17" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Fill="{Binding IsOpen, Converter={StaticResource BoolToColorConverter}}"/>
+            <Ellipse x:Name="PortStaus" Grid.Column="3" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Fill="{Binding IsOpen, Converter={StaticResource BoolToColorConverter}}"/>
 
             <!-- ポートを開閉するボタン -->
-            <Button x:Name="OpenButton" Content="Open/Close Port" Grid.Column="2" Grid.Row="17" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Command="{Binding OpenClosePortCommand}"/>
+            <Button x:Name="OpenButton" Content="Open/Close Port" Grid.Column="4" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Command="{Binding OpenClosePortCommand}"/>
         </Grid>
 
     </Viewbox>

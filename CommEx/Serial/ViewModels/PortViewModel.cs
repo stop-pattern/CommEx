@@ -172,19 +172,19 @@ namespace CommEx.Serial.ViewModel
         /// <summary>
         /// 改行文字
         /// </summary>
-        [Browsable(false)]
-        [DefaultValue("\n")]
+        [Browsable(true)]
+        [DefaultValue(NewLines.LF)]
         [MonitoringDescription("NewLine")]
         [XmlElement("NewLine")]
-        public string NewLine
+        public NewLines NewLine
         {
             get
             {
-                return port.NewLine;
+                return EnumExtention.GetEnumValueFromDescription<NewLines>(port.NewLine);
             }
             set
             {
-                port.NewLine = value;
+                port.NewLine = EnumExtention.GetDescriptionFromValue(value);
                 RaisePropertyChanged();
             }
         }
@@ -304,6 +304,12 @@ namespace CommEx.Serial.ViewModel
         /// </summary>
         [XmlIgnore]
         public ObservableCollection<Handshake> HandshakeOptions { get; } = new ObservableCollection<Handshake>(Enum.GetValues(typeof(Handshake)) as Handshake[]);
+
+        /// <summary>
+        /// 改行文字の選択肢リスト
+        /// </summary>
+        [XmlIgnore]
+        public ObservableCollection<NewLines> NewLineOptions { get; } = new ObservableCollection<NewLines>(Enum.GetValues(typeof(NewLines)) as NewLines[]);
 
         /// <summary>
         /// ポートリストのアップデートコマンド
