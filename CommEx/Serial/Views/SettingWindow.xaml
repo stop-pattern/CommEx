@@ -5,18 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:CommEx.Serial.ViewModels"
         mc:Ignorable="d"
-        Title="Serial Port Settings" Height="400" Width="500">
+        Title="Serial Port Settings">
     <Window.Resources>
         <vm:BoolToColorConverter x:Key="BoolToColorConverter"/>
     </Window.Resources>
 
     <Viewbox>
 
-        <Grid Height="350" Width="500">
+        <Grid Height="350" Width="600">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
@@ -77,14 +78,14 @@
             <CheckBox x:Name="isDtr" Grid.Column="2" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding DtrEnable}" IsEnabled="{Binding IsClosed}"/>
 
             <!-- AutoConnect -->
-            <Label Content="Auto Connect:" Grid.Column="3" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <CheckBox x:Name="isAutoConnect" Grid.Column="4" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding IsAutoConnent}"/>
+            <Label Content="Auto Connect:" Grid.Column="4" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <CheckBox x:Name="isAutoConnect" Grid.Column="5" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding IsAutoConnent}"/>
 
             <!-- 接続状況表示 -->
-            <Ellipse x:Name="PortStaus" Grid.Column="3" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Fill="{Binding IsOpen, Converter={StaticResource BoolToColorConverter}}"/>
+            <Ellipse x:Name="PortStaus" Grid.Column="4" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="20" Fill="{Binding IsOpen, Converter={StaticResource BoolToColorConverter}}"/>
 
             <!-- ポートを開閉するボタン -->
-            <Button x:Name="OpenButton" Content="Open/Close Port" Grid.Column="4" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Command="{Binding OpenClosePortCommand}"/>
+            <Button x:Name="OpenButton" Content="Open/Close Port" Grid.Column="5" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Command="{Binding OpenClosePortCommand}"/>
         </Grid>
 
     </Viewbox>
