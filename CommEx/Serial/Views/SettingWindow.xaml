@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:CommEx.Serial.ViewModels"
         mc:Ignorable="d"
-        Title="Serial Port Settings">
+        Title="Serial Port Settings" Height="400" Width="600">
     <Window.Resources>
         <vm:BoolToColorConverter x:Key="BoolToColorConverter"/>
     </Window.Resources>
 
     <Viewbox>
 
-        <Grid Height="350" Width="600">
+        <Grid Height="360" Width="560">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
@@ -86,6 +86,9 @@
 
             <!-- ポートを開閉するボタン -->
             <Button x:Name="OpenButton" Content="Open/Close Port" Grid.Column="5" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Command="{Binding OpenClosePortCommand}"/>
+            
+            <!-- 文字表示 -->
+            <TextBox x:Name="Message" Text="{Binding Message}" Grid.Column="1" Grid.Row="17" Grid.ColumnSpan="5" VerticalContentAlignment="Center" Margin="0"/>
         </Grid>
 
     </Viewbox>
