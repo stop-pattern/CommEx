@@ -14,7 +14,7 @@ using BveEx.PluginHost.Plugins.Extensions;
 using BveTypes.ClassWrappers;
 using BveEx.Extensions.Native;
 using BveEx.Diagnostics;
-using CommEx.Serial.ViewModel;
+using CommEx.Serial.ViewModels;
 using CommEx.Serial.Views;
 using CommEx.Serial.Common;
 using CommEx.Serial.Bids;

@@ -20,7 +20,7 @@ using CommEx.Serial.Common;
 using System.Xml.Serialization;
 using CommEx.Serial.Bids;
 
-namespace CommEx.Serial.ViewModel
+namespace CommEx.Serial.ViewModels
 {
     [Serializable]
     [XmlRoot("Port")]

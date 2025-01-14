@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using CommEx.Serial.ViewModel;
+using CommEx.Serial.ViewModels;
 using System.Diagnostics;
 
 namespace CommEx.Serial.Common

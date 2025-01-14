@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO.Ports;
 using BveEx.Diagnostics;
-using CommEx.Serial.ViewModel;
+using CommEx.Serial.ViewModels;
 
 namespace CommEx.Serial.Views
 {
