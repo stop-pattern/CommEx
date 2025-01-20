@@ -19,6 +19,7 @@ using System.Windows.Media;
 using CommEx.Serial.Common;
 using System.Xml.Serialization;
 using CommEx.Serial.Bids;
+using CommEx.Serial.Views;
 
 namespace CommEx.Serial.ViewModels
 {
@@ -270,6 +271,25 @@ namespace CommEx.Serial.ViewModels
         }
 
         /// <summary>
+        /// ボタン用テキスト
+        /// </summary>
+        [XmlIgnore]
+        public string OperationString
+        {
+            get
+            {
+                if (IsOpen)
+                {
+                    return "Close";
+                }
+                else
+                {
+                    return "Open";
+                }
+            }
+        }
+
+        /// <summary>
         /// 使用可能なポートの選択肢リスト
         /// </summary>
         [XmlIgnore]
@@ -437,6 +457,40 @@ namespace CommEx.Serial.ViewModels
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
 
             //UpdatePorts();
+        }
+
+        /// <summary>
+        /// 設定ウィンドウを表示
+        /// </summary>
+        /// <param name="isModal">モーダルとして表示するかどうか</param>
+        /// <returns>モーダルとして開いたウィンドウが閉じられたか否か</returns>
+        public bool? ShowSettingWindow(bool isModal = false)
+        {
+            SettingWindow settingWindow = new SettingWindow(this);
+            if (isModal)
+            {
+                return settingWindow.ShowDialog();
+            }
+            else
+            {
+                settingWindow.Show();
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// リソースの解放
+        /// </summary>
+        public void Dispose()
+        {
+            if (port != null)
+            {
+                if (port.IsOpen)
+                {
+                    port.Close();
+                }
+                port.Dispose();
+            }
         }
 
         /// <summary>

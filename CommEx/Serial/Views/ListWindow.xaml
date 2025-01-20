@@ -1,0 +1,111 @@
+﻿<Window x:Class="CommEx.Serial.Views.ListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:CommEx.Serial.ViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:ListViewModel, IsDesignTimeCreatable=True}"
+        mc:Ignorable="d"
+        Title="ListWindow" Height="450" Width="800">
+    <Window.Resources>
+        <vm:BoolToColorConverter x:Key="BoolToColorConverter"/>
+    </Window.Resources>
+
+    <DockPanel>
+
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <!-- 追加ボタン -->
+            <Button
+                Width="100"
+                Height="30"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Command="{Binding AddItemCommand}"
+                Content="Add items" />
+
+            <!-- 設定ボタン -->
+            <Button
+                Width="100"
+                Height="30"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Command="{Binding SettingCommand}"
+                CommandParameter="{Binding ElementName=PortDataGrid, Path=SelectedItem}"
+                Content="Setting" />
+
+            <!-- 削除ボタン -->
+            <Button
+                Width="100"
+                Height="30"
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Command="{Binding DeleteItemCommand}"
+                CommandParameter="{Binding ElementName=PortDataGrid, Path=SelectedItem}"
+                Content="Delete" />
+        </StackPanel>
+
+        <DataGrid x:Name="PortDataGrid" Margin="0,20,0,0"
+                  ItemsSource="{Binding PortViewModels}"
+                  SelectedItem="{Binding SelectedPort, Mode=TwoWay}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserResizeColumns="True" CanUserResizeRows="False"
+                  SelectionMode="Single" IsReadOnly="True">
+            <DataGrid.Columns>
+
+                <!-- 操作ボタン -->
+                <DataGridTemplateColumn Header="Operation">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding DataContext.OpenClosePortCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Content="{Binding OperationString}"/>
+                            <!--<Button Command="{Binding DataContext.ButtonShow, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}">Show</Button>-->
+                            <!--<Button Content="Open" Command="{Binding DataContext.OpenSettingCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                    CommandParameter="{Binding}" />-->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- ポート状態 -->
+                <DataGridTemplateColumn Header="Status">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Width="15" Height="15" Fill="{Binding IsOpen, Converter={StaticResource BoolToColorConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridCheckBoxColumn Header="Connected" Binding="{Binding IsOpen, Mode=OneWay}"/>-->
+
+                <!-- ポート名 -->
+                <DataGridTextColumn Header="Port Name" Binding="{Binding PortName}"/>
+
+                <!-- ボーレート -->
+                <DataGridTextColumn Header="Baud Rate" Binding="{Binding BaudRate}"/>
+                <!--<DataGridComboBoxColumn Header="Baud Rate" ItemsSource="{Binding BaudRates}" SelectedItem="{Binding BaudRate}"/>-->
+
+                <!-- データビット -->
+                <DataGridTextColumn Header="DataBits" Binding="{Binding DataBits}"/>
+
+                <!-- ストップビット -->
+                <DataGridTextColumn Header="StopBits" Binding="{Binding StopBits}"/>
+
+                <!-- パリティ -->
+                <DataGridTextColumn Header="Parity" Binding="{Binding Parity}"/>
+
+                <!-- 改行文字 -->
+                <DataGridTextColumn Header="New Line" Binding="{Binding NewLine}"/>
+
+                <!-- フロー制御 -->
+                <DataGridTextColumn Header="Handshake" Binding="{Binding Handshake}"/>
+
+                <!-- DTR -->
+                <DataGridCheckBoxColumn Header="DTR" Binding="{Binding DtrEnable}"/>
+
+                <!-- 自動接続 -->
+                <DataGridCheckBoxColumn Header="Auto Connect" Binding="{Binding IsAutoConnent}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>
