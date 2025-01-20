@@ -73,14 +73,14 @@ namespace CommEx.Serial
         private ToolStripMenuItem setting;
 
         /// <summary>
-        /// 設定ウィンドウ
+        /// ウィンドウ
         /// </summary>
-        private readonly SettingWindow window;
+        private readonly ListWindow window;
 
         /// <summary>
         /// ビューモデル
         /// </summary>
-        protected PortViewModel portViewModel;
+        protected ListViewModel viewModel;
 
         #endregion
 
@@ -112,9 +112,10 @@ namespace CommEx.Serial
             BveHacker.ScenarioCreated += OnScenarioCreated;
             BveHacker.ScenarioClosed += ScenarioClosed;
 
-            portViewModel = SaveSettings.Load();
+            //viewModel = SaveSettings.Load();
+            viewModel = new ListViewModel();
 
-            window = new SettingWindow(portViewModel);
+            window = new ListWindow(viewModel);
             window.Closing += WindowClosing;
 #if DEBUG
             window.Show();
@@ -122,7 +123,10 @@ namespace CommEx.Serial
             window.Hide();
 #endif
 
-            portViewModel.CheckAutoConnect();
+            foreach (var item in viewModel.PortViewModels)
+            {
+                item.CheckAutoConnect();
+            }
         }
 
         #endregion
@@ -132,7 +136,7 @@ namespace CommEx.Serial
         /// <inheritdoc/>
         public override void Dispose()
         {
-            SaveSettings.Save(portViewModel);
+            //SaveSettings.Save(portViewModel);
 
             Extensions.AllExtensionsLoaded -= AllExtensionsLoaded;
             BveHacker.ScenarioCreated -= OnScenarioCreated;
@@ -193,7 +197,6 @@ namespace CommEx.Serial
 
         #endregion
 
-
         #region Event Handlers
 
         /// <summary>
@@ -232,16 +235,18 @@ namespace CommEx.Serial
         }
 
         /// <summary>
-        /// 設定ウィンドウの閉じるボタンのクリックイベントハンドラ
+        /// リストウィンドウの閉じるボタンのクリックイベントハンドラ
         /// </summary>
-        /// <param name="sender"><see cref="SettingWindow">SettingWindow</see></param>
+        /// <param name="sender"><see cref="ListWindow">ListWindow</see></param>
         /// <param name="e">キャンセルできるイベントのデータ</param>
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            e.Cancel = true;
-            SettingWindow window = (SettingWindow)sender;
-            window.Hide();
-            setting.Checked = false;
+            if (sender is ListWindow window)
+            {
+                e.Cancel = true;
+                window.Hide();
+                setting.Checked = false;
+            }
         }
 
         #endregion
