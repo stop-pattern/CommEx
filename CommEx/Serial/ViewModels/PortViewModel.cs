@@ -44,6 +44,11 @@ namespace CommEx.Serial.ViewModels
         /// </summary>
         private bool isAutoConnent;
 
+        /// <summary>
+        /// 表示用テキスト
+        /// </summary>
+        private string message = "";
+
         #endregion
 
         #region Properties
@@ -268,6 +273,17 @@ namespace CommEx.Serial.ViewModels
                 isAutoConnent = value;
                 RaisePropertyChanged();
             }
+        }
+
+        /// <summary>
+        /// 表示用テキスト
+        /// </summary>
+        [DefaultValue("")]
+        [XmlIgnore]
+        public string Message
+        {
+            get { return message; }
+            set { message = value; }
         }
 
         /// <summary>
@@ -524,26 +540,40 @@ namespace CommEx.Serial.ViewModels
                 {
                     control.PortOpen(port);
                     port.Open();
+
+                    if (IsOpen)
+                    {
+                        message = "Port: Open";
+                    }
+                    else
+                    {
+                        message = "Port: Close";
+                    }
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     ErrorDialog.Show(new ErrorDialogInfo("ポートが既に使われています。", ex.Source, ex.Message));
+                    Message = "ポートが既に使われています。";
                 }
                 catch (ArgumentOutOfRangeException ex)
                 {
                     ErrorDialog.Show(new ErrorDialogInfo("ポートの設定が無効です。", ex.Source, ex.Message));
+                    Message = "ポートの設定が無効です。";
                 }
                 catch (ArgumentException ex)
                 {
                     ErrorDialog.Show(new ErrorDialogInfo("このポートはサポートされていません。", ex.Source, ex.Message));
+                    Message = "このポートはサポートされていません。";
                 }
                 catch (IOException ex)
                 {
                     ErrorDialog.Show(new ErrorDialogInfo("ポートが無効状態です。", ex.Source, ex.Message));
+                    Message = "ポートが無効状態です。";
                 }
                 catch (Exception ex)
                 {
                     ErrorDialog.Show(new ErrorDialogInfo("ポートのオープンに失敗しました。", ex.Source, ex.Message));
+                    Message = "ポートのオープンに失敗しました。";
                 }
             }
             else
@@ -553,19 +583,32 @@ namespace CommEx.Serial.ViewModels
                 {
                     port.Close();
                     control.PortClose(port);
+
+                    if (IsOpen)
+                    {
+                        message = "Port: Open";
+                    }
+                    else
+                    {
+                        message = "Port: Close";
+                    }
                 }
                 catch (IOException ex)
                 {
                     ErrorDialog.Show(new ErrorDialogInfo("ポートが無効状態です。", ex.Source, ex.Message));
+                    Message = "ポートが無効状態です。";
                 }
                 catch (Exception ex)
                 {
                     ErrorDialog.Show(new ErrorDialogInfo("ポートを閉じたときにエラーが発生しました。", ex.Source, ex.Message));
+                    Message = "ポートを閉じたときにエラーが発生しました。";
                 }
             }
+
             RaisePropertyChanged("IsOpen");
             RaisePropertyChanged("IsClosed");
             RaisePropertyChanged("OperationString");
+            RaisePropertyChanged("Message");
         }
 
         #endregion

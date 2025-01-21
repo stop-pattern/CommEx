@@ -100,7 +100,7 @@
             <Button x:Name="OpenButton" Content="Open/Close Port" Grid.Column="5" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Command="{Binding OpenClosePortCommand}"/>
             
             <!-- 文字表示 -->
-            <TextBox x:Name="Message" Text="{Binding Message}" Grid.Column="1" Grid.Row="17" Grid.ColumnSpan="5" VerticalContentAlignment="Center" Margin="0"/>
+            <TextBox x:Name="Message" Text="{Binding Message, Mode=OneWay}" Grid.Column="1" Grid.Row="17" Grid.ColumnSpan="5" VerticalContentAlignment="Center" Margin="0" IsReadOnly="True"/>
         </Grid>
 
     </Viewbox>
