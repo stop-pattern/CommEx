@@ -25,7 +25,7 @@ namespace CommEx.Serial.ViewModels
 {
     [Serializable]
     [XmlRoot("Port")]
-    public class PortViewModel : INotifyPropertyChanged
+    public class PortViewModel : BaseViewModel
     {
         #region Fields
 
@@ -612,75 +612,5 @@ namespace CommEx.Serial.ViewModels
         }
 
         #endregion
-
-        #region Interface Implementation
-
-        /// <inheritdoc/>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// View に値の変更を通知
-        /// </summary>
-        /// <param name="propertyName">呼び出し元のプロパティ名（自動取得）</param>
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
-    }
-
-    public class RelayCommand : ICommand
-    {
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
-
-        public RelayCommand(Action execute, Func<bool> canExecute = null)
-        {
-            _execute = execute;
-            _canExecute = canExecute;
-        }
-
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
-
-        public void Execute(object parameter) => _execute();
-
-        public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    public class BoolToColorConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is bool isOpen)
-            {
-                return isOpen ? Brushes.Green : Brushes.Red;
-            }
-
-            return Brushes.Gray; // デフォルト色
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is Brush brush)
-            {
-                if (brush == Brushes.Green)
-                {
-                    return true;
-                }
-                else if (brush == Brushes.Red)
-                {
-                    return false;
-                }
-                else if (brush == Brushes.Gray)
-                {
-                    return false;
-                }
-            }
-
-            throw new InvalidOperationException("Unsupported conversion");
-        }
     }
 }

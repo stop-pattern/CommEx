@@ -20,7 +20,7 @@ using CommEx.Serial.Views;
 namespace CommEx.Serial.ViewModels
 {
     [XmlRoot("Settings")]
-    public class ListViewModel: INotifyPropertyChanged
+    public class ListViewModel: BaseViewModel
     {
         #region Fields
 
@@ -186,22 +186,6 @@ namespace CommEx.Serial.ViewModels
                 SelectedPort = null;
                 RaisePropertyChanged(nameof(SelectedPort));
             }
-        }
-
-        #endregion
-
-        #region Interface Implementation
-
-        /// <inheritdoc/>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// View に値の変更を通知
-        /// </summary>
-        /// <param name="propertyName">呼び出し元のプロパティ名（自動取得）</param>
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

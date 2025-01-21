@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:CommEx.Serial.ViewModels"
+        xmlns:com="clr-namespace:CommEx.Serial.Common"
         d:DataContext="{d:DesignInstance Type=vm:PortViewModel, IsDesignTimeCreatable=True}"
         mc:Ignorable="d"
         Title="Serial Port Settings" Height="400" Width="600">
     <Window.Resources>
-        <vm:BoolToColorConverter x:Key="BoolToColorConverter"/>
+        <com:BoolToColorConverter x:Key="BoolToColorConverter"/>
     </Window.Resources>
 
     <Viewbox>
