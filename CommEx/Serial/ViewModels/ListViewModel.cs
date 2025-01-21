@@ -64,8 +64,16 @@ namespace CommEx.Serial.ViewModels
             {
                 selectedPort = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged("IsButtonAvailable");
+                UpdateCommands();
             }
         }
+
+        /// <summary>
+        /// ボタンが利用可能か
+        /// </summary>
+        [XmlIgnore]
+        public bool IsButtonAvailable => SelectedPort != null;
 
         /// <summary>
         /// 追加コマンド
@@ -129,6 +137,15 @@ namespace CommEx.Serial.ViewModels
             AddItemCommand = new RelayCommand(AddItem);
             SettingCommand = new RelayCommand(ShowSettingWindow, IsSelectedItemNotNull);
             DeleteItemCommand = new RelayCommand(ClearSelectedItem, IsSelectedItemNotNull);
+        }
+
+        /// <summary>
+        /// コマンドの実行可否を更新
+        /// </summary>
+        private void UpdateCommands()
+        {
+            (SettingCommand as RelayCommand).RaiseCanExecuteChanged();
+            (DeleteItemCommand as RelayCommand).RaiseCanExecuteChanged();
         }
 
         /// <summary>

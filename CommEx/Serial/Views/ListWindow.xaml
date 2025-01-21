@@ -32,6 +32,7 @@
                 VerticalAlignment="Top"
                 Command="{Binding SettingCommand}"
                 CommandParameter="{Binding ElementName=PortDataGrid, Path=SelectedItem}"
+                IsEnabled="{Binding IsButtonAvailable}"
                 Content="Setting" />
 
             <!-- 削除ボタン -->
@@ -43,6 +44,7 @@
                 VerticalAlignment="Top"
                 Command="{Binding DeleteItemCommand}"
                 CommandParameter="{Binding ElementName=PortDataGrid, Path=SelectedItem}"
+                IsEnabled="{Binding IsButtonAvailable}"
                 Content="Delete" />
         </StackPanel>
 
