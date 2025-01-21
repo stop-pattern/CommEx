@@ -273,6 +273,7 @@ namespace CommEx.Serial.ViewModels
         /// <summary>
         /// ボタン用テキスト
         /// </summary>
+        [DefaultValue("Open")]
         [XmlIgnore]
         public string OperationString
         {
@@ -564,6 +565,7 @@ namespace CommEx.Serial.ViewModels
             }
             RaisePropertyChanged("IsOpen");
             RaisePropertyChanged("IsClosed");
+            RaisePropertyChanged("OperationString");
         }
 
         #endregion
