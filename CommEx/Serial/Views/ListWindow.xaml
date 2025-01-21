@@ -61,7 +61,7 @@
                 <DataGridTemplateColumn Header="Operation">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Command="{Binding DataContext.OpenClosePortCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Content="{Binding OperationString}"/>
+                            <Button Command="{Binding OpenClosePortCommand}" CommandParameter="{Binding}" Content="{Binding OperationString}"/>
                             <!--<Button Command="{Binding DataContext.ButtonShow, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}">Show</Button>-->
                             <!--<Button Content="Open" Command="{Binding DataContext.OpenSettingCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
                                     CommandParameter="{Binding}" />-->
