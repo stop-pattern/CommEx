@@ -157,7 +157,13 @@ namespace CommEx.Serial.ViewModels
         /// <summary>
         /// ポート設定を追加
         /// </summary>
-        private void AddItem() => portViewModels.Add(new PortViewModel());
+        private void AddItem()
+        {
+            var index = portViewModels.IndexOf(SelectedPort);
+            portViewModels.Add(new PortViewModel());
+            if (index < 0) index = portViewModels.Count - 1;
+            selectedPort = portViewModels.ElementAt(index);
+        }
 
         /// <summary>
         /// 設定ウィンドウを表示
@@ -166,8 +172,6 @@ namespace CommEx.Serial.ViewModels
         {
             // 設定ウィンドウをモーダルで表示する
             SelectedPort.ShowSettingWindow(true);
-            //SettingWindow settingWindow = new SettingWindow(viewModel);
-            //settingWindow.ShowDialog();
         }
 
         /// <summary>
@@ -182,58 +186,6 @@ namespace CommEx.Serial.ViewModels
                 SelectedPort = null;
                 RaisePropertyChanged(nameof(SelectedPort));
             }
-        }
-
-        #endregion
-
-        #region Class
-
-        /// <summary>
-        /// 設定ボタンのコマンド
-        /// </summary>
-        internal class SettingButtonCommand: ICommand
-        {
-            #region Constructor
-
-            public SettingButtonCommand()
-            {
-            }
-
-            #endregion
-
-            #region Event Handler
-
-            /// <inheritdoc/>
-            public event EventHandler CanExecuteChanged;
-
-            #endregion
-
-            #region Method
-
-            /// <inheritdoc/>
-            public bool CanExecute(object parameter)
-            {
-                // 常に実行可能
-                return true;
-            }
-
-            /// <inheritdoc/>
-            public void Execute(object parameter)
-            {
-                // 設定ウィンドウをモーダルで表示する
-                if (parameter is PortViewModel viewModel)
-                {
-                    if (viewModel == null)
-                    {
-                        viewModel = new PortViewModel();
-                    }
-                    viewModel.ShowSettingWindow(true);
-                    //SettingWindow settingWindow = new SettingWindow(viewModel);
-                    //settingWindow.ShowDialog();
-                }
-            }
-
-            #endregion
         }
 
         #endregion
