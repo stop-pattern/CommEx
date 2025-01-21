@@ -310,43 +310,43 @@ namespace CommEx.Serial.ViewModels
         /// 使用可能なポートの選択肢リスト
         /// </summary>
         [XmlIgnore]
-        public ObservableCollection<string> AvailablePorts { get; } = new ObservableCollection<string>();
+        public static ObservableCollection<string> AvailablePorts { get; } = new ObservableCollection<string>();
 
         /// <summary>
         /// ボーレートの選択肢リスト
         /// </summary>
         [XmlIgnore]
-        public ObservableCollection<int> BaudRates { get; } = new ObservableCollection<int> { 9600, 19200, 38400, 57600, 115200 };
+        public static ObservableCollection<int> BaudRates { get; } = new ObservableCollection<int> { 9600, 19200, 38400, 57600, 115200 };
 
         /// <summary>
         /// データビットの選択肢リスト
         /// </summary>
         [XmlIgnore]
-        public ObservableCollection<int> DataBitsOptions { get; } = new ObservableCollection<int> { 5, 6, 7, 8 };
+        public static ObservableCollection<int> DataBitsOptions { get; } = new ObservableCollection<int> { 5, 6, 7, 8 };
 
         /// <summary>
         /// ストップビットの選択肢リスト
         /// </summary>
         [XmlIgnore]
-        public ObservableCollection<StopBits> StopBitsOptions { get; } = new ObservableCollection<StopBits> { StopBits.One, StopBits.OnePointFive, StopBits.Two };
+        public static ObservableCollection<StopBits> StopBitsOptions { get; } = new ObservableCollection<StopBits> { StopBits.One, StopBits.OnePointFive, StopBits.Two };
 
         /// <summary>
         /// パリティの選択肢リスト
         /// </summary>
         [XmlIgnore]
-        public ObservableCollection<Parity> ParityOptions { get; } = new ObservableCollection<Parity>(Enum.GetValues(typeof(Parity)) as Parity[]);
+        public static ObservableCollection<Parity> ParityOptions { get; } = new ObservableCollection<Parity>(Enum.GetValues(typeof(Parity)) as Parity[]);
 
         /// <summary>
         /// フロー制御の選択肢リスト
         /// </summary>
         [XmlIgnore]
-        public ObservableCollection<Handshake> HandshakeOptions { get; } = new ObservableCollection<Handshake>(Enum.GetValues(typeof(Handshake)) as Handshake[]);
+        public static ObservableCollection<Handshake> HandshakeOptions { get; } = new ObservableCollection<Handshake>(Enum.GetValues(typeof(Handshake)) as Handshake[]);
 
         /// <summary>
         /// 改行文字の選択肢リスト
         /// </summary>
         [XmlIgnore]
-        public ObservableCollection<NewLines> NewLineOptions { get; } = new ObservableCollection<NewLines>(Enum.GetValues(typeof(NewLines)) as NewLines[]);
+        public static ObservableCollection<NewLines> NewLineOptions { get; } = new ObservableCollection<NewLines>(Enum.GetValues(typeof(NewLines)) as NewLines[]);
 
         /// <summary>
         /// ポートリストのアップデートコマンド
@@ -519,7 +519,7 @@ namespace CommEx.Serial.ViewModels
         /// <summary>
         /// ポートリストのアップデート
         /// </summary>
-        private void UpdatePorts()
+        private static void UpdatePorts()
         {
             AvailablePorts.Clear();
             foreach (var port in SerialPort.GetPortNames())
@@ -605,6 +605,7 @@ namespace CommEx.Serial.ViewModels
                 }
             }
 
+            // プロパティの変更通知
             RaisePropertyChanged("IsOpen");
             RaisePropertyChanged("IsClosed");
             RaisePropertyChanged("OperationString");
