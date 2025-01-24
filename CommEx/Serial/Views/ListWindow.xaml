@@ -12,44 +12,51 @@
         <com:BoolToColorConverter x:Key="BoolToColorConverter"/>
     </Window.Resources>
 
-    <DockPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <!-- 追加ボタン -->
-            <Button
-                Width="100"
-                Height="30"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
+        <!-- 追加ボタン -->
+        <Button
+                Grid.Column="0"
+                Grid.Row="0"
                 Command="{Binding AddItemCommand}"
                 Content="Add items" />
 
-            <!-- 設定ボタン -->
-            <Button
-                Width="100"
-                Height="30"
-                Margin="20,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
+        <!-- 設定ボタン -->
+        <Button
+                Grid.Column="2"
+                Grid.Row="0"
                 Command="{Binding SettingCommand}"
                 CommandParameter="{Binding ElementName=PortDataGrid, Path=SelectedItem}"
                 IsEnabled="{Binding IsButtonAvailable}"
                 Content="Setting" />
 
-            <!-- 削除ボタン -->
-            <Button
-                Width="100"
-                Height="30"
-                Margin="20,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
+        <!-- 削除ボタン -->
+        <Button
+                Grid.Column="4"
+                Grid.Row="0"
                 Command="{Binding DeleteItemCommand}"
                 CommandParameter="{Binding ElementName=PortDataGrid, Path=SelectedItem}"
                 IsEnabled="{Binding IsButtonAvailable}"
                 Content="Delete" />
-        </StackPanel>
 
-        <DataGrid x:Name="PortDataGrid" Margin="0,20,0,0"
+        <DataGrid x:Name="PortDataGrid"
+                  Grid.Column="0"
+                  Grid.Row="2"
+                  Grid.ColumnSpan="10"
                   ItemsSource="{Binding PortViewModels}"
                   SelectedItem="{Binding SelectedPort, Mode=TwoWay}"
                   AutoGenerateColumns="False"
@@ -110,5 +117,5 @@
 
             </DataGrid.Columns>
         </DataGrid>
-    </DockPanel>
+    </Grid>
 </Window>
