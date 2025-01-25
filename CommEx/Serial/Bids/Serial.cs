@@ -319,14 +319,14 @@ namespace CommEx.Serial.Bids
                         case 'P':   // Pless
                             if (num1 <= (int)AtsKeyName.L)
                             {
-                                hacker.InputManager.KeyDown_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num1));
+                                //hacker.InputManager.KeyDown_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num1));
                                 return response + 0.ToString();
                             }
                             return CreateError(Errors.ErrorInCodeNumber);
                         case 'R':   // Release
                             if (num1 <= (int)AtsKeyName.L)
                             {
-                                hacker.InputManager.KeyUp_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num1));
+                                //hacker.InputManager.KeyUp_Invoke(InputEventArgsFactory.AtsKey((AtsKeyName)num1));
                                 return response + 0.ToString();
                             }
                             return CreateError(Errors.ErrorInCodeNumber);

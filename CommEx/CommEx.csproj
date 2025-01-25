@@ -20,9 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Mackoy.IInputDevice">
-      <HintPath>..\ref\Mackoy.IInputDevice.DLL</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Windows.Forms" />
