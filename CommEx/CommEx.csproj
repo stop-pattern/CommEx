@@ -26,16 +26,4 @@
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Serial\SettingWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Serial\Commands\" />
-    <Folder Include="Serial\Models\" />
-  </ItemGroup>
-
 </Project>
