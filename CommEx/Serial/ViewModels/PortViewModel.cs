@@ -57,7 +57,7 @@ namespace CommEx.Serial.ViewModels
         /// ボーレート[Baud]
         /// </summary>
         [Browsable(true)]
-        [DefaultValue(9600)]
+        //[DefaultValue(9600)]
         [MonitoringDescription("BaudRate")]
         [XmlElement("BaudRate")]
         public int BaudRate
@@ -77,7 +77,7 @@ namespace CommEx.Serial.ViewModels
         /// データビット[bit]
         /// </summary>
         [Browsable(true)]
-        [DefaultValue(8)]
+        //[DefaultValue(8)]
         [MonitoringDescription("DataBits")]
         [XmlElement("DataBits")]
         public int DataBits
@@ -97,7 +97,7 @@ namespace CommEx.Serial.ViewModels
         /// DTR 有効/無効
         /// </summary>
         [Browsable(true)]
-        [DefaultValue(false)]
+        //[DefaultValue(false)]
         [MonitoringDescription("DtrEnable")]
         [XmlElement("DtrEnable")]
         public bool DtrEnable
@@ -137,7 +137,7 @@ namespace CommEx.Serial.ViewModels
         /// フロー制御
         /// </summary>
         [Browsable(true)]
-        [DefaultValue(Handshake.None)]
+        //[DefaultValue(Handshake.None)]
         [MonitoringDescription("Handshake")]
         [XmlElement("Handshake")]
         public Handshake Handshake
@@ -157,7 +157,7 @@ namespace CommEx.Serial.ViewModels
         /// ポートの状態
         /// </summary>
         [Browsable(true)]
-        [DefaultValue(false)]
+        //[DefaultValue(false)]
         [MonitoringDescription("IsOpen")]
         [XmlIgnore]
         public bool IsOpen
@@ -179,7 +179,7 @@ namespace CommEx.Serial.ViewModels
         /// 改行文字
         /// </summary>
         [Browsable(true)]
-        [DefaultValue(NewLines.LF)]
+        //[DefaultValue(NewLines.LF)]
         [MonitoringDescription("NewLine")]
         [XmlElement("NewLine")]
         public NewLines NewLine
@@ -199,7 +199,7 @@ namespace CommEx.Serial.ViewModels
         /// パリティ
         /// </summary>
         [Browsable(true)]
-        [DefaultValue(Parity.None)]
+        //[DefaultValue(Parity.None)]
         [MonitoringDescription("Parity")]
         [XmlElement("Parity")]
         public Parity Parity
@@ -219,7 +219,7 @@ namespace CommEx.Serial.ViewModels
         /// ポート名
         /// </summary>
         [Browsable(true)]
-        [DefaultValue("COM1")]
+        //[DefaultValue("COM1")]
         [MonitoringDescription("PortName")]
         [XmlAttribute("PortName")]
         public string PortName
@@ -239,7 +239,7 @@ namespace CommEx.Serial.ViewModels
         /// ストップビット[bit]
         /// </summary>
         [Browsable(true)]
-        [DefaultValue(StopBits.One)]
+        //[DefaultValue(StopBits.One)]
         [MonitoringDescription("StopBits")]
         [XmlElement("StopBits")]
         public StopBits StopBits
@@ -259,7 +259,7 @@ namespace CommEx.Serial.ViewModels
         /// 自動接続設定
         /// </summary>
         [Browsable(true)]
-        [DefaultValue(false)]
+        //[DefaultValue(false)]
         [MonitoringDescription("IsAutoConnent")]
         [XmlElement("IsAutoConnent")]
         public bool IsAutoConnent

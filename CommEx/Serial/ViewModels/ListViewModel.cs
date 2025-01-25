@@ -41,7 +41,7 @@ namespace CommEx.Serial.ViewModels
         /// <summary>
         /// 子要素の ViewModel
         /// </summary>
-        [XmlArray("Port Settings")]
+        [XmlArray("PortSettings")]
         [XmlArrayItem("Port")]
         public ObservableCollection<PortViewModel> PortViewModels
         {
