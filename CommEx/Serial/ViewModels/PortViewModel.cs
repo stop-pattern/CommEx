@@ -394,11 +394,16 @@ namespace CommEx.Serial.ViewModels
         /// </summary>
         public void CheckAutoConnect()
         {
-            if (isAutoConnent || IsClosed)
+            if (isAutoConnent && IsClosed)
             {
                 if (AvailablePorts.Contains(PortName))
                 {
                     OpenClosePort();
+                }
+                else
+                {
+                    ErrorDialog.Show(new ErrorDialogInfo("自動接続対象のポートが存在しません。", null, $"ポート {PortName} が見つかりません。"));
+                    Message = "ポートが見つかりません。";
                 }
             }
         }
