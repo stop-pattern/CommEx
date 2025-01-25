@@ -13,6 +13,8 @@ namespace CommEx.Serial.Common
 {
     class SaveSettings
     {
+        #region Static Methods
+
         /// <summary>
         /// 保存先のファイルパスを動的に取得
         /// このdllのファイルパス - ".dll" + ".Settings.xml"
@@ -28,10 +30,10 @@ namespace CommEx.Serial.Common
         }
 
         /// <summary>
-        /// <see cref="PortViewModel"/> のプロパティをXMLファイルに保存
+        /// <see cref="ListViewModel"/> のプロパティをXMLファイルに保存
         /// </summary>
-        /// <param name="viewModel">保存する <see cref="PortViewModel"/> インスタンス</param>
-        public static void Save(PortViewModel viewModel)
+        /// <param name="viewModel">保存する <see cref="ListViewModel"/> インスタンス</param>
+        public static void Save(ListViewModel viewModel)
         {
             try
             {
@@ -39,7 +41,7 @@ namespace CommEx.Serial.Common
 
                 using (var writer = new StreamWriter(filePath))
                 {
-                    var serializer = new XmlSerializer(typeof(PortViewModel));
+                    var serializer = new XmlSerializer(typeof(ListViewModel));
                     serializer.Serialize(writer, viewModel);
                 }
             }
@@ -50,29 +52,31 @@ namespace CommEx.Serial.Common
         }
 
         /// <summary>
-        /// XMLファイルから <see cref="PortViewModel"/> のプロパティを読み込み
+        /// XMLファイルから <see cref="ListViewModel"/> のプロパティを読み込み
         /// </summary>
-        /// <returns>読み込まれた <see cref="PortViewModel"/> インスタンス</returns>
-        public static PortViewModel Load()
+        /// <returns>読み込まれた <see cref="ListViewModel"/> インスタンス</returns>
+        public static ListViewModel Load()
         {
             try
             {
                 string filePath = GetSettingsFilePath();
 
-                if (!File.Exists(filePath)) return new PortViewModel();
+                if (!File.Exists(filePath)) return new ListViewModel();
 
                 using (var reader = new StreamReader(filePath))
                 {
-                    var serializer = new XmlSerializer(typeof(PortViewModel));
-                    var serializableObject = (PortViewModel)serializer.Deserialize(reader);
+                    var serializer = new XmlSerializer(typeof(ListViewModel));
+                    var serializableObject = (ListViewModel)serializer.Deserialize(reader);
                     return serializableObject;
                 }
             }
             catch (Exception ex)
             {
                 Debug.Print($"Error loading settings: {ex.Message}");
-                return new PortViewModel();
+                return new ListViewModel();
             }
         }
+
+        #endregion
     }
 }

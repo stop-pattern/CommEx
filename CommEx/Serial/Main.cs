@@ -112,16 +112,12 @@ namespace CommEx.Serial
             BveHacker.ScenarioCreated += OnScenarioCreated;
             BveHacker.ScenarioClosed += ScenarioClosed;
 
-            //viewModel = SaveSettings.Load();
-            viewModel = new ListViewModel();
+            viewModel = SaveSettings.Load();
+            //viewModel = new ListViewModel();
 
             window = new ListWindow(viewModel);
             window.Closing += WindowClosing;
-#if DEBUG
-            window.Show();
-#else
             window.Hide();
-#endif
 
             foreach (var item in viewModel.PortViewModels)
             {
@@ -136,7 +132,7 @@ namespace CommEx.Serial
         /// <inheritdoc/>
         public override void Dispose()
         {
-            //SaveSettings.Save(portViewModel);
+            SaveSettings.Save(viewModel);
 
             Extensions.AllExtensionsLoaded -= AllExtensionsLoaded;
             BveHacker.ScenarioCreated -= OnScenarioCreated;
@@ -171,6 +167,8 @@ namespace CommEx.Serial
 
 #if DEBUG
             setting.Checked = true;
+#else
+            setting.Checked = false;
 #endif
 
             BidsSerial.UpdateInfos(bveHacker, native);
