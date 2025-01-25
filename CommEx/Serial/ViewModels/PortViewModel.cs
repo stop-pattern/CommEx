@@ -186,11 +186,13 @@ namespace CommEx.Serial.ViewModels
         {
             get
             {
-                return EnumExtention.GetEnumValueFromDescription<NewLines>(port.NewLine);
+                var conv = new EnumToDescriptionConverter(typeof(NewLines));
+                return (NewLines)conv.ConvertFrom(port.NewLine);
             }
             set
             {
-                port.NewLine = EnumExtention.GetDescriptionFromValue(value);
+                var conv = new EnumToDescriptionConverter(typeof(NewLines));
+                port.NewLine = (string)conv.ConvertTo(value, typeof(string));
                 RaisePropertyChanged();
             }
         }
