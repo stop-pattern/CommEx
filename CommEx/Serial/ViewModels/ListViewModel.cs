@@ -102,10 +102,7 @@ namespace CommEx.Serial.ViewModels
         /// </summary>
         public ListViewModel()
         {
-            portViewModels = new ObservableCollection<PortViewModel>
-            {
-                new PortViewModel()
-            };
+            portViewModels = new ObservableCollection<PortViewModel>();
 
             AddItemCommand = new RelayCommand(AddItem);
             SettingCommand = new RelayCommand(ShowSettingWindow, IsSelectedItemNotNull);
