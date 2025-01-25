@@ -577,8 +577,8 @@ namespace CommEx.Serial.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    ErrorDialog.Show(new ErrorDialogInfo("ポートのオープンに失敗しました。", ex.Source, ex.Message));
-                    Message = "ポートのオープンに失敗しました。";
+                    ErrorDialog.Show(new ErrorDialogInfo("ポートを開いたときにエラーが発生しました。", ex.Source, ex.Message));
+                    Message = "ポートを開いたときにエラーが発生しました。";
                 }
             }
             else
