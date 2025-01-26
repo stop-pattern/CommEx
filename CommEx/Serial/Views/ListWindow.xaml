@@ -112,6 +112,9 @@
                 <!-- DTR -->
                 <DataGridCheckBoxColumn Header="DTR" Binding="{Binding DtrEnable}"/>
 
+                <!-- 制御器 -->
+                <DataGridTextColumn Header="Controller" Binding="{Binding Controller}"/>
+
                 <!-- 自動接続 -->
                 <DataGridCheckBoxColumn Header="Auto Connect" Binding="{Binding IsAutoConnent}"/>
 
