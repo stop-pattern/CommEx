@@ -50,6 +50,11 @@ namespace CommEx.Serial.ViewModels
         private string message = "";
 
         /// <summary>
+        /// Enum と Description のコンバータ
+        /// </summary>
+        private static readonly EnumToDescriptionConverter e2dconv = new EnumToDescriptionConverter(typeof(NewLines));
+
+        /// <summary>
         /// Controller と ISerialControl のコンバータ
         /// </summary>
         private static readonly ControllerToISerialControlConverter c2iconv = new ControllerToISerialControlConverter(typeof(Controller));
@@ -191,13 +196,11 @@ namespace CommEx.Serial.ViewModels
         {
             get
             {
-                var conv = new EnumToDescriptionConverter(typeof(NewLines));
-                return (NewLines)conv.ConvertFrom(port.NewLine);
+                return (NewLines)e2dconv.ConvertFrom(port.NewLine);
             }
             set
             {
-                var conv = new EnumToDescriptionConverter(typeof(NewLines));
-                port.NewLine = (string)conv.ConvertTo(value, typeof(string));
+                port.NewLine = (string)e2dconv.ConvertTo(value, typeof(string));
                 RaisePropertyChanged();
             }
         }
