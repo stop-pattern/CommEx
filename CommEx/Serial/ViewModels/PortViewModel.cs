@@ -412,7 +412,7 @@ namespace CommEx.Serial.ViewModels
             }
             if (serialControl == null)
             {
-                controller = new BidsSerial();
+                controller = (ISerialControl)c2iconv.ConvertTo(Enum.GetValues(typeof(Controller)).Cast<int>().Min(), typeof(ISerialControl));
             }
             else
             {
