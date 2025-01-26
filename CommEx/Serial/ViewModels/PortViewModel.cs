@@ -319,7 +319,7 @@ namespace CommEx.Serial.ViewModels
         /// <summary>
         /// 現在選択中の Controller
         /// </summary>
-        [XmlIgnore]
+        [XmlElement]
         public Controller? Controller
         {
             get
