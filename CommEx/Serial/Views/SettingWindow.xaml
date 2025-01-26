@@ -84,11 +84,8 @@
             <!--<Button x:Name="SerialMonitorButton" Content="Serial Monitor" Grid.Column="5" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" Width="150" Command="{Binding SerialMonitorCommand}"/>-->
 
             <!-- Controller -->
-            <!--<Label Content="Controller:" Grid.Column="4" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left"/>-->
-            <!--<RadioButton Content="Loopback" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <RadioButton Content="BIDS(compatible)" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <RadioButton Content="Open Sound Control" Grid.Column="5" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
-            <!--<ComboBox x:Name="ControllerComboBox" Grid.Column="5" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding ControllerOptions}" SelectedItem="{Binding Controller}" IsEnabled="{Binding IsClosed}"/>-->
+            <Label Content="Controller:" Grid.Column="4" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="ControllerComboBox" Grid.Column="5" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" Width="150" ItemsSource="{Binding ControllerOptions}" SelectedItem="{Binding Controller}" IsEnabled="{Binding IsClosed}"/>
 
             <!-- AutoConnect -->
             <Label Content="Auto Connect:" Grid.Column="4" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Left"/>

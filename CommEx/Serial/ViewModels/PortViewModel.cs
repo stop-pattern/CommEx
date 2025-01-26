@@ -37,7 +37,7 @@ namespace CommEx.Serial.ViewModels
         /// <summary>
         /// シリアルの制御
         /// </summary>
-        private ISerialControl control;
+        private ISerialControl controller;
 
         /// <summary>
         /// 自動接続の設定
@@ -48,6 +48,11 @@ namespace CommEx.Serial.ViewModels
         /// 表示用テキスト
         /// </summary>
         private string message = "";
+
+        /// <summary>
+        /// Controller と ISerialControl のコンバータ
+        /// </summary>
+        private static readonly ControllerToISerialControlConverter c2iconv = new ControllerToISerialControlConverter(typeof(Controller));
 
         #endregion
 
@@ -309,6 +314,23 @@ namespace CommEx.Serial.ViewModels
         }
 
         /// <summary>
+        /// 現在選択中の Controller
+        /// </summary>
+        [XmlIgnore]
+        public Controller? Controller
+        {
+            get
+            {
+                return (Controller)c2iconv.ConvertFrom(controller);
+            }
+            set
+            {
+                controller = (ISerialControl)c2iconv.ConvertTo(value, typeof(ISerialControl));
+                RaisePropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// 使用可能なポートの選択肢リスト
         /// </summary>
         [XmlIgnore]
@@ -351,6 +373,12 @@ namespace CommEx.Serial.ViewModels
         public static ObservableCollection<NewLines> NewLineOptions { get; } = new ObservableCollection<NewLines>(Enum.GetValues(typeof(NewLines)) as NewLines[]);
 
         /// <summary>
+        /// コントローラーの選択肢リスト
+        /// </summary>
+        [XmlIgnore]
+        public static ObservableCollection<Controller> ControllerOptions { get; } = new ObservableCollection<Controller>(Enum.GetValues(typeof(Controller)) as Controller[]);
+
+        /// <summary>
         /// ポートリストのアップデートコマンド
         /// </summary>
         [XmlIgnore]
@@ -381,11 +409,11 @@ namespace CommEx.Serial.ViewModels
             }
             if (serialControl == null)
             {
-                control = new BidsSerial();
+                controller = new BidsSerial();
             }
             else
             {
-                control = serialControl;
+                controller = serialControl;
             }
 
             UpdatePorts();
@@ -461,7 +489,7 @@ namespace CommEx.Serial.ViewModels
         public PortViewModel(ISerialControl serialControls, string portName = "COM0", int baudRate = 115200, Parity parity = Parity.None, int dataBits = 8, StopBits stopBits = StopBits.One)
         {
             port = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
-            control = serialControls;
+            controller = serialControls;
 
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
@@ -475,7 +503,7 @@ namespace CommEx.Serial.ViewModels
         public PortViewModel(ISerialControl serialControls)
         {
             port = new SerialPort();
-            control = serialControls;
+            controller = serialControls;
 
             UpdatePortsCommand = new RelayCommand(UpdatePorts);
             OpenClosePortCommand = new RelayCommand(OpenClosePort, CanOpenClosePort);
@@ -545,7 +573,7 @@ namespace CommEx.Serial.ViewModels
                 // ポートを開ける
                 try
                 {
-                    control.PortOpen(port);
+                    controller.PortOpen(port);
                     port.Open();
 
                     if (IsOpen)
@@ -589,7 +617,7 @@ namespace CommEx.Serial.ViewModels
                 try
                 {
                     port.Close();
-                    control.PortClose(port);
+                    controller.PortClose(port);
 
                     if (IsOpen)
                     {
