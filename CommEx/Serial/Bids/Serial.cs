@@ -173,10 +173,8 @@ namespace CommEx.Serial.Bids
                                 case 4: // 車両編成数
                                     return response + native.VehicleSpec.Cars.ToString();
                                 default:
-                                    CreateError(Errors.ErrorInCodeNumber);
-                                    break;
+                                    return CreateError(Errors.ErrorInCodeNumber);
                             }
-                            break;
                         case 'E':   // Status
                             switch (num2)
                             {
@@ -210,10 +208,8 @@ namespace CommEx.Serial.Bids
                                 case 13: // 現在時刻(ms)[ミリ秒]
                                     return response + native.VehicleState.Time.Milliseconds.ToString();
                                 default:
-                                    CreateError(Errors.ErrorInCodeNumber);
-                                    break;
+                                    return CreateError(Errors.ErrorInCodeNumber);
                             }
-                            break;
                         case 'H':   // Handle
                             switch (num2)
                             {
@@ -279,7 +275,6 @@ namespace CommEx.Serial.Bids
                         default:
                             return CreateError(Errors.ErrorInCodeSymbol);
                     }
-                    break;
                 case 'R':   // レバーサー操作要求
                     if (-1 <= num1 && num1 <= 1)
                     {
