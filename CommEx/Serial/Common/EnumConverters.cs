@@ -14,7 +14,8 @@ namespace CommEx.Serial.Common
 
     /// <inheritdoc/>
     /// <summary>
-    /// Enum の Value と Description を変換するコンバータ
+    /// Enum の Value と String を変換するコンバータ
+    /// String はそのまま Enum の Value として扱われる
     /// </summary>
     public class EnumToStringConverter : EnumConverter
     {
@@ -25,7 +26,13 @@ namespace CommEx.Serial.Common
                 throw new ArgumentException("Type must be an Enum.");
             }
         }
-
+        /// <summary>
+        /// Enum の Value から String を取得
+        /// Enum.Value -> string
+        /// </summary>
+        /// <param name="value">Enum.value</param>
+        /// <param name="destinationType">string</param>
+        /// <returns>string</returns>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string) && value != null)
@@ -35,6 +42,12 @@ namespace CommEx.Serial.Common
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
+        /// <summary>
+        /// String から Enum の Value を取得
+        /// string -> Enum.Value
+        /// </summary>
+        /// <param name="value">string</param>
+        /// <returns>Enum.value</returns>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string stringValue)
@@ -51,7 +64,7 @@ namespace CommEx.Serial.Common
 
     /// <inheritdoc/>
     /// <summary>
-    /// Enum の Value と Description を変換するコンバータ
+    /// Enum の Value とその Description を変換するコンバータ
     /// </summary>
     public class EnumToDescriptionConverter : EnumConverter
     {
@@ -63,6 +76,13 @@ namespace CommEx.Serial.Common
             }
         }
 
+        /// <summary>
+        /// Enum の Value から DescriptionAttribute を取得
+        /// Enum.Value -> string
+        /// </summary>
+        /// <param name="value">Enum.value</param>
+        /// <param name="destinationType">string</param>
+        /// <returns>string</returns>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string) && value != null)
@@ -77,6 +97,12 @@ namespace CommEx.Serial.Common
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
+        /// <summary>
+        /// Enum の DescriptionAttribute から Value を取得
+        /// string -> Enum.Value
+        /// </summary>
+        /// <param name="value">string</param>
+        /// <returns>Enum.value</returns>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string stringValue)
