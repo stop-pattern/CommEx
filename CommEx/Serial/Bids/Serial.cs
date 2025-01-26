@@ -351,7 +351,7 @@ namespace CommEx.Serial.Bids
 #if DEBUG
             Debug.WriteLine(err.ToString());
 #endif
-            return header + "E" + err.ToString();
+            return header + "E" + (int)err;
         }
 
         #endregion
