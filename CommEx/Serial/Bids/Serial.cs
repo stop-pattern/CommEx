@@ -19,66 +19,6 @@ using CommEx.Serial.Common;
 
 namespace CommEx.Serial.Bids
 {
-    internal enum Errors
-    {
-        /// <summary>
-        /// 原因不明エラー
-        /// </summary>
-        Unknown,
-        /// <summary>
-        /// コンバータとBIDSpp.dllとの間の接続が確立されていない
-        /// </summary>
-        NotConnected,
-        /// <summary>
-        /// 要求情報コードの数値部が不正
-        /// </summary>
-        ErrorInCodeNumber,
-        /// <summary>
-        /// 要求情報コードの記号部が不正
-        /// </summary>
-        ErrorInCodeSymbol,
-        /// <summary>
-        /// 識別子が不正
-        /// </summary>
-        ErrorInIdentifier,
-        /// <summary>
-        /// 数値変換がオーバーフローした
-        /// </summary>
-        Overflow,
-        /// <summary>
-        /// 要求情報コードの数値部に数値以外が混入している
-        /// </summary>
-        BadFormatInCode,
-        /// <summary>
-        /// 要求情報コードの数値部もしくは記号部が不正
-        /// </summary>
-        BadFormatCode,
-        /// <summary>
-        /// BVEのウィンドウハンドルを取得できない(キーイベント送信時)
-        /// </summary>
-        CantGetWindowHandle,
-        /// <summary>
-        /// (情報なし)
-        /// </summary>
-        NoInfo1,
-        /// <summary>
-        /// (情報なし)
-        /// </summary>
-        NoInfo2,
-        /// <summary>
-        /// (情報なし)
-        /// </summary>
-        NoInfo3,
-        /// <summary>
-        /// 配列の範囲外アクセス
-        /// </summary>
-        OutOfRange,
-        /// <summary>
-        /// シナリオが開始されていない
-        /// </summary>
-        NotStarted,
-    }
-
     public class BidsSerial : ISerialControl
     {
         #region Fields
