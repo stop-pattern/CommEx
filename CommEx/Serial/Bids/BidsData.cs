@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -143,12 +144,7 @@ namespace CommEx.Serial.Bids
             {
                 return error;
             }
-            set
-            {
-                IsError = true;
-                error = value;
             }
-        }
 
         /// <summary>
         /// 返却値
@@ -255,6 +251,21 @@ namespace CommEx.Serial.Bids
             var matches = regex.Matches(str);
             data = new BidsData(str);
             return matches.Count > 0;
+        }
+
+        /// <summary>
+        /// エラー情報を設定
+        /// </summary>
+        /// <param name="err">エラー情報</param>
+        /// <returns>自身のインスタンス</returns>
+        public BidsData SetError(Errors err)
+        {
+            IsError = true;
+            error = err;
+#if DEBUG
+            Debug.WriteLine(err.ToString());
+#endif
+            return this;
         }
 
         #endregion
