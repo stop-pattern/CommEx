@@ -80,7 +80,8 @@ namespace CommEx.Serial.Bids
         private char info;
         private int code;
         private Errors error;
-        private int value;
+        private Type type;
+        private object value;
 
         #endregion
 
@@ -149,9 +150,12 @@ namespace CommEx.Serial.Bids
         /// <summary>
         /// 返却値
         /// </summary>
-        public int Value
+        public object Value
         {
-            get { return value; }
+            get
+            {
+                return value;
+        }
         }
 
         /// <summary>
@@ -167,13 +171,24 @@ namespace CommEx.Serial.Bids
                 }
                 else
                 {
+                    string ret= "";
+                    switch (type)
+                    {
+                        case Type te when te == typeof(Enum):
+                        case Type tb when tb == typeof(bool):
+                            ret = Convert.ToInt32(value).ToString();
+                            break;
+                        default:
+                            ret = value.ToString();
+                            break;
+                    }
                     if (info == '\0')
                     {
-                        return header + identifier + info + code + "X" + value;
+                        return header + identifier + info + code + "X" + ret;
                     }
                     else
                     {
-                        return header + identifier + code + "X" + value;
+                        return header + identifier + code + "X" + ret;
                     }
                 }
             }
@@ -265,6 +280,61 @@ namespace CommEx.Serial.Bids
 #if DEBUG
             Debug.WriteLine(err.ToString());
 #endif
+            return this;
+        }
+
+        public BidsData SetValue(bool val)
+        {
+            value = Convert.ToInt32(val);
+            type = typeof(bool);
+            return this;
+        }
+
+        /// <summary>
+        /// 返却値を設定
+        /// </summary>
+        /// <param name="val">返却値</param>
+        /// <returns>自身のインスタンス</returns>
+        public BidsData SetValue(int val)
+        {
+            value = val;
+            type = typeof(int);
+            return this;
+        }
+
+        /// <summary>
+        /// 返却値を設定
+        /// </summary>
+        /// <param name="val">返却値</param>
+        /// <returns>自身のインスタンス</returns>
+        public BidsData SetValue(float val)
+        {
+            value = val;
+            type = typeof(float);
+            return this;
+        }
+
+        /// <summary>
+        /// 返却値を設定
+        /// </summary>
+        /// <param name="val">返却値</param>
+        /// <returns>自身のインスタンス</returns>
+        public BidsData SetValue(double val)
+        {
+            value = val;
+            type = typeof(double);
+            return this;
+        }
+
+        /// <summary>
+        /// 返却値を設定
+        /// </summary>
+        /// <param name="val">返却値</param>
+        /// <returns>自身のインスタンス</returns>
+        public BidsData SetValue(Enum val)
+        {
+            value = Convert.ToInt32(val);
+            type = typeof(int);
             return this;
         }
 
