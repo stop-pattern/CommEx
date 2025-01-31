@@ -234,11 +234,11 @@ namespace CommEx.Serial.Bids
 
                     if (match.Groups[3].Value[0] == '+')
                     {
-                        code = 1;
+                        code *= 1;
                     }
                     else if (match.Groups[3].Value[0] == '-')
                     {
-                        code = -1;
+                        code *= -1;
                     }
                 }
                 else
