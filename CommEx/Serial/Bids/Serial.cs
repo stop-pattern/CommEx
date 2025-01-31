@@ -23,12 +23,8 @@ namespace CommEx.Serial.Bids
     {
         #region Fields
 
-        private const int version = 300;
-
-        private static bool isAvailable = false;
-
-        private static IBveHacker hacker;
-        private static INative native;
+        List<BidsData> bids = null;
+        List<BidsData> autosend = null;
 
         /// <summary>
         /// 改行コード
@@ -49,21 +45,20 @@ namespace CommEx.Serial.Bids
         #region Methods
 
         /// <summary>
+        /// シナリオ開始通知
         /// インスタンスの取り込み
         /// </summary>
-        public static void UpdateInfos(IBveHacker bveHacker, INative bveNative)
+        public static void ScenarioStart(IBveHacker bveHacker, INative bveNative)
         {
-            hacker = bveHacker;
-            native = bveNative;
+            Bve.UpdateStatus(true, bveNative, bveHacker);
         }
 
         /// <summary>
-        /// 使用可否を設定
+        /// シナリオ終了通知
         /// </summary>
-        /// <param name="status">使用可否</param>
-        public static void SetStatus(bool status)
+        public static void ScenarioEnd()
         {
-            isAvailable = status;
+            Bve.UpdateStatus();
         }
 
         /// <summary>
