@@ -196,18 +196,12 @@ namespace CommEx.Serial
         #region Event Handlers
 
         /// <summary>
-        /// 
+        /// Native の Started イベントハンドラ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// <exception cref="NotImplementedException"></exception>
         private void NativeStarted(object sender, StartedEventArgs e)
         {
-#if DEBUG
-            ErrorDialog.Show(new ErrorDialogInfo("started", "sender", "message"));
-#else
-            throw new NotImplementedException();
-#endif
         }
 
         /// <summary>
