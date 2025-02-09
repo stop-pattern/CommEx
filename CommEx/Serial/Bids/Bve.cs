@@ -65,12 +65,28 @@ namespace CommEx.Serial.Bids
 
         #region Methods
 
+        public static BidsData SetResponse(BidsData data)
+        {
+            if (!isAvailable)
+            {
+                return data.SetError(Errors.NotStarted);
+            }
+
+            return CheckIdentifier(data);
+        }
+
+
+
         /// <summary>
         /// 返却値を設定
         /// </summary>
         /// <returns>設定後のインスタンス</returns>
-        public static BidsData CheckIdentifier(BidsData data)
+        private static BidsData CheckIdentifier(BidsData data)
         {
+            if (hacker == null)
+            {
+                return data.SetError(Errors.NotStarted);
+            }
             switch (data.Identifier)
             {
                 case 'A':   // 状態監視
@@ -172,6 +188,10 @@ namespace CommEx.Serial.Bids
         /// <returns>設定後のインスタンス</returns>
         private static BidsData CheckInfo(BidsData data)
         {
+            if (native == null)
+            {
+                return data.SetError(Errors.NotConnected);
+            }
             switch (data.Info)
             {
                 case 'C':   // Spec
