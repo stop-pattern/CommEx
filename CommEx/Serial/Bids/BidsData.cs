@@ -141,10 +141,7 @@ namespace CommEx.Serial.Bids
         /// </summary>
         public Errors Error
         {
-            get
-            {
-                return error;
-            }
+            get { return error; }
             }
 
         /// <summary>
@@ -152,10 +149,7 @@ namespace CommEx.Serial.Bids
         /// </summary>
         public object Value
         {
-            get
-            {
-                return value;
-        }
+            get { return value; }
         }
 
         /// <summary>
@@ -163,36 +157,8 @@ namespace CommEx.Serial.Bids
         /// </summary>
         public string Response
         {
-            get
-            {
-                if (isError)
-                {
-                    return header + "EX" + (int)error;
+            get { return CreateResponse(); }
                 }
-                else
-                {
-                    string ret= "";
-                    switch (type)
-                    {
-                        case Type te when te == typeof(Enum):
-                        case Type tb when tb == typeof(bool):
-                            ret = Convert.ToInt32(value).ToString();
-                            break;
-                        default:
-                            ret = value.ToString();
-                            break;
-                    }
-                    if (info == '\0')
-                    {
-                        return header + identifier + info + code + "X" + ret;
-                    }
-                    else
-                    {
-                        return header + identifier + code + "X" + ret;
-                    }
-                }
-            }
-        }
 
         #endregion
 
@@ -336,6 +302,43 @@ namespace CommEx.Serial.Bids
             value = Convert.ToInt32(val);
             type = typeof(int);
             return this;
+        }
+
+        /// <summary>
+        /// レスポンスを生成
+        /// </summary>
+        /// <returns>レスポンス</returns>
+        private string CreateResponse()
+        {
+            if (isError)
+            {
+                return $"{header}E{error:D}";
+                //return header + "EX" + (int)error;
+            }
+            else
+            {
+                string ret = "";
+                switch (type)
+                {
+                    case Type te when te == typeof(Enum):
+                    case Type tb when tb == typeof(bool):
+                        ret = Convert.ToInt32(value).ToString();
+                        break;
+                    default:
+                        ret = value.ToString();
+                        break;
+                }
+                if (info == '\0')
+                {
+                    return $"{header}{identifier}{info}{code}X{ret}";
+                    //return header + identifier + info + code + "X" + ret;
+                }
+                else
+                {
+                    return $"{header}{identifier}{code}X{ret}";
+                    //return header + identifier + code + "X" + ret;
+                }
+            }
         }
 
         #endregion
