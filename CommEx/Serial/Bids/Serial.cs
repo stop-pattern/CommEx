@@ -23,13 +23,10 @@ namespace CommEx.Serial.Bids
     {
         #region Fields
 
-        List<BidsData> bids = null;
-        List<BidsData> autosend = null;
-
-        /// <summary>
-        /// 改行コード
-        /// </summary>
-        private string lineBreak = "\r\n";
+        List<BidsData> bids = new List<BidsData>();
+        List<BidsData> autosend = new List<BidsData>();
+        Queue<BidsData> received = new Queue<BidsData>();
+        Queue<BidsData> sending = new Queue<BidsData>();
 
         #endregion
 
@@ -68,7 +65,6 @@ namespace CommEx.Serial.Bids
         /// <inheritdoc/>
         public void PortOpen(SerialPort serialPort)
         {
-            serialPort.NewLine = lineBreak;
             serialPort.DataReceived += DataReceived;
         }
 
@@ -90,53 +86,68 @@ namespace CommEx.Serial.Bids
         private void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort port = (SerialPort)sender;
-            string str = "";
+
+            // シリアルポートが有効か確認
             try
             {
-                str = port.ReadLine();
+                if (!port.IsOpen)
+            {
+                    Debug.WriteLine("Serial Already Closed");
+                    //ErrorDialog.Show(new ErrorDialogInfo("エラー：シリアルポートが閉じられています", null, null));
+                return;
+            }
+
+                if (!port.BaseStream.CanRead || !port.BaseStream.CanWrite)
+            {
+                    Debug.WriteLine($"Read or Write not allowed: CanRead:{port.BaseStream.CanRead}, CanWrite:{port.BaseStream.CanWrite}");
+                return;
+            }
+
+                if (port.BytesToRead == 0)
+            {
+                    Debug.WriteLine("No Data");
+                    return;
+                }
             }
             catch (Exception ex)
-            {
+                {
+                ErrorDialog.Show(new ErrorDialogInfo("エラー：シリアル読み込み失敗", ex.Source, ex.Message));
+                }
+
+            // 受信値を取得
+            string str = "";
+            try
+                {
+                str = port.ReadExisting();
+                }
+            catch (Exception ex)
+                {
 #if DEBUG
                 ErrorDialog.Show(new ErrorDialogInfo("エラー：シリアル読み込み失敗", ex.Source, ex.Message));
 #endif
                 return;
-            }
-            str = str.Trim();
-            Debug.Print("Serial Receive Data" + str);
-
-            if (str.Length < 5)
-            {
-                return;
-            }
-
-            if (str.StartsWith("EX") || str.StartsWith("TR"))
-            {
-                string response;
-                if (native == null)
-                {
-                    response = CreateError(Errors.NotStarted);
                 }
-                else if (!isAvailable)
+
+
+            // 改行文字ごとに分割
+            string[] lines = str.Split(new string[] { port.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            Debug.Print("Serial Receive Data: " + lines);
+
+            // 受信データをパース
+            foreach (var line in lines)
                 {
-                    response = CreateError(Errors.NotStarted);
-                }
+                line.Trim();
+                if (line.Length < 5) continue;
+
+                if (BidsData.TryParse(line, out BidsData data))
+                    {
+                    Debug.WriteLine("Parse Error");
+                    continue;
+                    }
                 else
-                {
-                    response = CreateResponse(str);
-                }
-
-                if (response != null)
-                {
-                    Debug.Print("Serial Send Data" + response);
-                    try
                     {
-                        port.WriteLine(response);
-                    }
-                    catch (Exception ex)
-                    {
-                        ErrorDialog.Show(new ErrorDialogInfo("ポートが無効状態です。", ex.Source, ex.Message));
-                    }
+                    if (data.Header != "TR" && data.Header != "EX") continue;
+                    received.Enqueue(data);
                 }
             }
         }
