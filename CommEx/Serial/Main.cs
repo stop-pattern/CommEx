@@ -144,7 +144,6 @@ namespace CommEx.Serial
         /// <inheritdoc/>
         public override void Tick(TimeSpan elapsed)
         {
-            BidsSerial.SetStatus(true);
         }
 
         #endregion
@@ -164,14 +163,14 @@ namespace CommEx.Serial
 
             setting = cmx.AddCheckableMenuItem("シリアル通信設定", MenuItemCheckedChanged, ContextMenuItemType.CoreAndExtensions);
             native.Started += NativeStarted;
+            native.Opened += (s, ex) => BidsSerial.ScenarioStart(bveHacker, native);
+            native.Closed += (s, ex) => BidsSerial.ScenarioEnd();
 
 #if DEBUG
             setting.Checked = true;
 #else
             setting.Checked = false;
 #endif
-
-            BidsSerial.UpdateInfos(bveHacker, native);
         }
 
         /// <summary>
@@ -190,7 +189,6 @@ namespace CommEx.Serial
         /// <exception cref="NotImplementedException"></exception>
         private void ScenarioClosed(EventArgs e)
         {
-            BidsSerial.SetStatus(false);
         }
 
         #endregion
