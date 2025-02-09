@@ -92,8 +92,8 @@ namespace CommEx.Serial.Bids
         /// </summary>
         public bool IsError
         {
-            get;
-            private set;
+            get {  return isError; }
+            private set { isError = value; }
         }
 
         // TRxy000
@@ -165,7 +165,7 @@ namespace CommEx.Serial.Bids
         {
             get
             {
-                if (IsError)
+                if (isError)
                 {
                     return header + "EX" + (int)error;
                 }
@@ -275,7 +275,7 @@ namespace CommEx.Serial.Bids
         /// <returns>自身のインスタンス</returns>
         public BidsData SetError(Errors err)
         {
-            IsError = true;
+            isError = true;
             error = err;
 #if DEBUG
             Debug.WriteLine(err.ToString());
