@@ -1,0 +1,44 @@
+name: MSBuild
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - '*/**'
+      - '!./*'
+      - './*.sln'
+      - '!.github/**'
+
+jobs:
+  build:
+    name: MSBuild
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6.0.1
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5.0.1
+
+    - name: Restore nuget packages
+      run: dotnet restore BveExCsTemplate.sln --locked-mode
+
+    - name: MSBuild
+      run: dotnet publish .\BveExCsTemplate.sln --configuration Release --no-restore /p:platform="Any CPU" /p:OutputPath="./out/"
+
+    - name: Collect artifact
+      run: |
+        ls -alR
+        mkdir plugins/
+        find . -type f -path '*/out/publish/*.dll' -exec cp {} ./plugins/ \;
+      shell: bash
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v6.0.0
+      with:
+        name: plugins
+        path: ./plugins/
