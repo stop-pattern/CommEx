@@ -62,15 +62,16 @@ Bve起動後に右クリックメニューから設定してください。
 
 
 ## 開発環境
-- [BveEX](https://github.com/automatic9045/BveEX)
-    - [ver2.1 - v2.1.51225.1](https://github.com/automatic9045/BveEX/releases/tag/v2.1.51225.1)
-- Win11 24H2
-    - Visual Studio 2026
-        - Microsoft Visual Studio Community 2026 (64 ビット)
-        - Version 18.11.1
+- Windows
+    - Win11 24H2 or later
 - [Bve](https://bvets.net/)
     - BVE Trainsim Version 5.8.7554.391
     - BVE Trainsim Version 6.0.7554.619
+- [BveEX](https://github.com/automatic9045/BveEX)
+    - [ver2.1 - v2.1.51225.1](https://github.com/automatic9045/BveEX/releases/tag/v2.1.51225.1)
+- Visual Studio 2026
+    - Microsoft Visual Studio Community 2026 (64 ビット)
+    - Version 18.11.1
 
 
 ## 依存環境
