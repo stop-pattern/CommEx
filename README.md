@@ -1,139 +1,81 @@
-# BveExCsTemplate
-[BveEX](https://github.com/automatic9045/BveEX)を使ったBve5またはBve6用のプラグインのためのテンプレート
+# CommEx
+[BveEX](https://github.com/automatic9045/BveEX)を通してBveと外部で通信するプラグイン
 
 
-## プラグイン開発が初めての人へ
-~全然クイックじゃない~[クイックスタート](../../wiki/クイックスタート/)から取り掛かるのがおすすめです
+## プラグインの機能
+- [ ] シリアル通信
+    - [ ] バイナリ
+    - [ ] BIDS互換
+    - [ ] SerialOutput互換
+- [ ] Ethernet
+    - [ ] UDP
 
+
+## 導入方法
+### 1. BveEXの導入
+[公式のダウンロードページ](https://bveex.okaoka-depot.com/download)を参照してください
+### 2. 本プラグインの導入
+1. [Releases](releases/)から最新版がダウンロードできます
+1. BveEXの導入場所にある`Extensions`フォルダの中に本プラグインを配置します
+    - デフォルト: `C:\Users\Public\Documents\BveEx\2.0\Extensions`
+    - プラグインはBveの起動と同時に自動的に読み込まれます
+1. Bveから拡張機能が有効になっているか確認
+    1. Bveを起動し右クリック
+    1. **BveEX バージョン情報・プラグイン一覧** を開く
+    1. **CommEx** が有効になっていることを確認（デフォルトで有効）
+        - 有効になっていない場合：プラグイン名を右クリックして有効化
+
+
+## 使い方
+Bve起動後に右クリックメニューから設定してください。
 
 ## ライセンス
-[MIT](LICENSE)
+- [MIT](LICENSE)
+    - できること
+        - 商用利用
+        - 修正
+        - 配布
+        - 私的使用
+    - ダメなこと
+        - コントリビューターに何らかの責任を取らせる
+        - コントリビューターに何らかの保証を求める
 
-## このテンプレートの機能
-- 取っ掛かりやすいように3種類のプラグインのファイル
-    - マッププラグイン
-    - 車両プラグイン
-    - 拡張機能
-- Actionsでのdll自動生成
-- 頑張って書いた[wiki](../../wiki/)
+> [!CAUTION]
+> 【重要】本プラグインは、**[BveEXのラインセンス](https://github.com/automatic9045/BveEX/blob/main/LICENSE.md)により商用利用できません**。
+
+本プラグインの動作環境は、BveExの導入が前提となっています。
+そのため、BveExが使用できない環境では使用することができません。
+文化祭やイベント（NTほげほげ、Maker Faireなど）で使用する際は、BveEXのライセンスに配慮し利用してください。
+
+なお、CommEx単体については、MITライセンスに従っている限り利用時の許可取りや報告は不要です。
+（不要ではありますが、利用報告・採用例を見せていただけると嬉しいです。）
 
 
 ## 動作環境
-- [BveEX](https://github.com/automatic9045/BveEX)
-    - [ver2.0 - v2.0.41222.1](https://github.com/automatic9045/BveEX/releases/tag/v2.0.41222.1) or later
-- Win10 22H2, Win11 22H2 or later
-    - Visual Studio 2022
-        - Microsoft Visual Studio Community 2022 (64 ビット) - Current Version 17.5.3
+- Windows
+    - Win11 24H2 or later
 - [Bve](https://bvets.net/)
+    - BVE Trainsim Version 5.8.7554.391 or later
+    - BVE Trainsim Version 6.0.7554.619 or later
+- [BveEX](https://github.com/automatic9045/BveEX)
+    - [ver2.1 - v2.1.51225.1](https://github.com/automatic9045/BveEX/releases/tag/v2.1.51225.1) or later
+
+
+## 開発環境
+- [BveEX](https://github.com/automatic9045/BveEX)
+    - [ver2.1 - v2.1.51225.1](https://github.com/automatic9045/BveEX/releases/tag/v2.1.51225.1)
+- Win11 24H2
+    - Visual Studio 2026
+        - Microsoft Visual Studio Community 2026 (64 ビット)
+        - Version 18.11.1
+- [Bve](https://bvets.net/)
+    - BVE Trainsim Version 5.8.7554.391
     - BVE Trainsim Version 6.0.7554.619
 
 
 ## 依存環境
-- [BveEx.CoreExtensions](https://www.nuget.org/packages/BveEx.CoreExtensions/) (2.0.8)
-    - [BveEx.PluginHost](https://www.nuget.org/packages/BveEx.PluginHost/) (2.0.8)
+- BveEx.CoreExtensions (2.0.8)
+- BveEX.PluginHost (>= 2.0.8)
 
+### 開発者向け
 間接参照を含めたすべての依存情報については、各プロジェクトのフォルダにある `packages.lock.json` をご確認ください。
-
-
-## 使い方
-1. Use this template から新しくリポジトリを作成する
-1. githubリポジトリの詳細を設定する
-2. LICENSEの著作権表記を変更する
-1. 自分の作りたい機能に合わせて設定する
-1. コードを書く
-1. リリースする
-
-### 0. 下準備
-#### 0.1. テンプレートから新しくリポジトリを作成して設定する
-1. `Use this template`ボタンから新しいリポジトリの作成画面に入る
-    - `Create a new repository`で新しくリポジトリを作成する
-    - リポジトリの名前はお好みで
-    - Description にプラグインの概要とかを書いておくといい
-1. リポジトリの設定画面でDescriptionやTopicsを設定する
-1. LICENSEの著作権表記を変更する
-1. README.md を消した後 README_TEMPLATE.md を README.md にリネームしてtodoを埋める
-
-#### 0.2. ローカルにクローンする
-1. `< > Code`からURLをコピーする
-1. Visual Studio を開いて リポジトリのクローン からコピーしたURLでローカルにクローンする
-
-できないときとかは下のコマンドでできる
-```bash
-git clone https://github.com/USERNAME/REPONAME.git
-```
-
-#### 0.3. Visual Studio でビルドできる状態にする
-1. BveExCsTemplate.csproj を開いてすべて保存から適当な場所にslnを生成する
-1. NuGetからBveEx関連のライブラリを入れる（ビルドすれば勝手に入る）
-1. 開発するプラグインの種類に応じて要らないファイルを削除する
-    - MapPlugin/
-        - マッププラグイン用のプロジェクト
-    - VehiclePlugin/
-        - 車両プラグイン用のプロジェクト
-    - Extension/
-        - 拡張機能用のプロジェクト
-
-#### 0.4. プラグイン情報の設定
-**Properties/AssemblyInfo.cs**
-BveからBveExのバージョン情報を見たときに表示される内容を設定できます
-BveExのバージョン情報画面から見えるのはファイル名と下の3項目です
-
-- AssemblyTitle
-    - プラグインの名前
-- AssemblyDescription
-    - プラグインの説明
-- AssemblyVersion
-    - プラグインのバージョン
-
-### 1. コードを書く
-頑張ってゴリゴリ書きましょう
-
-### 2. ドキュメントを書く
-1. githubリポジトリの詳細を設定する
-1. LICENSEの著作権表記を変更する
-1. README.md を消した後 README_TEMPLATE.md を README.md にリネームしてtodoを埋める
-
-### 3. 公開する
-公開ができる状態になったらmainにpushしてtag打ってreleaseを作りましょう
-<!-- tagを打つとciが走って自動でreleaseが作られビルド生成物が添付されます -->
-
-
-## デバッグについて
-※この項目に書いてあることは環境によって差異があるかもしれないので適宜自分の環境に合わせて読み替えること
-### 1. 生成物がBveExから読めるようにする
-そのままの状態でビルドしてもデバッグできないのでBveからBveEx経由でビルドしたプラグインが読み込めるようにする必要があります  
-そのためには大きく次のA,Bで2通りのやり方があります  
-おすすめはBのシンボリックリンク経由です  
-シンボリックリンク経由だとpdbなどのごみがBve側のディレクトリに散らばったりしなくて嬉しいです  
-#### 1.A. 生成物の出力パスをいじる
-1. メニューバー > プロジェクト > (プロジェクト名)のプロパティ を選択しプロジェクトのプロパティ画面を開く
-1. サイドバー > ビルド を選択しビルドの設定画面を開く
-1. 出力セクションの出力パスをプラグインの出力先に設定する
-1. 試しにビルドしてみて出力されるか確認する
-#### 1.B.シンボリックリンクを張る
-1. 生成物がない場合はビルドしてダミーのdllを生成する
-1. 出力ディレクトリ(binの下)にある生成物へのシンボリックリンクをプラグインの配置場所に配置する
-    - winでシンボリックリンクを簡単に張るには[Link Shell Extension](https://www.gigafree.net/system/explorer/hardlinkshellextension.html)がおすすめ
-1. 試しにビルドしてみて更新されるか確認する
-### 2. Visual Studioでデバッグする
-#### 2.1. デバッグの設定をする
-1. メニューバー > デバッグ > (プロジェクト名)のデバッグプロパティ を選択しプロジェクトのデバッグプロパティ画面を開く
-1. 開始動作を"外部プログラムの開始"を選択しBveのパスを設定する
-1. 必要があればコマンドライン引数にシナリオファイルのパスを設定する
-    - ここでシナリオファイルのパスを設定したらそのシナリオが直接読み込まれる
-    - 何も指定しなければ普通にシナリオ選択画面が立ち上がる
-#### 2.2.実際にデバッグする
-1. 適当にブレークとかを張る
-1. デバッグを始める
-    - F5キー
-    - メニューバーのデバッグとテストの下あたりの開始ボタン（緑の三角形）
-1. 張ったブレークで止まるか見てみる
-
-
-## 備考・その他
-- C#は初めてなのでお作法がわかりません
-    - ミスとか良くないところがあったらissue立てるなりしてくれればできる範囲で対応します
-    - PR大歓迎！！！
-- 自分用に作ったので適当です、自分が欲しい機能をとりあえず入れてます
-- BveExとBveEXがどっちもあったのでここでは引用を除いてコードに準じてBveExとしています
-    - BveEXが正式な表記っぽい？
