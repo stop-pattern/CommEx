@@ -1,6 +1,6 @@
-using BveExCsTemplate.Extension.Model;
+using CommEx.Model;
 
-namespace BveExCsTemplate.Extension.Infrastructure
+namespace CommEx.Infrastructure
 {
     internal interface IFramePublisher
     {

@@ -4,9 +4,9 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
-using BveExCsTemplate.Extension.Model;
+using CommEx.Model;
 
-namespace BveExCsTemplate.Extension.Infrastructure
+namespace CommEx.Infrastructure
 {
     /// <summary>
     /// BveEx 時刻を返す簡易 NTP サーバー。

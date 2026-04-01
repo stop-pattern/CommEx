@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BveExCsTemplate.Extension.Model
+namespace CommEx.Model
 {
     /// <summary>
     /// BveEx から取得した 1 フレーム分の状態。

@@ -6,9 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-using BveExCsTemplate.Extension.Model;
+using CommEx.Model;
 
-namespace BveExCsTemplate.Extension.Infrastructure
+namespace CommEx.Infrastructure
 {
     /// <summary>
     /// BveEx の入出力をそのまま HTTP API で公開する。

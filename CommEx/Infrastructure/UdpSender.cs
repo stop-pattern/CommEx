@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 
-namespace BveExCsTemplate.Extension.Infrastructure
+namespace CommEx.Infrastructure
 {
     internal sealed class UdpSender : IUdpSender
     {

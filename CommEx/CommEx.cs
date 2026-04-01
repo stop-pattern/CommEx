@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using BveEx.PluginHost.Plugins;
 using BveEx.PluginHost.Plugins.Extensions;
 
-using BveExCsTemplate.Extension.Infrastructure;
-using BveExCsTemplate.Extension.Model;
+using CommEx.Infrastructure;
+using CommEx.Model;
 
-namespace BveExCsTemplate.Extension
+namespace CommEx
 {
     [Plugin(PluginType.Extension)]
     [Togglable]

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BveExCsTemplate.Extension.Model
+namespace CommEx.Model
 {
     /// <summary>
     /// MVVM の Model として BveEx の最新状態を保持する。

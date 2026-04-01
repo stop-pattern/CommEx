@@ -4,11 +4,11 @@ using System.IO;
 using System.IO.Ports;
 using System.Text;
 
-using BveExCsTemplate.Extension.Model;
+using CommEx.Model;
 
 using Newtonsoft.Json;
 
-namespace BveExCsTemplate.Extension.Infrastructure
+namespace CommEx.Infrastructure
 {
     internal enum SerialProtocol
     {

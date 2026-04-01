@@ -3,9 +3,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
-using BveExCsTemplate.Extension.Model;
+using CommEx.Model;
 
-namespace BveExCsTemplate.Extension.Infrastructure
+namespace CommEx.Infrastructure
 {
     /// <summary>
     /// 通信処理を BveEx の Tick スレッドから分離するワーカー。
