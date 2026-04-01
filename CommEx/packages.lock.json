@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "dependencies": {
+    ".NETFramework,Version=v4.8": {
+      "BveEx.CoreExtensions": {
+        "type": "Direct",
+        "requested": "[2.0.8, )",
+        "resolved": "2.0.8",
+        "contentHash": "r35lDGdLYG/5PVcjBC/aawM10QtPu5yrrtEy751bF0eWPUAaUI7b1PgMvNApqVuUK7x/nUE34/7kqIkIEYU/TQ==",
+        "dependencies": {
+          "BveEx.PluginHost": "2.0.8"
+        }
+      },
+      "Microsoft.NETFramework.ReferenceAssemblies": {
+        "type": "Direct",
+        "requested": "[1.0.3, )",
+        "resolved": "1.0.3",
+        "contentHash": "vUc9Npcs14QsyOD01tnv/m8sQUnGTGOw1BCmKcv77LBJY7OxhJ+zJF7UD/sCL3lYNFuqmQEVlkfS4Quif6FyYg==",
+        "dependencies": {
+          "Microsoft.NETFramework.ReferenceAssemblies.net48": "1.0.3"
+        }
+      },
+      "BveEx.PluginHost": {
+        "type": "Transitive",
+        "resolved": "2.0.8",
+        "contentHash": "fa52UOSSwpAXgigrZLE0EMAJj/LbxHHMTqhaMR75WYs0g3oprBMYI/GqsrIrgnc45ciFZWhriupAzyPVh4auTg=="
+      },
+      "Microsoft.NETFramework.ReferenceAssemblies.net48": {
+        "type": "Transitive",
+        "resolved": "1.0.3",
+        "contentHash": "zMk4D+9zyiEWByyQ7oPImPN/Jhpj166Ky0Nlla4eXlNL8hI/BtSJsgR8Inldd4NNpIAH3oh8yym0W2DrhXdSLQ=="
+      }
+    }
+  }
+}

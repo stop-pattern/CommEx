@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using BveEx.PluginHost.Plugins;
 using BveEx.PluginHost.Plugins.Extensions;
 
-namespace BveExCsTemplate.Extension
+namespace CommEx
 {
     /// <summary>
     /// プラグインの本体
@@ -17,7 +17,7 @@ namespace BveExCsTemplate.Extension
     /// </summary>
     [Plugin(PluginType.Extension)]
     [Togglable]
-    internal class ExtensionMain : AssemblyPluginBase, ITogglableExtension, IExtension
+    internal class CommExMain : AssemblyPluginBase, ITogglableExtension, IExtension
     {
         /// <summary>
         /// プラグインの有効・無効状態
@@ -35,7 +35,7 @@ namespace BveExCsTemplate.Extension
         /// 初期化を実装する
         /// </summary>
         /// <param name="builder"></param>
-        public ExtensionMain(PluginBuilder builder) : base(builder)
+        public CommExMain(PluginBuilder builder) : base(builder)
         {
         }
 
