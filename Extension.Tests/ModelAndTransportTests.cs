@@ -119,6 +119,73 @@ namespace Extension.Tests
             Assert.True(slow.LastTime >= baseTime.AddSeconds(10));
         }
 
+
+        [Fact]
+        public void BidsParser_ParsesHeaderKindAndRequestCode()
+        {
+            var parser = new BidsRequestParser();
+            BidsRequest request;
+
+            var ok = parser.TryParse("tr9spd", out request);
+
+            Assert.True(ok);
+            Assert.Equal("TR", request.Header);
+            Assert.Equal('9', request.Kind);
+            Assert.Equal("SPD", request.RequestCode);
+        }
+
+        [Fact]
+        public void BidsValueGenerator_GeneratesTypedValues()
+        {
+            var frame = new SimulationFrame(
+                new DateTimeOffset(2026, 4, 1, 0, 0, 0, TimeSpan.Zero),
+                true,
+                2.5,
+                new Dictionary<string, object> { { "brakeNotch", 5 }, { "powerNotch", 1 } },
+                new Dictionary<string, object> { { "speedKmph", 83.25 }, { "locationM", 1000.0 } });
+
+            var generator = new BidsResponseValueGenerator();
+            Assert.Equal(83.25, (double)generator.Generate(new BidsRequest("EX", 'A', "SPD"), frame));
+            Assert.Equal(5, (int)generator.Generate(new BidsRequest("EX", 'A', "BRK"), frame));
+            Assert.True((bool)generator.Generate(new BidsRequest("EX", 'A', "PAU"), frame));
+        }
+
+        [Fact]
+        public void BidsFormatter_BuildsOutgoingPacket()
+        {
+            var formatter = new BidsResponseFormatter();
+            var text = formatter.Format(new BidsRequest("EX", 'N', "SPD"), 12.5);
+            Assert.Equal("EXNSPDX12.5", text);
+        }
+
+        [Fact]
+        public void BidsSerialService_ProcessesRequestAndWritesResponse()
+        {
+            var store = new BveExModelStore();
+            store.Update(
+                new SimulationFrame(
+                    new DateTimeOffset(2026, 4, 1, 0, 0, 0, TimeSpan.Zero),
+                    false,
+                    1.0,
+                    new Dictionary<string, object> { { "brakeNotch", 2 }, { "powerNotch", 3 } },
+                    new Dictionary<string, object> { { "speedKmph", 55.0 }, { "locationM", 200.0 } }),
+                DateTimeOffset.UtcNow);
+
+            var port = new FakeBidsPort("ex1spd");
+            var service = new BidsSerialCommunicationService(
+                port,
+                store,
+                new BidsRequestParser(),
+                new BidsResponseValueGenerator(),
+                new BidsResponseFormatter());
+
+            var processed = service.ProcessOnce();
+
+            Assert.True(processed);
+            Assert.Equal("EX1SPDX55", port.Written[0]);
+            service.Dispose();
+        }
+
         private sealed class FakeUdpSender : IUdpSender
         {
             public byte[] LastPacket { get; private set; }
@@ -157,6 +224,38 @@ namespace Extension.Tests
                 Count++;
                 LastTime = frame.BveTimeUtc;
                 Thread.Sleep(10);
+            }
+        }
+
+        private sealed class FakeBidsPort : IBidsSerialPort
+        {
+            private readonly Queue<string> inputs;
+            public List<string> Written { get; } = new List<string>();
+
+            public FakeBidsPort(params string[] requests)
+            {
+                inputs = new Queue<string>(requests);
+            }
+
+            public bool TryRead(out string line)
+            {
+                if (inputs.Count == 0)
+                {
+                    line = null;
+                    return false;
+                }
+
+                line = inputs.Dequeue();
+                return true;
+            }
+
+            public void Write(string line)
+            {
+                Written.Add(line);
+            }
+
+            public void Dispose()
+            {
             }
         }
     }

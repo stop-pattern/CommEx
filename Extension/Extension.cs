@@ -18,6 +18,7 @@ namespace BveExCsTemplate.Extension
         private readonly ApiBridgeService apiBridge;
         private readonly NtpServerService ntpServer;
         private readonly CommunicationWorker communicationWorker;
+        private readonly BidsSerialCommunicationService bidsService;
 
         public bool IsEnabled
         {
@@ -42,14 +43,22 @@ namespace BveExCsTemplate.Extension
             communicationWorker = new CommunicationWorker(publishers);
             apiBridge = new ApiBridgeService(modelStore, "http://127.0.0.1:19101/");
             ntpServer = new NtpServerService(modelStore, 19123);
+            bidsService = new BidsSerialCommunicationService(
+                new NullBidsSerialPort(),
+                modelStore,
+                new BidsRequestParser(),
+                new BidsResponseValueGenerator(),
+                new BidsResponseFormatter());
 
             communicationWorker.Start();
             apiBridge.Start();
             ntpServer.Start();
+            bidsService.Start();
         }
 
         public override void Dispose()
         {
+            bidsService.Dispose();
             ntpServer.Dispose();
             apiBridge.Dispose();
             communicationWorker.Dispose();

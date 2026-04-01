@@ -22,5 +22,6 @@
     <Compile Include="..\Extension\Infrastructure\CommunicationWorker.cs" Link="Infrastructure\CommunicationWorker.cs" />
     <Compile Include="..\Extension\Infrastructure\IFramePublisher.cs" Link="Infrastructure\IFramePublisher.cs" />
     <Compile Include="..\Extension\Infrastructure\SerialRelayService.cs" Link="Infrastructure\SerialRelayService.cs" />
+    <Compile Include="..\Extension\Infrastructure\BidsProtocol.cs" Link="Infrastructure\BidsProtocol.cs" />
   </ItemGroup>
 </Project>
