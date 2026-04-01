@@ -14,7 +14,7 @@ namespace BveExCsTemplate.Extension.Infrastructure
     /// <summary>
     /// BveEx 情報をそのまま UDP で送信する。
     /// </summary>
-    internal sealed class UdpRelayService : IDisposable
+    internal sealed class UdpRelayService : IFramePublisher, IDisposable
     {
         private readonly IUdpSender sender;
 

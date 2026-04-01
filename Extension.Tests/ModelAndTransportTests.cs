@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 using BveExCsTemplate.Extension.Infrastructure;
 using BveExCsTemplate.Extension.Model;
@@ -74,6 +75,50 @@ namespace Extension.Tests
             service.Dispose();
         }
 
+
+        [Fact]
+        public void SerialRelay_EncodesAllThreeProtocols()
+        {
+            var frame = new SimulationFrame(
+                new DateTimeOffset(2026, 4, 1, 0, 0, 0, TimeSpan.Zero),
+                false,
+                1.0,
+                new Dictionary<string, object> { { "brakeNotch", 3 }, { "powerNotch", 2 } },
+                new Dictionary<string, object> { { "speedKmph", 45.5 } });
+
+            var bids = new SerialRelayService(new FakeSerialSender(), SerialProtocol.Bids).Encode(frame);
+            Assert.Contains("BIDS;", Encoding.ASCII.GetString(bids));
+
+            var comm = new SerialRelayService(new FakeSerialSender(), SerialProtocol.Communication).Encode(frame);
+            Assert.Contains("\"protocol\":\"communication\"", Encoding.UTF8.GetString(comm));
+
+            var bin = new SerialRelayService(new FakeSerialSender(), SerialProtocol.Binary).Encode(frame);
+            Assert.Equal((byte)'C', bin[0]);
+            Assert.Equal((byte)'M', bin[1]);
+            Assert.Equal((byte)'E', bin[2]);
+            Assert.Equal((byte)'X', bin[3]);
+        }
+
+        [Fact]
+        public void CommunicationWorker_DropsOldFramesWhenQueueIsFull()
+        {
+            var slow = new SlowPublisher();
+            var worker = new CommunicationWorker(new List<IFramePublisher> { slow }, capacity: 1);
+            worker.Start();
+
+            var baseTime = new DateTimeOffset(2026, 4, 1, 0, 0, 0, TimeSpan.Zero);
+            for (var i = 0; i < 20; i++)
+            {
+                worker.EnqueueLatest(new SimulationFrame(baseTime.AddSeconds(i), false, 1.0, new Dictionary<string, object>(), new Dictionary<string, object>()));
+            }
+
+            Thread.Sleep(120);
+            worker.Dispose();
+
+            Assert.True(slow.Count > 0);
+            Assert.True(slow.LastTime >= baseTime.AddSeconds(10));
+        }
+
         private sealed class FakeUdpSender : IUdpSender
         {
             public byte[] LastPacket { get; private set; }
@@ -85,6 +130,33 @@ namespace Extension.Tests
 
             public void Dispose()
             {
+            }
+        }
+
+        private sealed class FakeSerialSender : ISerialSender
+        {
+            public byte[] LastPayload { get; private set; }
+
+            public void Send(byte[] payload)
+            {
+                LastPayload = payload;
+            }
+
+            public void Dispose()
+            {
+            }
+        }
+
+        private sealed class SlowPublisher : IFramePublisher
+        {
+            public int Count { get; private set; }
+            public DateTimeOffset LastTime { get; private set; }
+
+            public void Publish(SimulationFrame frame)
+            {
+                Count++;
+                LastTime = frame.BveTimeUtc;
+                Thread.Sleep(10);
             }
         }
     }

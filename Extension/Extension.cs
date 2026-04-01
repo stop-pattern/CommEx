@@ -15,9 +15,9 @@ namespace BveExCsTemplate.Extension
     {
         private bool status = true;
         private readonly BveExModelStore modelStore;
-        private readonly UdpRelayService udpRelay;
         private readonly ApiBridgeService apiBridge;
         private readonly NtpServerService ntpServer;
+        private readonly CommunicationWorker communicationWorker;
 
         public bool IsEnabled
         {
@@ -29,11 +29,21 @@ namespace BveExCsTemplate.Extension
         {
             modelStore = new BveExModelStore();
 
-            // TODO: 設定ファイルから読み込む
-            udpRelay = new UdpRelayService(new UdpSender("127.0.0.1", 19100));
+            var publishers = new List<IFramePublisher>
+            {
+                new UdpRelayService(new UdpSender("127.0.0.1", 19100)),
+
+                // TODO: 実際のポート設定を追加するまで NullSender で無効化
+                new SerialRelayService(new NullSerialSender(), SerialProtocol.Bids),
+                new SerialRelayService(new NullSerialSender(), SerialProtocol.Communication),
+                new SerialRelayService(new NullSerialSender(), SerialProtocol.Binary),
+            };
+
+            communicationWorker = new CommunicationWorker(publishers);
             apiBridge = new ApiBridgeService(modelStore, "http://127.0.0.1:19101/");
             ntpServer = new NtpServerService(modelStore, 19123);
 
+            communicationWorker.Start();
             apiBridge.Start();
             ntpServer.Start();
         }
@@ -42,7 +52,7 @@ namespace BveExCsTemplate.Extension
         {
             ntpServer.Dispose();
             apiBridge.Dispose();
-            udpRelay.Dispose();
+            communicationWorker.Dispose();
         }
 
         public override void Tick(TimeSpan elapsed)
@@ -54,13 +64,12 @@ namespace BveExCsTemplate.Extension
 
             var frame = CaptureFromBveEx();
             modelStore.Update(frame, DateTimeOffset.UtcNow);
-            udpRelay.Publish(frame);
+            communicationWorker.EnqueueLatest(frame);
         }
 
         private SimulationFrame CaptureFromBveEx()
         {
             // TODO: BveEx API 連携実装。
-            // 現状は「そのまま垂れ流す」ための仮ペイロード。
             var inputs = new Dictionary<string, object>
             {
                 { "brakeNotch", 0 },

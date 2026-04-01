@@ -10,6 +10,7 @@
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.IO.Ports" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,5 +19,8 @@
     <Compile Include="..\Extension\Infrastructure\NtpServerService.cs" Link="Infrastructure\NtpServerService.cs" />
     <Compile Include="..\Extension\Infrastructure\UdpRelayService.cs" Link="Infrastructure\UdpRelayService.cs" />
     <Compile Include="..\Extension\Infrastructure\ApiBridgeService.cs" Link="Infrastructure\ApiBridgeService.cs" />
+    <Compile Include="..\Extension\Infrastructure\CommunicationWorker.cs" Link="Infrastructure\CommunicationWorker.cs" />
+    <Compile Include="..\Extension\Infrastructure\IFramePublisher.cs" Link="Infrastructure\IFramePublisher.cs" />
+    <Compile Include="..\Extension\Infrastructure\SerialRelayService.cs" Link="Infrastructure\SerialRelayService.cs" />
   </ItemGroup>
 </Project>
