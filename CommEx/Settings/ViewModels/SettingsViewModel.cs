@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,9 +7,9 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.IO.Ports;
 
-using BveExCsTemplate.Extension.Settings.Models;
+using BveExCsTemplate.CommEx.Settings.Models;
 
-namespace BveExCsTemplate.Extension.Settings.ViewModels
+namespace BveExCsTemplate.CommEx.Settings.ViewModels
 {
     internal class SettingsViewModel : ViewModelBase
     {

@@ -1,4 +1,4 @@
-namespace BveExCsTemplate.Extension.Settings.Models
+﻿namespace BveExCsTemplate.CommEx.Settings.Models
 {
     internal class ComPortSetting
     {

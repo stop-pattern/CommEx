@@ -1,7 +1,7 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BveExCsTemplate.Extension.Settings.ViewModels
+namespace BveExCsTemplate.CommEx.Settings.ViewModels
 {
     internal abstract class ViewModelBase : INotifyPropertyChanged
     {

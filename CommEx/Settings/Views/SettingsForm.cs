@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-using BveExCsTemplate.Extension.Settings.Models;
-using BveExCsTemplate.Extension.Settings.ViewModels;
+using BveExCsTemplate.CommEx.Settings.Models;
+using BveExCsTemplate.CommEx.Settings.ViewModels;
 
-namespace BveExCsTemplate.Extension.Settings.Views
+namespace BveExCsTemplate.CommEx.Settings.Views
 {
     internal class SettingsForm : Form
     {

@@ -1,4 +1,4 @@
-namespace BveExCsTemplate.Extension.Settings
+﻿namespace BveExCsTemplate.CommEx.Settings
 {
     internal enum TransportType
     {
