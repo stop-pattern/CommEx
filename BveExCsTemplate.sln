@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapPlugin", "MapPlugin\MapP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extension", "Extension\Extension.csproj", "{80D2BAF1-62D2-4538-8249-5F1C6D2B3DCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extension.Tests", "Extension.Tests\Extension.Tests.csproj", "{326BBA13-B6C3-4779-80BF-AB31E801A5A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{80D2BAF1-62D2-4538-8249-5F1C6D2B3DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80D2BAF1-62D2-4538-8249-5F1C6D2B3DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80D2BAF1-62D2-4538-8249-5F1C6D2B3DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{326BBA13-B6C3-4779-80BF-AB31E801A5A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{326BBA13-B6C3-4779-80BF-AB31E801A5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{326BBA13-B6C3-4779-80BF-AB31E801A5A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{326BBA13-B6C3-4779-80BF-AB31E801A5A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
