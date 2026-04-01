@@ -1,62 +1,104 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using BveEx.PluginHost.Plugins;
 using BveEx.PluginHost.Plugins.Extensions;
 
+using BveExCsTemplate.Extension.Infrastructure;
+using BveExCsTemplate.Extension.Model;
+
 namespace BveExCsTemplate.Extension
 {
-    /// <summary>
-    /// プラグインの本体
-    /// Plugin() の第一引数でこのプラグインの仕様を指定
-    /// Plugin() の第二引数でこのプラグインが必要とするBveEx本体の最低バージョンを指定（オプション）
-    /// Togglable を付加するとユーザーがBveExのバージョン一覧から有効・無効を切換できる
-    /// </summary>
     [Plugin(PluginType.Extension)]
     [Togglable]
     internal class ExtensionMain : AssemblyPluginBase, ITogglableExtension, IExtension
     {
-        /// <summary>
-        /// プラグインの有効・無効状態
-        /// </summary>
         private bool status = true;
+        private readonly BveExModelStore modelStore;
+        private readonly ApiBridgeService apiBridge;
+        private readonly NtpServerService ntpServer;
+        private readonly CommunicationWorker communicationWorker;
+        private readonly BidsSerialCommunicationService bidsService;
 
-        /// <inheritdoc/>
         public bool IsEnabled
         {
             get { return status; }
             set { status = value; }
         }
-        /// <summary>
-        /// プラグインが読み込まれた時に呼ばれる
-        /// 初期化を実装する
-        /// </summary>
-        /// <param name="builder"></param>
+
         public ExtensionMain(PluginBuilder builder) : base(builder)
         {
+            modelStore = new BveExModelStore();
+
+            var publishers = new List<IFramePublisher>
+            {
+                new UdpRelayService(new UdpSender("127.0.0.1", 19100)),
+
+                // TODO: 実際のポート設定を追加するまで NullSender で無効化
+                new SerialRelayService(new NullSerialSender(), SerialProtocol.Bids),
+                new SerialRelayService(new NullSerialSender(), SerialProtocol.Communication),
+                new SerialRelayService(new NullSerialSender(), SerialProtocol.Binary),
+            };
+
+            communicationWorker = new CommunicationWorker(publishers);
+            apiBridge = new ApiBridgeService(modelStore, "http://127.0.0.1:19101/");
+            ntpServer = new NtpServerService(modelStore, 19123);
+            bidsService = new BidsSerialCommunicationService(
+                new NullBidsSerialPort(),
+                modelStore,
+                new BidsRequestParser(),
+                new BidsResponseValueGenerator(),
+                new BidsResponseFormatter());
+
+            communicationWorker.Start();
+            apiBridge.Start();
+            ntpServer.Start();
+            bidsService.Start();
         }
 
-        /// <summary>
-        /// プラグインが解放されたときに呼ばれる
-        /// 後処理を実装する
-        /// </summary>
         public override void Dispose()
         {
+            bidsService.Dispose();
+            ntpServer.Dispose();
+            apiBridge.Dispose();
+            communicationWorker.Dispose();
         }
 
-        /// <summary>
-        /// シナリオ読み込み中に毎フレーム呼び出される
-        /// </summary>
-        /// <param name="elapsed">前回フレームからの経過時間</param>
         public override void Tick(TimeSpan elapsed)
         {
-            if (status)
+            if (!status)
             {
-                // 処理を実装
+                return;
             }
+
+            var frame = CaptureFromBveEx();
+            modelStore.Update(frame, DateTimeOffset.UtcNow);
+            communicationWorker.EnqueueLatest(frame);
+        }
+
+        private SimulationFrame CaptureFromBveEx()
+        {
+            // TODO: BveEx API 連携実装。
+            var inputs = new Dictionary<string, object>
+            {
+                { "brakeNotch", 0 },
+                { "powerNotch", 0 },
+                { "reverser", 0 },
+            };
+
+            var outputs = new Dictionary<string, object>
+            {
+                { "speedKmph", 0.0 },
+                { "locationM", 0.0 },
+                { "bcPressure", 0.0 },
+            };
+
+            return new SimulationFrame(
+                DateTimeOffset.UtcNow,
+                false,
+                1.0,
+                inputs,
+                outputs);
         }
     }
 }
