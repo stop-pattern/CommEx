@@ -44,6 +44,7 @@ namespace CommEx
         /// </summary>
         public override void Dispose()
         {
+            mainViewModel.Dispose();
         }
 
         /// <summary>
