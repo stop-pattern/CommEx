@@ -19,8 +19,9 @@ namespace CommEx.App
             IPluginLogger logger = new NullPluginLogger();
             IClock clock = new SystemClock();
             ITelemetryService telemetryService = new DummyTelemetryService(logger, clock);
+            IComCommunicationService comCommunicationService = new ComCommunicationService(logger);
 
-            return new MainViewModel(telemetryService, logger);
+            return new MainViewModel(telemetryService, comCommunicationService, clock, logger);
         }
     }
 }
