@@ -88,3 +88,10 @@ Bve起動後に右クリックメニューから設定してください。
 - `Views/`: 表示連携（現状はプレースホルダ）
 - `Services/`: 通信・I/O など副作用を持つ処理
 - `Infrastructure/`: ログ・時刻など横断的機能
+
+
+## 設定 View 実装の現状（右クリックメニュー）
+- 右クリックメニュー向け設定は `ContextMenuSettingsViewModel` で管理します。
+- 設定セクションは `ISettingsSectionViewModelFactory` で生成するため、`udp/api/com` 以外の機能もファクトリ追加で拡張できます。
+- 現在は UI 本体を未実装とし、`DeferredContextMenuSettingsView` が「表示要求を受け取るプレースホルダ」として動作します。
+- 設定モデルは `Models/Settings` 配下に集約し、`Services/Settings` から読み書きします（現在はインメモリ実装）。

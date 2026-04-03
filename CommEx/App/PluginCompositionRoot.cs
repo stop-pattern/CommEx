@@ -1,7 +1,11 @@
+using System.Collections.Generic;
 using CommEx.Infrastructure.Logging;
 using CommEx.Infrastructure.Time;
 using CommEx.Services;
+using CommEx.Services.Settings;
 using CommEx.ViewModels;
+using CommEx.ViewModels.Settings;
+using CommEx.Views.Settings;
 
 namespace CommEx.App
 {
@@ -20,7 +24,20 @@ namespace CommEx.App
             IClock clock = new SystemClock();
             ITelemetryService telemetryService = new DummyTelemetryService(logger, clock);
 
-            return new MainViewModel(telemetryService, logger);
+            IPluginSettingsRepository settingsRepository = new InMemoryPluginSettingsRepository();
+            IPluginSettingsService settingsService = new PluginSettingsService(settingsRepository);
+
+            IEnumerable<ISettingsSectionViewModelFactory> factories = new ISettingsSectionViewModelFactory[]
+            {
+                new UdpSettingsSectionViewModelFactory(),
+                new ApiServerSettingsSectionViewModelFactory(),
+                new ComSettingsSectionViewModelFactory()
+            };
+
+            ContextMenuSettingsViewModel settingsViewModel = new ContextMenuSettingsViewModel(settingsService, factories);
+            IContextMenuSettingsView settingsView = new DeferredContextMenuSettingsView(logger);
+
+            return new MainViewModel(telemetryService, logger, clock, settingsView, settingsViewModel);
         }
     }
 }
