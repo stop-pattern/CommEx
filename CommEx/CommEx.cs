@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using BveEx.PluginHost.Plugins;
 using BveEx.PluginHost.Plugins.Extensions;
+
+using CommEx.App;
+using CommEx.ViewModels;
 
 namespace CommEx
 {
@@ -19,24 +18,24 @@ namespace CommEx
     [Togglable]
     internal class CommExMain : AssemblyPluginBase, ITogglableExtension, IExtension
     {
-        /// <summary>
-        /// プラグインの有効・無効状態
-        /// </summary>
-        private bool status = true;
+        private readonly MainViewModel mainViewModel;
 
-        /// <inheritdoc/>
-        public bool IsEnabled
-        {
-            get { return status; }
-            set { status = value; }
-        }
         /// <summary>
         /// プラグインが読み込まれた時に呼ばれる
         /// 初期化を実装する
         /// </summary>
-        /// <param name="builder"></param>
         public CommExMain(PluginBuilder builder) : base(builder)
         {
+            mainViewModel = PluginCompositionRoot.BuildMainViewModel();
+        }
+
+        /// <summary>
+        /// プラグインの有効・無効状態
+        /// </summary>
+        public bool IsEnabled
+        {
+            get { return mainViewModel.IsEnabled; }
+            set { mainViewModel.IsEnabled = value; }
         }
 
         /// <summary>
@@ -53,10 +52,7 @@ namespace CommEx
         /// <param name="elapsed">前回フレームからの経過時間</param>
         public override void Tick(TimeSpan elapsed)
         {
-            if (status)
-            {
-                // 処理を実装
-            }
+            mainViewModel.OnTick(elapsed);
         }
     }
 }
