@@ -1,7 +1,10 @@
 using System;
 using CommEx.Infrastructure.Logging;
+using CommEx.Infrastructure.Time;
 using CommEx.Models;
 using CommEx.Services;
+using CommEx.ViewModels.Settings;
+using CommEx.Views.Settings;
 
 namespace CommEx.ViewModels
 {
@@ -12,6 +15,8 @@ namespace CommEx.ViewModels
     {
         private readonly ITelemetryService telemetryService;
         private readonly IPluginLogger logger;
+        private readonly IClock clock;
+        private readonly IContextMenuSettingsView settingsView;
         private readonly PluginState state = new PluginState();
 
         /// <summary>
@@ -19,11 +24,26 @@ namespace CommEx.ViewModels
         /// </summary>
         /// <param name="telemetryService">テレメトリ通知を担当するサービス。</param>
         /// <param name="logger">ログ出力を担当するロガー。</param>
-        public MainViewModel(ITelemetryService telemetryService, IPluginLogger logger)
+        /// <param name="settingsView">右クリック設定表示を担当する View アダプタ。</param>
+        /// <param name="settingsViewModel">右クリック設定画面の ViewModel。</param>
+        public MainViewModel(
+            ITelemetryService telemetryService,
+            IPluginLogger logger,
+            IClock clock,
+            IContextMenuSettingsView settingsView,
+            ContextMenuSettingsViewModel settingsViewModel)
         {
             this.telemetryService = telemetryService;
             this.logger = logger;
+            this.clock = clock;
+            this.settingsView = settingsView;
+            SettingsViewModel = settingsViewModel;
         }
+
+        /// <summary>
+        /// 右クリック設定画面の ViewModel を取得します。
+        /// </summary>
+        public ContextMenuSettingsViewModel SettingsViewModel { get; }
 
         /// <summary>
         /// プラグインの有効状態を取得または設定します。
@@ -46,7 +66,7 @@ namespace CommEx.ViewModels
             }
 
             state.TickCount++;
-            state.LastTickUtc = DateTime.UtcNow;
+            state.LastTickUtc = clock.UtcNow;
 
             telemetryService.PublishHeartbeat(state.TickCount, elapsed);
 
@@ -54,6 +74,22 @@ namespace CommEx.ViewModels
             {
                 logger.Info("CommEx heartbeat is active.");
             }
+        }
+
+        /// <summary>
+        /// 右クリックメニューから設定表示が要求された際に呼び出します。
+        /// </summary>
+        public void OpenContextMenuSettings()
+        {
+            settingsView.Show(SettingsViewModel);
+        }
+
+        /// <summary>
+        /// 設定の保存を実行します。
+        /// </summary>
+        public void SaveSettings()
+        {
+            SettingsViewModel.Save();
         }
     }
 }
