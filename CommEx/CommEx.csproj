@@ -14,4 +14,29 @@
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <BveExExtensionsDir>$(Public)\Documents\BveEx\2.0\Extensions\</BveExExtensionsDir>
+  </PropertyGroup>
+  
+  <Target Name="CopyToBveExExtensions" AfterTargets="Build">
+    <Message Text="=== Copy to BveEx Extensions: $(BveExExtensionsDir) ===" Importance="high" />
+
+    <MakeDir Directories="$(BveExExtensionsDir)" Condition="!Exists('$(BveExExtensionsDir)')" />
+
+    <ItemGroup>
+      <FilesToCopy Include="$(TargetDir)$(TargetFileName)" />
+      <FilesToCopy Remove="$(TargetDir)**\*.pdb" />
+      <FilesToCopy Remove="$(TargetDir)**\*.xml" />
+      <FilesToCopy Remove="$(TargetDir)**\*.deps.json" />
+      <FilesToCopy Remove="$(TargetDir)**\*.runtimeconfig.json" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(FilesToCopy)"
+      DestinationFiles="@(FilesToCopy->'$(BveExExtensionsDir)%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true" />
+
+    <Message Text="Copy completed." Importance="high" />
+  </Target>
+
 </Project>
