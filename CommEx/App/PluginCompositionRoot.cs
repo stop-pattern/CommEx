@@ -1,5 +1,6 @@
 using CommEx.Infrastructure.Logging;
 using CommEx.Infrastructure.Time;
+using CommEx.Models;
 using CommEx.Services;
 using CommEx.ViewModels;
 
@@ -18,9 +19,10 @@ namespace CommEx.App
         {
             IPluginLogger logger = new NullPluginLogger();
             IClock clock = new SystemClock();
-            ITelemetryService telemetryService = new DummyTelemetryService(logger, clock);
+            UdpTransportSettings udpSettings = new UdpTransportSettings();
+            ITelemetryService telemetryService = new UdpTelemetryService(logger, clock, udpSettings);
 
-            return new MainViewModel(telemetryService, logger);
+            return new MainViewModel(telemetryService, logger, clock);
         }
     }
 }

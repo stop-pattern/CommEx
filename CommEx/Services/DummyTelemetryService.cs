@@ -1,6 +1,7 @@
 using System;
 using CommEx.Infrastructure.Logging;
 using CommEx.Infrastructure.Time;
+using CommEx.Models;
 
 namespace CommEx.Services
 {
@@ -36,6 +37,15 @@ namespace CommEx.Services
             }
 
             _ = elapsed;
+        }
+
+        public void PublishUdpTelemetry(UdpTelemetryPacket packet)
+        {
+            _ = packet;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
