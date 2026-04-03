@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "CommEx": {
+      "commandName": "Project"
+    },
+    "BVE5": {
+      "commandName": "Executable",
+      "executablePath": "%ProgramFiles(x86)%\\mackoy\\BveTs5\\BveTs.exe",
+      "commandLineArgs": "%USERPROFILE%\\Documents\\Scenarios\\mackoy.Keisei.txt",
+      "workingDirectory": "%USERPROFILE%\\Documents\\Scenarios\\"
+    },
+    "BVE6": {
+      "commandName": "Executable",
+      "executablePath": "%ProgramFiles%\\mackoy\\BveTs6\\BveTs.exe",
+      "commandLineArgs": "%USERPROFILE%\\Documents\\Scenarios\\Uchibo_3793F_ATS-P.txt",
+      "workingDirectory": "%USERPROFILE%\\Documents\\Scenarios\\"
+    }
+  }
+}
