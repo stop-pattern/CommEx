@@ -173,6 +173,10 @@ verification reports preserve what was true then; label corrections rather than 
   moving to independent work. One prompt may produce multiple commits; a session is not a commit unit.
 - Group by purpose, not file count. Keep implementation/tests or interdependent documentation together;
   avoid broken fragments and unrelated changes. Do not commit failing applicable checks just for frequency.
+- Keep commits separate by task. Before editing or staging, reconcile existing task records, owners and
+  working-tree changes; coordinate overlapping files with their owners. Include only the current task's
+  reviewed paths/hunks, leaving pre-existing changes and other tasks out of its commits. A task may have
+  multiple verified incremental commits; record their IDs in that task's progress/journal.
 - Before each commit inspect status, working/staged diffs and new files; run git diff --check and the
   relevant checks, including the privacy review. Stage explicit reviewed paths/hunks, never blanket-stage.
 - Documentation-only increments use consistency/link/whitespace checks; pre-existing missing application
