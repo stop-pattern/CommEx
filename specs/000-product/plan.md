@@ -5,6 +5,11 @@ This is the implementation roadmap, not a claim that features or contracts are c
 [Specification](spec.md), [compatibility](compatibility.md), [data catalog](data-catalog.md) and
 [acceptance](acceptance.md) govern the feature plans.
 
+Execution follows [AGENTS.md](../../AGENTS.md) and the [development workflow](../../docs/development-workflow.md).
+Maintain a goal, current progress and action journal under reports/<work-id>/ throughout each attempt,
+including deployment state, evidence, consumed attempts and the next action. Delegate independent research
+and separately owned implementation work; the coordinator verifies integration and owns shared Git/resources.
+
 ## Dependency order
 
 1. Resolve the host bootstrap portion of B02/B08/B09 and specify F001. Establish the six-environment
@@ -44,6 +49,8 @@ BVE 5/AtsEX environments block their required stages and release, not unrelated 
 These are logical boundaries, not a requirement for one assembly per row. Prefer minimal runtime DLLs;
 allow necessary host-specific builds and justified dependencies without mandatory assembly merging.
 Concrete project/package/output decisions await B09 and the corresponding feature technical plans.
+Use the common README/AGENTS responsibility layout: production projects under src/, test levels under
+tests/Unit, tests/Integration and tests/BveE2E, and the independent peer under tools/TestPeer.
 
 ## Interfaces and data flow
 
@@ -84,13 +91,17 @@ Concrete project/package/output decisions await B09 and the corresponding featur
 A feature may start only with an Approved specification, applicable blockers closed, its own
 dependency-ordered tasks and acceptance criteria. Add tests before or alongside each coherent increment.
 Run the narrowest relevant tests, then scripts/verify.ps1. On failure preserve evidence and test a
-falsifiable hypothesis within the configured attempt budget.
+falsifiable hypothesis within the configured attempt budget. Persist the consumed budget across resumes;
+record failed attempts and intermediate checkpoints, not only the final success report. Deployment requires
+an identified artifact/target, exclusive resource ownership, recovery preparation and post-load observations.
 
 Follow the [agent commit policy](../../AGENTS.md): commit each smallest meaningful increment after
 its applicable checks pass, before moving to independent work. Keep related implementation/tests or
 interdependent documents together; do not wait for the entire feature or session. Documentation-only
 increments use content/link/whitespace checks. Record broader unavailable/failing gates explicitly;
 an intermediate commit never marks a feature complete. Stage only reviewed, related changes.
+One prompt can contain several such commits. Review tracked evidence and commit metadata for personal
+or confidential data; keep raw machine-specific evidence in ignored locations.
 
 Mark a feature complete only after applicable acceptance passes and the full verification command
 succeeds without skipped required levels. Record reports using reports/result.schema.json, review the

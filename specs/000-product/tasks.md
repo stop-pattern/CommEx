@@ -62,5 +62,11 @@ separate, still-uncompleted tasks.
 - [ ] Prove a deliberately broken plugin fails E2E and a known-good smoke plugin passes.
 - [ ] Provide a real external MQTT broker, independent peers/vectors and physical Serial loopback fixture.
 - [ ] Freeze workload and measurement rules before performance acceptance; do not tune them after failure.
+- [ ] Bring autonomous-loop.ps1 into compliance with durable goal/progress/journal records, persisted attempt budgets, spec approval/dependency gates and safe resume before unattended use.
+- [ ] Replace the runner's blanket staging/completion-only commit behavior with reviewed scoped incremental commits and correct handling when agents have already committed their work.
+- [ ] Add deployment ownership, artifact identity, stop/backup/recovery and post-load evidence around the primitive copy helper before unattended deployment.
+- [ ] Verify shared-resource isolation for parallel agents, including Git staging, BVE, UI automation and Serial/network fixtures.
+- [ ] Enforce the documented C# four-space/XML-documentation rules in applicable projects and review, including non-public members, without changing the approved framework/dependencies just for style.
+- [ ] Integrate staged-content/privacy checks covering generated evidence, personal paths, credentials and commit identity before automated commits.
 
 No checkbox was completed by the clarification/documentation update.
