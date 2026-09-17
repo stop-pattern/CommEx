@@ -22,3 +22,12 @@
 - Initial documentation checker exited 1: its drive-path expression matched the final letter of an HTTPS URL. Inspection identified a checker false positive, not a personal filesystem path. Added the missing word boundary; retained the initial result in artifacts/github-ci-cd-spec/documentation-check-initial.json.
 - git diff --check exited 0. Existing CRLF normalization warnings are unrelated to the content checks.
 - Re-run the corrected checker before committing; this documentation check is not plugin feature verification.
+
+## 2026-09-18 JST — verified scoped commit
+
+- Reconciled interrupted operations: HEAD remained 715e54f; scoped staging was subsequently completed. Anonymous commit invocation was interrupted before a commit was created.
+- Owner requested immediate scoped commits and authorized the existing Git identity. No global identity settings changed.
+- python artifacts/github-ci-cd-spec/check_docs.py exited 0 for ten documentation files. git diff --cached --check exited 0; reviewed the full staged diff and confirmed only CI/CD additions were staged in shared README/plan/tasks files.
+- git commit -m "docs(ci): specify push builds and draft releases" exited 0 and created be885f0 (ten files, 155 insertions), using the existing Git identity.
+- No remote push, workflow execution, build, deployment or plugin verification was performed. Existing SDK migration changes remain a separate task.
+- Completion-record follow-up contains only this journal and progress; next work must reconcile existing task ownership and keep commits separate by purpose.
