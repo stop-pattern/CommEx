@@ -1,0 +1,704 @@
+﻿{
+    "kind":  "documentation-and-editor-settings-check",
+    "checkedAtUtc":  "2026-09-17T16:42:49.6771291Z",
+    "baseCommit":  "bf16362a93d648e0dde6dc6b4531710c2f4bc738",
+    "status":  "passed",
+    "passed":  161,
+    "failed":  0,
+    "documents":  11,
+    "localLinks":  48,
+    "featureCompletionClaim":  false,
+    "applicationVerification":  "not run for documentation/editor-settings only; missing solution and unimplemented BVE E2E remain documented",
+    "checks":  [
+                   {
+                       "name":  "file exists: AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link AGENTS.md -\u003e docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link AGENTS.md -\u003e reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link AGENTS.md -\u003e docs/coding-standards.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link AGENTS.md -\u003e .editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "file exists: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e specs/000-product/spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e specs/000-product/compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e specs/000-product/acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e reports/_templates/progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e docs/coding-standards.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e .editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e specs/000-product/spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e specs/000-product/compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e specs/000-product/data-catalog.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e specs/000-product/acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e .specify/memory/constitution.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link README.md -\u003e LICENSE",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "file exists: docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link docs/development-workflow.md -\u003e ../AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link docs/development-workflow.md -\u003e ../reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link docs/development-workflow.md -\u003e ../specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "file exists: reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: reports/README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link reports/README.md -\u003e ../AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link reports/README.md -\u003e ../docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link reports/README.md -\u003e ./_templates/goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link reports/README.md -\u003e ./_templates/progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link reports/README.md -\u003e ./_templates/journal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link reports/README.md -\u003e result.schema.json",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "file exists: reports/_templates/goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: reports/_templates/goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: reports/_templates/goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: reports/_templates/goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: reports/_templates/goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: reports/_templates/goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: reports/_templates/goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: reports/_templates/goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link reports/_templates/goal.md -\u003e progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "file exists: reports/_templates/progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: reports/_templates/progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: reports/_templates/progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: reports/_templates/progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: reports/_templates/progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: reports/_templates/progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: reports/_templates/progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: reports/_templates/progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link reports/_templates/progress.md -\u003e goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "file exists: reports/_templates/journal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: reports/_templates/journal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: reports/_templates/journal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: reports/_templates/journal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: reports/_templates/journal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: reports/_templates/journal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: reports/_templates/journal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: reports/_templates/journal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "file exists: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/plan.md -\u003e spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/plan.md -\u003e compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/plan.md -\u003e data-catalog.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/plan.md -\u003e acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/plan.md -\u003e ../../AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/plan.md -\u003e ../../docs/development-workflow.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/plan.md -\u003e ../../AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "file exists: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/tasks.md -\u003e spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/tasks.md -\u003e compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/tasks.md -\u003e data-catalog.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link specs/000-product/tasks.md -\u003e acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "file exists: docs/coding-standards.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: docs/coding-standards.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: docs/coding-standards.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: docs/coding-standards.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: docs/coding-standards.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: docs/coding-standards.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: docs/coding-standards.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: docs/coding-standards.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link docs/coding-standards.md -\u003e ../AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link docs/coding-standards.md -\u003e ../.editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link docs/coding-standards.md -\u003e ../AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "file exists: .editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no trailing whitespace: .editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced fences: .editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy GitHub token: .editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy private key armor: .editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy AWS access key: .editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "privacy home path: .editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no local username: .editorconfig",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "README and AGENTS folder trees exist and match",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: goal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: progress.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: journal.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: result.json",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: maximumFeatureAttempts",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: subagent",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: coordinator",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: git diff --check",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: BLOCKED",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: four spaces",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "agent requirement present: XML documentation",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "prompt boundaries do not define commits",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "runner restriction explicit",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "attempts persist across sessions",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no completed product tasks",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "editor setting: root = true",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "editor setting: [*.cs]",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "editor setting: indent_style = space",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "editor setting: indent_size = 4",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "editor setting: tab_width = 4",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "editor setting: csharp_new_line_before_open_brace = all",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "C# guide references official conventions",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "C# guide explains CS1591 limitations",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "git diff --check",
+                       "passed":  true
+                   }
+               ],
+    "fileHashes":  [
+                       {
+                           "path":  "AGENTS.md",
+                           "sha256":  "0d3c45fea59f633ffec9535044b1df0140a1b53f577bcca653e080e0da935395"
+                       },
+                       {
+                           "path":  "README.md",
+                           "sha256":  "90e7b2f044387f23d4a888c07591a82322f75544d314bcae69f11247a5651d16"
+                       },
+                       {
+                           "path":  "docs/development-workflow.md",
+                           "sha256":  "2edb8926cb5a66aec8fd43a4e3702e866b6ab214782638d09367519dd9fd4b75"
+                       },
+                       {
+                           "path":  "reports/README.md",
+                           "sha256":  "b940b599a7f6728c3d03389db21af7783ebcd51059335486fd35d96e4a3349c5"
+                       },
+                       {
+                           "path":  "reports/_templates/goal.md",
+                           "sha256":  "7426cdbad0c6c99474ef8967e0470bc6058782cfe44084eb56e5ac46c10e0ae5"
+                       },
+                       {
+                           "path":  "reports/_templates/progress.md",
+                           "sha256":  "7d604e0122186a6201d1573c1ba1172f8208e2154ceee2f61b60e5d0ef458e0c"
+                       },
+                       {
+                           "path":  "reports/_templates/journal.md",
+                           "sha256":  "72579d6e77812dda5ab46362a0779d86411dbf57959fc1987192c30ca61c65fa"
+                       },
+                       {
+                           "path":  "specs/000-product/plan.md",
+                           "sha256":  "09c0a1cffc67eb8fbb8e5129a6edd9c3ee5b5b942906ca6298e48bcc4c7273be"
+                       },
+                       {
+                           "path":  "specs/000-product/tasks.md",
+                           "sha256":  "8439b4752e24e98b0328b816290b81b295d43562d46392bd63710fa3df35fd16"
+                       },
+                       {
+                           "path":  "docs/coding-standards.md",
+                           "sha256":  "d22d18369cf52c8aeffd66ad51b6042e1bb7bfd2aa82a7f6b95a8c065cc83d3b"
+                       },
+                       {
+                           "path":  ".editorconfig",
+                           "sha256":  "5361a37eccbfd57ec1a05cc2b03d769cee260ca3cd651f17dd4609c398dbdb57"
+                       }
+                   ]
+}
