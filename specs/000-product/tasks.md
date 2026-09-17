@@ -47,6 +47,15 @@ F016 has a transport-independent increment and later per-transport integration i
 it complete after the state machine alone. F001 establishes the early smoke harness; later feature
 evidence extends it to real codecs/transports without weakening the known-good/broken controls.
 
+## GitHub CI/CD infrastructure
+
+Requirements and acceptance: [CI/CD specification](ci-cd.md). These tasks are unimplemented.
+
+- [ ] CI001 Define executable code checks/failure criteria, runner/build configuration, dependency acquisition and permitted artifact manifest (FR-020, B09).
+- [ ] CI002 Implement branch-push checks/build/compilation and downloadable DLL artifact upload with one-day retention (CI-AC-01/02/04).
+- [ ] CI003 Define existing draft/asset rerun behavior, then implement tag-push execution of the same pipeline and draft Release creation with matching build assets (CI-AC-02/03/04/05).
+- [ ] CI004 Record real GitHub workflow/download/failure evidence for CI-AC-01 through CI-AC-05, separately from product release verification.
+
 ## Infrastructure prerequisites
 
 The six supported combinations are decided in spec.md. Environment preparation and verification are

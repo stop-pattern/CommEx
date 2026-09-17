@@ -80,6 +80,13 @@ Queue/message/client limits and overload behavior still require approved contrac
 Exact workload values and detailed measurement rules are not yet approved, so performance acceptance
 remains BLOCKED, even though its thresholds are fixed.
 
+## CI/CD infrastructure acceptance
+
+[CI-AC-01 through CI-AC-05](ci-cd.md) cover push builds, downloadable DLL artifacts, one-day retention,
+tag-to-build identity, draft assets and failure gating. These checks establish CI/CD behavior only.
+A tag-created draft is release preparation; published product distribution still requires AC-14 and
+the full applicable verification below.
+
 ## Evidence and completion
 
 Run repository scripts in order: build.ps1, test-unit.ps1, test-integration.ps1, test-bve.ps1 through

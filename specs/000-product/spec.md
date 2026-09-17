@@ -148,6 +148,12 @@ Normalized records of the owner's answers, including later refinements:
   justified dependencies with notices. Include configuration examples and documentation; do not
   redistribute BVE/AtsEX/BveEX runtimes. Exact artifacts/dependencies need license review.
 
+- FR-020: Manage the remote repository on GitHub. Run push-triggered code checks/build/compilation and
+  upload downloadable DLL artifacts with one-day retention. On tag push, run the same pipeline for the
+  tagged commit, then create a draft GitHub Release and attach its build artifacts. The normative
+  [CI/CD specification](ci-cd.md) defines the two workflows, acceptance and implementation decisions.
+  Draft preparation does not satisfy product publication gates.
+
 ## Cross-cutting requirements
 
 - No network, Serial, process or file I/O waiting on BVE/AtsEX/BveEX callbacks.

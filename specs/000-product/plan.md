@@ -32,6 +32,16 @@ Approved; full feature completion still requires their specified integration and
 Do not postpone the first BVE integration test until communication features are finished. Missing
 BVE 5/AtsEX environments block their required stages and release, not unrelated contract research.
 
+## GitHub CI/CD infrastructure
+
+Implement [FR-020 and the CI/CD contract](ci-cd.md) as a separate infrastructure increment:
+define executable code checks and runner/build setup; implement push checks/build/upload with one-day
+artifact retention; reuse that pipeline for the tagged commit before creating a draft Release with
+matching assets; verify CI-AC-01 through CI-AC-05. Use repository build scripts with runner-local
+configuration, without committing personal settings. Resolve B09 for distributable artifacts and
+define rerun behavior before updating existing drafts/assets.
+Draft preparation may precede R001/R002; product publication still requires those gates.
+
 ## Architecture boundaries
 
 | Boundary | Responsibility |
