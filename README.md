@@ -46,6 +46,7 @@ planned は未作成の実装領域です。空のプロジェクトや大量の
 CommEx/
 |-- AGENTS.md                 # mandatory agent instructions
 |-- README.md                 # human entry point
+|-- .editorconfig             # shared C# formatting and naming preferences
 |-- docs/                     # development and coding guides
 |-- specs/                    # product and approved feature contracts
 |-- .specify/                 # constitution, Spec Kit templates/scripts
@@ -132,6 +133,9 @@ specs/000-product/tasks.md を固定参照し、全変更の一括ステージ�
 ガイドに従ってagentが作業することと、このスクリプトが完全な自律制御を提供することは別です。
 
 ## コーディング・文書・コミット規約
+
+詳細は [C#コーディング規約](docs/coding-standards.md) と [.editorconfig](.editorconfig) に定義します。
+エディター設定だけではXMLコメントを強制できないため、非公開メンバーを含めレビューでも確認します。
 
 - C#はMicrosoftの標準的な規約を基準に、承認されたコンパイラ/.NET Framework 4.8の範囲で記述します。
 - インデントは4スペース、タブ禁止。手書きの型・関数/メソッド・コンストラクター・プロパティ等には、

@@ -35,7 +35,7 @@ independent authorized work. The [development workflow](docs/development-workflo
 
 1. Read the goal, checkpoint, recent journal/evidence, approved spec, plan, tasks and acceptance criteria.
    Reconcile them with actual branch/HEAD/diffs, active agents and deployed resources.
-2. Record a bounded goal in `reports/<work-id>/goal.md.` Split it into the smallest testable increments
+2. Record a bounded goal in `reports/<work-id>/goal.md`. Split it into the smallest testable increments
    and update the task plan before implementing changes to that plan.
 3. Delegate independent research/review and separable implementation work as described below.
 4. Add/update relevant tests before or alongside the smallest coherent implementation.
@@ -101,6 +101,7 @@ the repository root. Exact project/assembly names and dependencies remain featur
 CommEx/
 |-- AGENTS.md                 # mandatory agent instructions
 |-- README.md                 # human entry point
+|-- .editorconfig             # shared C# formatting and naming preferences
 |-- docs/                     # development and coding guides
 |-- specs/                    # product and approved feature contracts
 |-- .specify/                 # constitution, Spec Kit templates/scripts
@@ -134,6 +135,8 @@ CommEx/
 
 Follow Microsoft's C# conventions within the approved compiler and .NET Framework 4.8 capabilities;
 do not adopt unsupported language features or upgrade dependencies/frameworks for style alone.
+Apply the [C# coding standards](docs/coding-standards.md) and shared [.editorconfig](.editorconfig).
+Editor settings do not replace review of XML documentation, especially for non-public declarations.
 Repository overrides are mandatory:
 
 - Use four spaces per indentation level; no tabs.
