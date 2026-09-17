@@ -87,5 +87,49 @@
                                "path":  "config/repo.local.example.json",
                                "sha256":  "50883BD1479ACB02ECD85E6F216D74CF8612DCEE0516D32EF78036301E948965"
                            }
-                       ]
+                       ],
+    "committedArtifactVerification":  [
+                                          {
+                                              "timestamp":  "2026-09-18T07:33:22.0997054+09:00",
+                                              "testedRevision":  "a834133357af15e3627674da728cb06ba0a6d477",
+                                              "dirty":  false,
+                                              "artifacts":  [
+                                                                {
+                                                                    "configuration":  "Debug",
+                                                                    "artifact":  "src/CommEx/bin/Debug/CommEx.dll",
+                                                                    "sha256":  "9F96BC0327CAE44A4EB82AEDC266FCB592B1E4E8EAA377926D7419F83FC3DEC7",
+                                                                    "assembly":  "CommEx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                                                                    "framework":  ".NETFramework,Version=v4.8",
+                                                                    "architecture":  "MSIL",
+                                                                    "metadataAndSymbols":  "passed"
+                                                                }
+                                                            ],
+                                              "localLinksChecked":  52,
+                                              "configurationAndTree":  "passed",
+                                              "whitespace":  "passed"
+                                          },
+                                          {
+                                              "timestamp":  "2026-09-18T07:33:23.3905719+09:00",
+                                              "testedRevision":  "a834133357af15e3627674da728cb06ba0a6d477",
+                                              "dirty":  false,
+                                              "artifacts":  [
+                                                                {
+                                                                    "configuration":  "Release",
+                                                                    "artifact":  "src/CommEx/bin/Release/CommEx.dll",
+                                                                    "sha256":  "0AE392627C63BB4C1E1AF25D9056E99CCB129B68FD4A20D56A0473A34AFFF0F9",
+                                                                    "assembly":  "CommEx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                                                                    "framework":  ".NETFramework,Version=v4.8",
+                                                                    "architecture":  "MSIL",
+                                                                    "metadataAndSymbols":  "passed"
+                                                                }
+                                                            ],
+                                              "localLinksChecked":  52,
+                                              "configurationAndTree":  "passed",
+                                              "whitespace":  "passed"
+                                          }
+                                      ],
+    "implementationCommits":  [
+                                  "138048c",
+                                  "a834133357af15e3627674da728cb06ba0a6d477"
+                              ]
 }

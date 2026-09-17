@@ -1,26 +1,18 @@
 ﻿# Current checkpoint
 
-- State: SDK conversion/build verification passed; user explicitly requested fine-grained commits; coordinator now owns Git operations.
-- Branch/base: develop / 715e54fa0b5eed33aac20ca03aec6660d253daf3; initial working tree was clean.
-- Attempts: 1/5 migration implementation/verification cycles consumed; no product feature attempts reset.
-- Scope: SDK net48/AnyCPU/WinForms scaffold moved to src/CommEx; slnx/config/example aligned;
-  build restore and optional Configuration override; existing assembly metadata/framework references retained.
-- Coordinator owns migration sources/scripts/docs/report. sdk_review completed read-only design and final reviews;
-  no concrete defects. No active child work, deployment, host process, external fixture or build command.
-- Verification: Debug/Release repository builds exit 0 outside sandbox; original sandbox compiler failed duplicate
-  Path/PATH keys. Changing execution environment alone resolved that failure. No code workaround.
-- Artifact audit: both configurations pass net48/MSIL, version/GUID/COM/library/type, PDB/XML, paths/tree/link checks.
-  48 local links and whitespace checks passed. Privacy scan/manual diff review found no new personal data.
-- Aggregate: verify.ps1 exits 1 at absent unit-test assembly after passing build. Integration/BVE stages not reached.
-  No product feature is complete; no test gate was weakened. Host reference DLL selection remains BLOCKED on B09/P010.
-- Evidence: [summary.md](summary.md), [validation.json](validation.json); raw commands, timestamps, logs, hashes and
-  audit helper in artifacts/sdk-style-migration. Validation records base revision plus dirty state and source hashes.
-- Concurrent work is committed separately through 5e407a8; CI documentation checkpoint releases resource ownership.
-  Index was empty on resumption. Only SDK migration changes remain. Existing Git identity matches the owner-authorized
-  identity recorded in the CI documentation checkpoint; no identity settings will be changed.
-- Fresh checks: all six source-manifest hashes match previously successful builds; Debug/Release artifact audits pass.
-- Commit plan: (1) build restore/configuration override, (2) SDK source/layout/settings plus interdependent docs/records,
-  (3) final tested-commit evidence. Stage explicit paths and inspect each staged diff before committing.
-- Build-script commit: 138048c (restore and per-invocation configuration override).
-- Next exact action: stage/review the coherent project migration and associated docs/records, then commit;
-  finish with commit-bound verification evidence.
+- State: SDK build-infrastructure increment implemented and committed; final evidence in the commit containing this checkpoint.
+- Branch: develop. Build-script commit: 138048c. SDK migration commit: a834133357af15e3627674da728cb06ba0a6d477.
+- Attempts: 1/5 migration implementation/verification cycles consumed; no product-feature budget reset.
+- Scope: SDK net48/AnyCPU/WinForms library under src/CommEx, aligned solution/config/output, restore and build configuration override.
+- Verification: prior successful Debug/Release repository builds; all six input hashes matched on commit resumption.
+  Fresh post-commit artifact audits on a834133 passed both configurations with a clean tree, including metadata,
+  symbols/XML, paths, folder tree, local links and whitespace. See validation.json for hashes and command references.
+- Aggregate verify.ps1 still has the recorded exit 1 at missing unit-test assembly; integration/BVE not reached.
+  No product feature completion claimed. B09/P010 still blocks host DLL selection and release compatibility claims.
+- Ownership: coordinator completed scoped commits; sdk_review completed read-only review. No active agent/build/deployment
+  or external resource. Concurrent CI/CD and task-policy work were already committed independently and preserved.
+- Privacy: reviewed staged source/docs/evidence, excluded machine-local config/binaries/raw logs; used the documented
+  owner-authorized existing Git identity without altering configuration.
+- Evidence: summary.md, validation.json, journal.md; raw logs and check helper under artifacts/sdk-style-migration.
+- Next: no implementation changes pending for this request. Finish the evidence-only commit and confirm clean status.
+  Future host implementation requires its approved contracts and complete verification; nothing runs after this handoff.

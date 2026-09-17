@@ -81,3 +81,12 @@ Configured Git identity matches the owner-authorized identity recorded for be885
 Sandbox staging failed because the index is read-only; approved external staging succeeded. Inspected the staged
 script diff and whitespace check. Committed only scripts/build.ps1 as 138048c, adding restore and the per-invocation
 configuration override. Pending: project migration and its related documentation/records, followed by final evidence.
+
+## 2026-09-18 — migration commit and final evidence
+
+Reviewed explicit staged paths, full source/doc changes, whitespace, personal-path/token patterns and absence of
+binaries/local config/raw evidence. Committed project migration with interdependent documentation as a834133.
+On a834133 with a clean tree, both configuration-specific artifact audits exited 0. All build-input hashes had
+matched prior successful builds; no implementation changes required rebuilding. Updated validation.json with
+post-commit audit records while retaining the original build/aggregate-failure evidence. Final follow-up commit
+contains only progress/summary/journal/validation records. Product verification remains incomplete as recorded.
