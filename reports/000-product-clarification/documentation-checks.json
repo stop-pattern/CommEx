@@ -1,0 +1,442 @@
+﻿{
+    "kind":  "documentation-verification",
+    "featureCompletionClaim":  false,
+    "baseCommit":  "f303344196ed5ee25fd6f33ab08d2117da8c2015",
+    "testedTree":  "documentation matches baseCommit; exact working-copy document hashes below",
+    "checkedAtUtc":  "2026-09-17T16:19:29.4581762Z",
+    "status":  "passed",
+    "documentCount":  8,
+    "localLinksChecked":  34,
+    "checksPassed":  95,
+    "checksFailed":  0,
+    "checks":  [
+                   {
+                       "name":  "document exists: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced code fences: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no machine-local absolute path: README.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: README.md -\u003e specs/000-product/compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: README.md -\u003e specs/000-product/spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: README.md -\u003e specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: README.md -\u003e specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: README.md -\u003e specs/000-product/data-catalog.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: README.md -\u003e specs/000-product/spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: README.md -\u003e specs/000-product/acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: README.md -\u003e AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "document exists: specs/000-product/spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced code fences: specs/000-product/spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no machine-local absolute path: specs/000-product/spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/spec.md -\u003e compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/spec.md -\u003e data-catalog.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/spec.md -\u003e acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/spec.md -\u003e ../../互換プロトコル.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/spec.md -\u003e acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/spec.md -\u003e plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/spec.md -\u003e tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "document exists: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced code fences: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no machine-local absolute path: specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/plan.md -\u003e spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/plan.md -\u003e compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/plan.md -\u003e data-catalog.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/plan.md -\u003e acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/plan.md -\u003e ../../AGENTS.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "document exists: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced code fences: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no machine-local absolute path: specs/000-product/tasks.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/tasks.md -\u003e spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/tasks.md -\u003e compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/tasks.md -\u003e data-catalog.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/tasks.md -\u003e acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "document exists: specs/000-product/compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced code fences: specs/000-product/compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no machine-local absolute path: specs/000-product/compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/compatibility.md -\u003e spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/compatibility.md -\u003e ../../互換プロトコル.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "document exists: specs/000-product/data-catalog.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced code fences: specs/000-product/data-catalog.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no machine-local absolute path: specs/000-product/data-catalog.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/data-catalog.md -\u003e spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/data-catalog.md -\u003e compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "document exists: specs/000-product/acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced code fences: specs/000-product/acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no machine-local absolute path: specs/000-product/acceptance.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/acceptance.md -\u003e spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/acceptance.md -\u003e compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: specs/000-product/acceptance.md -\u003e ../../reports/result.schema.json",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "document exists: 互換プロトコル.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "balanced code fences: 互換プロトコル.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no machine-local absolute path: 互換プロトコル.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: 互換プロトコル.md -\u003e specs/000-product/spec.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: 互換プロトコル.md -\u003e specs/000-product/compatibility.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "local link: 互換プロトコル.md -\u003e specs/000-product/plan.md",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "spec features are exactly F001-F016",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "all F001-F016 tasks present and unchecked",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "no feature/infrastructure tasks incorrectly checked",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "28 normalized decision records are unique and consecutive",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "19 functional requirements are unique and consecutive",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "10 blockers are explicit and consecutive",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "14 acceptance criteria are unique and consecutive",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-01",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-02",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-03",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-04",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-05",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-06",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-07",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-08",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-09",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-10",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-11",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-12",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-13",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "task acceptance reference exists: AC-14",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "six host rows are present and unique",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "host baseline matches spec and compatibility: 5.8.7554.391",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "host baseline matches spec and compatibility: 6.0.7554.619",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "host baseline matches spec and compatibility: 1.0.41005.1",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "host baseline matches spec and compatibility: 2.1.51225.1",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "product and plan remain Draft",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "Native JSON applies on all five transports",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "profile order and no merge recorded",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "five retry delays and finite cap recorded",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "connection timeout and stable reset recorded",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "default flags recorded OFF independently",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "valid settings retained on connectivity failure",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "physical loopback required and virtual-only insufficient",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "performance thresholds retained",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "research memo explicitly supersedes Native binary",
+                       "passed":  true
+                   },
+                   {
+                       "name":  "git diff --check",
+                       "passed":  true
+                   }
+               ],
+    "documents":  [
+                      {
+                          "path":  "README.md",
+                          "sha256":  "cbbec02d3b2bb5aef249a3274f3b12a2663a8d6fde5860a4eae75281c3d548b4"
+                      },
+                      {
+                          "path":  "specs/000-product/spec.md",
+                          "sha256":  "50c184600d7d13a5e4c2bae63d9f5f057af2ecb160124233064e30246fa074f9"
+                      },
+                      {
+                          "path":  "specs/000-product/plan.md",
+                          "sha256":  "069f4c130670d13f59af848098d455b84fadce9d2c5a96abd2519d7a6906014e"
+                      },
+                      {
+                          "path":  "specs/000-product/tasks.md",
+                          "sha256":  "7a5b01df159c18198e5fc89c5402270a7639531cebc7404fb0d88f32abfe3fe6"
+                      },
+                      {
+                          "path":  "specs/000-product/compatibility.md",
+                          "sha256":  "fcbfd6cdd748d70f24f24251bef1727ff424ddf22431cb6c1a5c6d2d13234efe"
+                      },
+                      {
+                          "path":  "specs/000-product/data-catalog.md",
+                          "sha256":  "7343e123916088b862ce15bbe19b6f283ed4fef27dc18bfeab110a67984a8c64"
+                      },
+                      {
+                          "path":  "specs/000-product/acceptance.md",
+                          "sha256":  "411e8efee29cc2bd07720b65ad5e10b9a4ded0d18c07ba572f8881369513b01d"
+                      },
+                      {
+                          "path":  "互換プロトコル.md",
+                          "sha256":  "ed1819dd49bb8db7e508f1fac415b4cfda0202a4743595e65ba2bfa748026094"
+                      }
+                  ],
+    "repositoryVerification":  {
+                                   "testedBaseCommit":  "d031e3ed4f5e428a5c8c13277bfb3e6b9f0643fa",
+                                   "command":  "powershell -ExecutionPolicy Bypass -File scripts/verify.ps1",
+                                   "exitCode":  1,
+                                   "status":  "blocked",
+                                   "reason":  "Configured CommEx.sln does not exist; build stopped before MSBuild.",
+                                   "stages":  {
+                                                  "build":  "failed",
+                                                  "unit":  "not-run",
+                                                  "integration":  "not-run",
+                                                  "bveE2e":  "not-run"
+                                              },
+                                   "log":  "reports/000-product-clarification/logs/verify.log"
+                               }
+}
