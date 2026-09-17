@@ -1,0 +1,91 @@
+﻿{
+    "scope":  "SDK-style class-library infrastructure only",
+    "testedBaseRevision":  "715e54fa0b5eed33aac20ca03aec6660d253daf3",
+    "testedWithWorkingChanges":  true,
+    "builds":  [
+                   {
+                       "configuration":  "Debug",
+                       "exitCode":  0,
+                       "evidence":  "artifacts/sdk-style-migration/debug-build.json"
+                   },
+                   {
+                       "configuration":  "Release",
+                       "exitCode":  0,
+                       "evidence":  "artifacts/sdk-style-migration/release-build-outside.json"
+                   }
+               ],
+    "artifactChecks":  [
+                           {
+                               "timestamp":  "2026-09-18T07:07:18.4731281+09:00",
+                               "testedRevision":  "715e54fa0b5eed33aac20ca03aec6660d253daf3",
+                               "dirty":  true,
+                               "artifacts":  [
+                                                 {
+                                                     "configuration":  "Debug",
+                                                     "artifact":  "src/CommEx/bin/Debug/CommEx.dll",
+                                                     "sha256":  "9F96BC0327CAE44A4EB82AEDC266FCB592B1E4E8EAA377926D7419F83FC3DEC7",
+                                                     "assembly":  "CommEx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                                                     "framework":  ".NETFramework,Version=v4.8",
+                                                     "architecture":  "MSIL",
+                                                     "metadataAndSymbols":  "passed"
+                                                 }
+                                             ],
+                               "localLinksChecked":  48,
+                               "configurationAndTree":  "passed",
+                               "whitespace":  "passed"
+                           },
+                           {
+                               "timestamp":  "2026-09-18T07:07:19.3605612+09:00",
+                               "testedRevision":  "715e54fa0b5eed33aac20ca03aec6660d253daf3",
+                               "dirty":  true,
+                               "artifacts":  [
+                                                 {
+                                                     "configuration":  "Release",
+                                                     "artifact":  "src/CommEx/bin/Release/CommEx.dll",
+                                                     "sha256":  "0AE392627C63BB4C1E1AF25D9056E99CCB129B68FD4A20D56A0473A34AFFF0F9",
+                                                     "assembly":  "CommEx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                                                     "framework":  ".NETFramework,Version=v4.8",
+                                                     "architecture":  "MSIL",
+                                                     "metadataAndSymbols":  "passed"
+                                                 }
+                                             ],
+                               "localLinksChecked":  48,
+                               "configurationAndTree":  "passed",
+                               "whitespace":  "passed"
+                           }
+                       ],
+    "aggregateVerification":  {
+                                  "exitCode":  1,
+                                  "reason":  "No unit-test assembly found",
+                                  "integration":  "not reached",
+                                  "bveE2E":  "not reached",
+                                  "evidence":  "artifacts/sdk-style-migration/verify.json"
+                              },
+    "featureComplete":  false,
+    "sourceManifest":  [
+                           {
+                               "path":  "src/CommEx/CommEx.csproj",
+                               "sha256":  "0B6C34F726B6FFBB4C33D70B3BD79CB1C8E30552D8396355B445DA649D11A5FE"
+                           },
+                           {
+                               "path":  "src/CommEx/Class1.cs",
+                               "sha256":  "1814B7DCF487BB6E87377A9BC67E8107067B46C917DB80B27D63DC9337EA1513"
+                           },
+                           {
+                               "path":  "src/CommEx/Properties/AssemblyInfo.cs",
+                               "sha256":  "882D8B17BE016E38B10E7E9BA9AE6FC20ACE7AB1AD962B9DD351B977B9DED4B8"
+                           },
+                           {
+                               "path":  "CommEx.slnx",
+                               "sha256":  "FA499B536760432E260CAFE8B474982901486CFF8E75A3F075D97CBC0C8E7B9C"
+                           },
+                           {
+                               "path":  "scripts/build.ps1",
+                               "sha256":  "FFEE3C6FF0A10B5D98928A21F150297F9E27F8058857D18E19E555B4188A04E0"
+                           },
+                           {
+                               "path":  "config/repo.local.example.json",
+                               "sha256":  "50883BD1479ACB02ECD85E6F216D74CF8612DCEE0516D32EF78036301E948965"
+                           }
+                       ]
+}

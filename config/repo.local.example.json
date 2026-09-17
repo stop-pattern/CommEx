@@ -1,5 +1,5 @@
 {
-  "solutionPath": "BveCommPlugin.sln",
+  "solutionPath": "CommEx.slnx",
   "configuration": "Release",
   "platform": "Any CPU",
   "msbuildPath": "${env:ProgramFiles}\\Microsoft Visual Studio\\${version}\\BuildTools\\MSBuild\\Current\\Bin\\MSBuild.exe",
@@ -9,7 +9,7 @@
   "bveWorkingDirectory": "C:\\Path\\To\\BVE",
   "bveProcessName": "BveTs",
   "bveExExtensionDirectory": "C:\\Path\\To\\BveEX\\Extensions",
-  "pluginOutputPath": "src\\BveCommPlugin\\bin\\Release\\BveCommPlugin.dll",
+  "pluginOutputPath": "src\\CommEx\\bin\\Release\\CommEx.dll",
   "e2eScenarioPath": "C:\\Path\\To\\E2E\\scenario.txt",
   "uiAutomationBackend": "winapp",
   "e2eEnabled": true,

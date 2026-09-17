@@ -108,7 +108,7 @@ CommEx/
 |-- .agents/                  # repository-local agent skills
 |-- config/                   # tracked examples; ignored machine-local configuration
 |-- scripts/                  # build, test, deploy and orchestration entry points
-|-- src/<project>/            # planned: production C# projects and logical modules
+|-- src/CommEx/               # SDK-style net48 library scaffold; host features planned
 |-- tests/
 |   |-- Unit/                 # planned: deterministic tests
 |   |-- Integration/          # planned: real transport/resource tests

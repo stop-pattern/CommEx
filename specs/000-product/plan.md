@@ -58,7 +58,9 @@ Draft preparation may precede R001/R002; product publication still requires thos
 
 These are logical boundaries, not a requirement for one assembly per row. Prefer minimal runtime DLLs;
 allow necessary host-specific builds and justified dependencies without mandatory assembly merging.
-Concrete project/package/output decisions await B09 and the corresponding feature technical plans.
+The user-authorized infrastructure scaffold is src/CommEx/CommEx.csproj, an SDK-style net48/AnyCPU library
+built through CommEx.slnx (see [build settings](../../docs/build-configuration.md)). Host-specific release
+artifacts and third-party package/reference decisions still await B09 and the corresponding feature technical plans.
 Use the common README/AGENTS responsibility layout: production projects under src/, test levels under
 tests/Unit, tests/Integration and tests/BveE2E, and the independent peer under tools/TestPeer.
 

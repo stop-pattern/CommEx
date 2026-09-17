@@ -60,7 +60,7 @@ CommEx/
 |-- .agents/                  # repository-local agent skills
 |-- config/                   # tracked examples; ignored machine-local configuration
 |-- scripts/                  # build, test, deploy and orchestration entry points
-|-- src/<project>/            # planned: production C# projects and logical modules
+|-- src/CommEx/               # SDK-style net48 library scaffold; host features planned
 |-- tests/
 |   |-- Unit/                 # planned: deterministic tests
 |   |-- Integration/          # planned: real transport/resource tests
@@ -94,8 +94,11 @@ if (-not (Test-Path -LiteralPath config/repo.local.json)) {
 ローカル設定はGit管理外です。実パス、ユーザー名、認証情報を追跡対象の設定例へ転記しません。
 リポジトリ外への配置・書込み先は、使用前にこのローカル設定で宣言してください。
 
-既存スクリプト/設定例は単一環境向けで、solution/実装もまだ整っていません。
-設定例と実際のプロジェクト名・出力先は基盤実装時に整合させます。
+`CommEx.slnx` は `src/CommEx/CommEx.csproj` を参照します。Visual Studio 2026で開き、
+.NET SDKと.NET Framework 4.8開発ツールを含む.NETデスクトップ開発環境でビルドします。
+ローカル設定の `solutionPath` は `CommEx.slnx`、`pluginOutputPath` は
+`src/CommEx/bin/Release/CommEx.dll` に合わせます。設定例・検証スクリプトは単一環境向けです。
+DLLの設定と未実装範囲は [ビルド設定](docs/build-configuration.md) を参照してください。
 Spec Kitの設定は .specify/ と .agents/ にあります。既存リポジトリに対して初期化コマンドを
 無条件で再実行せず、通常は既存のスキル/テンプレートを使用します。
 

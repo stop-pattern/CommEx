@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CommEx
 {
+    /// <summary>
+    /// Preserves the initial library scaffold; host plugin behavior is not implemented yet.
+    /// </summary>
     public class Class1
     {
     }

@@ -58,6 +58,10 @@ Requirements and acceptance: [CI/CD specification](ci-cd.md). These tasks are un
 
 ## Infrastructure prerequisites
 
+The SDK migration is a separate user-authorized build increment tracked in
+[its work record](../../reports/sdk-style-migration/goal.md). It does not complete F001 or approve host dependencies.
+Its checks cover restore/build, assembly identity/net48/AnyCPU, configuration paths and documentation consistency.
+
 The six supported combinations are decided in spec.md. Environment preparation and verification are
 separate, still-uncompleted tasks.
 
