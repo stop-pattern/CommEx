@@ -1,0 +1,18 @@
+{
+  "solutionPath": "BveCommPlugin.sln",
+  "configuration": "Release",
+  "platform": "Any CPU",
+  "msbuildPath": "",
+  "vswherePath": "${env:ProgramFiles(x86)}\\Microsoft Visual Studio\\Installer\\vswhere.exe",
+  "bveExecutable": "C:\\Path\\To\\BveTs.exe",
+  "bveWorkingDirectory": "C:\\Path\\To\\BVE",
+  "bveProcessName": "BveTs",
+  "bveExExtensionDirectory": "C:\\Path\\To\\BveEX\\Extensions",
+  "pluginOutputPath": "src\\BveCommPlugin\\bin\\Release\\BveCommPlugin.dll",
+  "e2eScenarioPath": "C:\\Path\\To\\E2E\\scenario.txt",
+  "uiAutomationBackend": "winapp",
+  "e2eEnabled": true,
+  "maximumFeatureAttempts": 5,
+  "commitPassingFeatures": true
+}
+

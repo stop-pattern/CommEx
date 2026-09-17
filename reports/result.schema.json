@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/bve-comm-plugin/result.schema.json",
+  "title": "Feature verification result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["feature", "status", "attempts", "commit", "startedAt", "completedAt", "stages"],
+  "properties": {
+    "feature": { "type": "string", "pattern": "^[A-Z][0-9]{3}$" },
+    "status": { "enum": ["passed", "blocked", "failed"] },
+    "attempts": { "type": "integer", "minimum": 1 },
+    "commit": { "type": "string", "minLength": 7 },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "stages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["build", "unit", "integration", "bveE2e"],
+      "properties": {
+        "build": { "$ref": "#/$defs/stage" },
+        "unit": { "$ref": "#/$defs/stage" },
+        "integration": { "$ref": "#/$defs/stage" },
+        "bveE2e": { "$ref": "#/$defs/stage" }
+      }
+    },
+    "summary": { "type": "string" },
+    "blocker": { "type": ["string", "null"] },
+    "evidence": { "type": "array", "items": { "type": "string" } }
+  },
+  "$defs": {
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["passed", "failed", "not-applicable", "not-run"] },
+        "log": { "type": ["string", "null"] },
+        "notes": { "type": ["string", "null"] }
+      }
+    }
+  }
+}
+
