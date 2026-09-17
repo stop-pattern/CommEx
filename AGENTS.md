@@ -39,8 +39,10 @@ external protocol, safety behavior, compatibility, persistence format, or user-v
 4. Implement the smallest coherent increment.
 5. Run the narrowest relevant tests, then `scripts/verify.ps1`.
 6. On failure, preserve evidence, form a falsifiable cause hypothesis, and test it.
-7. After full success, write `reports/<feature-id>/summary.md` and `result.json`.
-8. Mark tasks complete only after their acceptance evidence exists.
+7. Commit each coherent increment after its applicable checks pass, following the commit policy below;
+   do not wait for the entire feature or session to finish.
+8. After full success, write `reports/<feature-id>/summary.md` and `result.json`.
+9. Mark tasks complete only after their acceptance evidence exists.
 
 Maximum autonomous attempts for one feature are configured in
 `config/repo.local.json`. After the limit, mark the feature BLOCKED and continue only with
@@ -67,11 +69,36 @@ Do not substitute ad-hoc build commands for the repository scripts when reportin
   that the test is wrong. Explain such a change in the report.
 - Avoid broad refactors during a feature unless required for correctness.
 - Never commit secrets, machine-local paths, BVE distribution files, or third-party binaries.
-- A commit must represent one verified feature or one clearly scoped infrastructure change.
+- A commit must represent one smallest meaningful, reviewable increment: a specification/documentation
+  update, an implementation with its related tests, a focused fix, or a scoped infrastructure change.
+
+## Commit policy for agents
+
+- Commit frequently at meaningful boundaries. Once a coherent increment has passed its applicable
+  checks, commit it before moving to the next independent change. Do not accumulate unrelated work
+  into a single end-of-session commit or wait for a whole feature to be complete.
+- Group changes by purpose, not by file count. Keep an implementation and its corresponding tests,
+  or documents that must change together to stay consistent, in the same commit. Avoid fragments
+  that are not independently understandable or leave an intentionally broken intermediate state.
+- Before every commit, inspect `git status`, the diff, and the staged diff; run `git diff --check`
+  and the checks relevant to that increment. Stage explicit related paths or hunks, preserving
+  unrelated user changes. Do not use blanket staging to include work you did not review.
+- For documentation-only changes, check content consistency, references/links and whitespace.
+  A pre-existing missing solution or unavailable runtime does not prevent committing verified
+  documentation; record the limitation without claiming build or feature success.
+- For code changes, pass the increment's applicable tests and retain verification evidence. If a
+  broader feature gate is still unavailable or failing outside the increment, record that fact;
+  the commit is an intermediate increment, not a completed feature. Do not commit an increment
+  whose own applicable checks fail merely to increase commit frequency.
+- Use commit messages that identify the concrete purpose. Report created commit IDs in the final
+  response. The owner's standing instruction authorizes these local incremental commits; no
+  additional confirmation is needed unless the current request explicitly restricts commits.
+- A commit is not a completion signal. Feature completion still requires every applicable acceptance
+  criterion and `scripts/verify.ps1` to pass without skipped required stages. Record the tested commit
+  in the feature evidence; an evidence-only follow-up commit is a separate meaningful unit.
 
 ## Definition of done
 
 A feature is done only when all applicable acceptance criteria are satisfied, `verify.ps1` exits 0,
 no required stage was skipped, the working tree contains no unintended changes, and the report
 identifies the tested commit and retained evidence.
-
