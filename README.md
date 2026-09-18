@@ -5,7 +5,8 @@ Serial・UDP・TCP・MQTT・WebSocket を通して状態を取得し、仕様で
 
 現在は製品仕様と検証基盤を整備している段階です。設定済みBVE 6 / 通常BveEX向けに、
 通信処理を持たない最小Extensionと開発用ビルド環境を用意しています。
-実ホストでの読込み確認は [bootstrapタスク](specs/001-host-bootstrap/tasks.md) で管理します。
+実ホストでの読込み・応答・正常終了を確認済みです。[検証結果](reports/minimal-host-bootstrap/summary.md) と
+[再検証・復旧手順](docs/build-configuration.md) を参照してください。
 以下は初版の開発対象であり、機能実装や全環境での動作確認が完了したことを意味しません。
 
 ## 目的と初版の範囲
@@ -66,7 +67,7 @@ CommEx/
 |-- tests/
 |   |-- Unit/                 # planned: deterministic tests
 |   |-- Integration/          # bootstrap loader contract; transport tests planned
-|   `-- BveE2E/               # planned: host automation and assertions
+|   `-- BveE2E/               # configured-host bootstrap assertions; six-host tests planned
 |-- tools/TestPeer/           # planned: independent external test peer
 |-- reports/
 |   |-- _templates/           # sanitized goal/progress/journal templates

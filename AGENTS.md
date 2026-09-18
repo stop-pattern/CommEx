@@ -112,7 +112,7 @@ CommEx/
 |-- tests/
 |   |-- Unit/                 # planned: deterministic tests
 |   |-- Integration/          # bootstrap loader contract; transport tests planned
-|   `-- BveE2E/               # planned: host automation and assertions
+|   `-- BveE2E/               # configured-host bootstrap assertions; six-host tests planned
 |-- tools/TestPeer/           # planned: independent external test peer
 |-- reports/
 |   |-- _templates/           # sanitized goal/progress/journal templates
@@ -209,6 +209,8 @@ The [configured-host bootstrap](specs/001-host-bootstrap/spec.md) is a bounded F
 setup-dev.ps1 generates ignored src/CommEx/CommEx.local.props from the configured Extensions parent;
 the installed PluginHost reference has copy-local disabled and must not be redistributed by this setup.
 test-bootstrap.ps1 checks the DLL entry contract offline; actual BveTs load requires separate host evidence.
+deploy-bootstrap.ps1 and test-bve-bootstrap.ps1 provide the bounded configured-host deployment/load checks;
+restore-bootstrap.ps1 restores a saved prior DLL. Follow the [build and recovery guide](docs/build-configuration.md).
 Application unit/transport test assemblies and the full six-host harness remain pending. Bootstrap checks
 do not replace scripts/verify.ps1 or complete F001; track their scope in the [bootstrap tasks](specs/001-host-bootstrap/tasks.md).
 

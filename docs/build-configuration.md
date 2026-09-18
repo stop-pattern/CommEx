@@ -65,6 +65,37 @@ It does not start BveTs or prove the host instantiated the plugin. Actual host l
 responsiveness and graceful exit require the separate [bootstrap acceptance](../specs/001-host-bootstrap/spec.md)
 and retained evidence; task status is in the [bootstrap task list](../specs/001-host-bootstrap/tasks.md).
 
+For the configured BVE 6 installation, set `bveWorkingDirectory`, `bveProcessName`, `e2eEnabled=true`
+and `bveExStatePath` in local configuration. The state path must be `LoadedExtensions.xml` beside the
+Extensions directory; it stores extension toggles, not registration. Install the `winapp` CLI for UI checks.
+With BveTs closed, deploy the verified Release artifact and run the real-host check:
+
+```powershell
+$bootstrapHash = (Get-FileHash src/CommEx/bin/Release/CommEx.dll -Algorithm SHA256).Hash
+powershell -ExecutionPolicy Bypass -File scripts/deploy-bootstrap.ps1 -ExpectedSha256 $bootstrapHash
+powershell -ExecutionPolicy Bypass -File scripts/test-bve-bootstrap.ps1 -ShowWindow
+```
+
+Deployment checks the entry contract and hash, backs up the installed DLL and available toggle-state
+file under ignored `artifacts/`, and verifies the copied DLL. Keep backups outside Extensions because
+BveEX scans its subdirectories too. The host check opens the plugin list without selecting a scenario,
+asserts the new version/description, verifies the exact DLL file mapping and hash, saves a screenshot,
+checks responsiveness and closes its own host normally. It refuses to launch alongside an existing
+BveTs. Only attach to an explicitly authorized process with `-HostProcessId <PID> -CloseAfterTest`;
+that option also closes the process. A user-requested restart after verification may remain open.
+
+To restore a pre-existing DLL after closing BveTs, use the deployment evidence directory:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/restore-bootstrap.ps1 -EvidenceDirectory artifacts/<timestamp>-bootstrap-deploy
+```
+
+Restoration verifies the manifest target, current deployment hash and backup hash before copying.
+This helper restores an existing prior DLL; it does not uninstall a fresh installation or reset toggle
+states. The saved state file remains available for explicit recovery. Raw evidence contains local paths
+and must remain ignored. The verified bootstrap outcome is recorded in the
+[bootstrap report](../reports/minimal-host-bootstrap/summary.md).
+
 Build/contract success does not certify the product. Application unit/transport integration assemblies
 and the full six-host E2E implementation are still missing; `scripts/test-bve.ps1` remains a deliberate
 failure placeholder and `scripts/verify.ps1` must retain the broader failures.

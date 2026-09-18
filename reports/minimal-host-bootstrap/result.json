@@ -1,0 +1,22 @@
+{
+  "feature": "F001",
+  "status": "blocked",
+  "attempts": 4,
+  "commit": "2b7042a1a8db94e1bd77e445f7b57758e28d4570",
+  "startedAt": "2026-09-18T02:24:35.3976435Z",
+  "completedAt": "2026-09-18T02:24:43.2759504Z",
+  "stages": {
+    "build": { "status": "passed" },
+    "unit": { "status": "failed", "notes": "Required application unit-test assembly is absent." },
+    "integration": { "status": "not-run", "notes": "Aggregate runner stopped at unit stage." },
+    "bveE2e": { "status": "not-run", "notes": "Full six-host check not reached. Separate configured-host bootstrap acceptance passed; see summary.md." }
+  },
+  "summary": "Bounded development bootstrap verified; full F001 verification remains incomplete.",
+  "blocker": "Remaining approved F001 acceptance and test infrastructure must be implemented before full feature completion.",
+  "evidence": [
+    "artifacts/minimal-host-bootstrap/aggregate-verify.json",
+    "artifacts/minimal-host-bootstrap/aggregate-verify.log",
+    "artifacts/20260918-113756-bootstrap-host/result.json",
+    "reports/minimal-host-bootstrap/summary.md"
+  ]
+}

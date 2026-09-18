@@ -9,6 +9,7 @@
   "bveWorkingDirectory": "C:\\Path\\To\\BVE",
   "bveProcessName": "BveTs",
   "bveExExtensionDirectory": "C:\\Path\\To\\BveEX\\Extensions",
+  "bveExStatePath": "C:\\Path\\To\\BveEX\\LoadedExtensions.xml",
   "pluginOutputPath": "src\\CommEx\\bin\\Release\\CommEx.dll",
   "e2eScenarioPath": "C:\\Path\\To\\E2E\\scenario.txt",
   "uiAutomationBackend": "winapp",
