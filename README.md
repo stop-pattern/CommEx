@@ -3,8 +3,10 @@
 CommEx は、BVE と外部機器・アプリケーションをつなぐ AtsEX / BveEX Extension です。
 Serial・UDP・TCP・MQTT・WebSocket を通して状態を取得し、仕様で許可された操作を受け付けます。
 
-現在は製品仕様と検証基盤を整備している段階です。以下は初版の開発対象であり、
-機能実装や全環境での動作確認が完了したことを意味しません。
+現在は製品仕様と検証基盤を整備している段階です。設定済みBVE 6 / 通常BveEX向けに、
+通信処理を持たない最小Extensionと開発用ビルド環境を用意しています。
+実ホストでの読込み確認は [bootstrapタスク](specs/001-host-bootstrap/tasks.md) で管理します。
+以下は初版の開発対象であり、機能実装や全環境での動作確認が完了したことを意味しません。
 
 ## 目的と初版の範囲
 
@@ -60,10 +62,10 @@ CommEx/
 |-- .agents/                  # repository-local agent skills
 |-- config/                   # tracked examples; ignored machine-local configuration
 |-- scripts/                  # build, test, deploy and orchestration entry points
-|-- src/CommEx/               # SDK-style net48 library scaffold; host features planned
+|-- src/CommEx/               # net48 BveEX bootstrap; communication features planned
 |-- tests/
 |   |-- Unit/                 # planned: deterministic tests
-|   |-- Integration/          # planned: real transport/resource tests
+|   |-- Integration/          # bootstrap loader contract; transport tests planned
 |   `-- BveE2E/               # planned: host automation and assertions
 |-- tools/TestPeer/           # planned: independent external test peer
 |-- reports/
@@ -83,7 +85,8 @@ src/ 内はホストアダプター、Core、Codec/通信、設定、UI、診断
 1. 必要なVisual Studio/MSBuild、.NET Framework 4.8の開発環境、対象ホストを準備します。
 2. 既存のローカル設定を上書きせず、未作成の場合だけ設定例をコピーします。
 3. 実パス、使用環境、試行上限等を config/repo.local.json に設定します。
-4. 承認済み仕様・タスクと実際の検証環境を照合して作業を開始します。
+4. `scripts/setup-dev.ps1` でツール・ホスト参照を確認し、IDE用のローカル参照設定を生成します。
+5. 承認済み仕様・タスクと実際の検証環境を照合して作業を開始します。
 
 ```powershell
 if (-not (Test-Path -LiteralPath config/repo.local.json)) {
@@ -93,6 +96,14 @@ if (-not (Test-Path -LiteralPath config/repo.local.json)) {
 
 ローカル設定はGit管理外です。実パス、ユーザー名、認証情報を追跡対象の設定例へ転記しません。
 リポジトリ外への配置・書込み先は、使用前にこのローカル設定で宣言してください。
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/setup-dev.ps1
+```
+
+setup-dev.ps1 は `bveExExtensionDirectory` の親ディレクトリにある `BveEx.PluginHost.dll` を参照し、
+Git管理外の `src/CommEx/CommEx.local.props` を作成します。ホストDLLはビルド出力へコピーしません。
+参照先を変更した場合は再実行し、IDEでプロジェクトを再読込みします。
 
 `CommEx.slnx` は `src/CommEx/CommEx.csproj` を参照します。Visual Studio 2026で開き、
 .NET SDKと.NET Framework 4.8開発ツールを含む.NETデスクトップ開発環境でビルドします。
@@ -106,6 +117,7 @@ Spec Kitの設定は .specify/ と .agents/ にあります。既存リポジト
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/build.ps1
+powershell -ExecutionPolicy Bypass -File scripts/test-bootstrap.ps1
 powershell -ExecutionPolicy Bypass -File scripts/test-unit.ps1
 powershell -ExecutionPolicy Bypass -File scripts/test-integration.ps1
 powershell -ExecutionPolicy Bypass -File scripts/verify.ps1
@@ -114,6 +126,10 @@ powershell -ExecutionPolicy Bypass -File scripts/verify.ps1
 verify.ps1 は Build → Unit → Integration → BVE E2E の順に実行します。
 前段の失敗、必要な環境の不足、必須段階のスキップを成功と扱いません。
 test-bve.ps1 は現在、未実装を明示して失敗するプレースホルダーです。
+アプリケーション用のUnit/Integrationテストアセンブリも未整備です。
+test-bootstrap.ps1 は設定されたDLLのExtension契約と依存DLLの出力を検査するオフラインテストで、
+BveTsの起動や実際の読込みを証明しません。最小構成の受入条件は
+[bootstrap仕様](specs/001-host-bootstrap/spec.md) に定義しています。
 
 deploy-bve.ps1 は設定先へDLLを1ファイルコピーする補助です。実行前に成果物のコミット/ハッシュ、
 対象環境、プロセス/ポートの所有、停止/アンロード、バックアップと復旧手順を確認します。
@@ -172,6 +188,7 @@ specs/000-product/tasks.md を固定参照し、全変更の一括ステージ�
 
 - [製品仕様・未解消事項](specs/000-product/spec.md)
 - [実装計画](specs/000-product/plan.md) / [タスク](specs/000-product/tasks.md)
+- [設定済みホスト向けbootstrap仕様](specs/001-host-bootstrap/spec.md) / [タスク](specs/001-host-bootstrap/tasks.md)
 - [互換性表](specs/000-product/compatibility.md) / [初期データ一覧](specs/000-product/data-catalog.md)
 - [受入試験](specs/000-product/acceptance.md) / [検証記録の形式](reports/README.md)
 - [エージェント指示](AGENTS.md) / [.specify/memory/constitution.md](.specify/memory/constitution.md)

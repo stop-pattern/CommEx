@@ -47,6 +47,17 @@ F016 has a transport-independent increment and later per-transport integration i
 it complete after the state machine alone. F001 establishes the early smoke harness; later feature
 evidence extends it to real codecs/transports without weakening the known-good/broken controls.
 
+## Configured-host bootstrap increment
+
+The owner's coding-environment request approves the bounded [bootstrap specification](../001-host-bootstrap/spec.md),
+[plan](../001-host-bootstrap/plan.md) and [task list](../001-host-bootstrap/tasks.md) within F001.
+BOOT-T01 covers local IDE references, the minimal Extension, Release/Debug builds and an offline
+loader-contract check. BOOT-T02 requires configured BVE 6 / normal BveEX load, responsiveness and
+graceful shutdown evidence after recoverable deployment. BOOT-T03 records aggregate verification limits
+and the development handoff. Their status is maintained in that task list; F001 remains unchecked until
+its full acceptance passes. Local use of the installed PluginHost with copy-local disabled does not
+close P010/B09 distribution and licensing work.
+
 ## GitHub CI/CD infrastructure
 
 Requirements and acceptance: [CI/CD specification](ci-cd.md). These tasks are unimplemented.
@@ -59,7 +70,8 @@ Requirements and acceptance: [CI/CD specification](ci-cd.md). These tasks are un
 ## Infrastructure prerequisites
 
 The SDK migration is a separate user-authorized build increment tracked in
-[its work record](../../reports/sdk-style-migration/goal.md). It does not complete F001 or approve host dependencies.
+[its work record](../../reports/sdk-style-migration/goal.md). It does not complete F001 or approve host dependencies;
+the later configured-host bootstrap defines its own bounded installed-reference decision above.
 Its checks cover restore/build, assembly identity/net48/AnyCPU, configuration paths and documentation consistency.
 
 The six supported combinations are decided in spec.md. Environment preparation and verification are

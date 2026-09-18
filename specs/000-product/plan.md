@@ -32,6 +32,12 @@ Approved; full feature completion still requires their specified integration and
 Do not postpone the first BVE integration test until communication features are finished. Missing
 BVE 5/AtsEX environments block their required stages and release, not unrelated contract research.
 
+The owner-approved [configured-host bootstrap](../001-host-bootstrap/spec.md) starts the bounded F001
+development increment, with its own [plan](../001-host-bootstrap/plan.md) and [tasks](../001-host-bootstrap/tasks.md).
+It targets configured BVE 6 / normal BveEX only: local development references, a resource-free Extension,
+an offline entry-contract test, and actual load/responsiveness/shutdown evidence with deployment recovery.
+Its gates do not complete F001, establish six-host compatibility, or authorize communication contracts.
+
 ## GitHub CI/CD infrastructure
 
 Implement [FR-020 and the CI/CD contract](ci-cd.md) as a separate infrastructure increment:
@@ -58,9 +64,11 @@ Draft preparation may precede R001/R002; product publication still requires thos
 
 These are logical boundaries, not a requirement for one assembly per row. Prefer minimal runtime DLLs;
 allow necessary host-specific builds and justified dependencies without mandatory assembly merging.
-The user-authorized infrastructure scaffold is src/CommEx/CommEx.csproj, an SDK-style net48/AnyCPU library
-built through CommEx.slnx (see [build settings](../../docs/build-configuration.md)). Host-specific release
-artifacts and third-party package/reference decisions still await B09 and the corresponding feature technical plans.
+The user-authorized bootstrap is src/CommEx/CommEx.csproj, an SDK-style net48/AnyCPU Extension
+built through CommEx.slnx (see [build settings](../../docs/build-configuration.md)). Its installed BveEX
+PluginHost reference is configured locally with copy-local disabled. Host-specific release artifacts,
+broader dependency decisions and distribution/license obligations still await B09 and the corresponding
+feature technical plans.
 Use the common README/AGENTS responsibility layout: production projects under src/, test levels under
 tests/Unit, tests/Integration and tests/BveE2E, and the independent peer under tools/TestPeer.
 

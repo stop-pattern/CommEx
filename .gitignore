@@ -10,6 +10,7 @@ obj/
 TestResults/
 packages/
 config/repo.local.json
+src/CommEx/CommEx.local.props
 artifacts/**
 !artifacts/.gitkeep
 reports/**/logs/

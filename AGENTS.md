@@ -108,10 +108,10 @@ CommEx/
 |-- .agents/                  # repository-local agent skills
 |-- config/                   # tracked examples; ignored machine-local configuration
 |-- scripts/                  # build, test, deploy and orchestration entry points
-|-- src/CommEx/               # SDK-style net48 library scaffold; host features planned
+|-- src/CommEx/               # net48 BveEX bootstrap; communication features planned
 |-- tests/
 |   |-- Unit/                 # planned: deterministic tests
-|   |-- Integration/          # planned: real transport/resource tests
+|   |-- Integration/          # bootstrap loader contract; transport tests planned
 |   `-- BveE2E/               # planned: host automation and assertions
 |-- tools/TestPeer/           # planned: independent external test peer
 |-- reports/
@@ -190,7 +190,9 @@ verification reports preserve what was true then; label corrections rather than 
 ## Commands and current infrastructure limits
 
 ```powershell
+powershell -ExecutionPolicy Bypass -File scripts/setup-dev.ps1
 powershell -ExecutionPolicy Bypass -File scripts/build.ps1
+powershell -ExecutionPolicy Bypass -File scripts/test-bootstrap.ps1
 powershell -ExecutionPolicy Bypass -File scripts/test-unit.ps1
 powershell -ExecutionPolicy Bypass -File scripts/test-integration.ps1
 powershell -ExecutionPolicy Bypass -File scripts/deploy-bve.ps1
@@ -202,6 +204,13 @@ Do not substitute ad-hoc build commands for repository scripts when reporting fe
 Deployment is only appropriate after the target, artifact, ownership and recovery checks above.
 deploy-bve.ps1 currently copies one DLL; it does not implement those safeguards or certify host behavior.
 test-bve.ps1 is still a deliberate failure placeholder.
+
+The [configured-host bootstrap](specs/001-host-bootstrap/spec.md) is a bounded F001 increment.
+setup-dev.ps1 generates ignored src/CommEx/CommEx.local.props from the configured Extensions parent;
+the installed PluginHost reference has copy-local disabled and must not be redistributed by this setup.
+test-bootstrap.ps1 checks the DLL entry contract offline; actual BveTs load requires separate host evidence.
+Application unit/transport test assemblies and the full six-host harness remain pending. Bootstrap checks
+do not replace scripts/verify.ps1 or complete F001; track their scope in the [bootstrap tasks](specs/001-host-bootstrap/tasks.md).
 
 Do not launch autonomous-loop.ps1 for unattended work until its blanket staging, completion-only
 commit prompt, per-invocation attempt reset and missing resume/approval/dependency controls are fixed.

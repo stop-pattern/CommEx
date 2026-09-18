@@ -15,23 +15,61 @@ and the .NET Framework 4.8 targeting pack. The runtime target remains .NET Frame
 | Artifacts | bin/Debug or bin/Release under src/CommEx; no target-framework suffix |
 | Symbols / docs | Existing full Debug and pdbonly Release symbols; XML documentation beside the DLL |
 | Compilation | Deterministic output; SDK includes source/resource files automatically |
+| Host reference | Installed BveEx.PluginHost.dll via BveExRuntimeDirectory; Private=false (no copy-local) |
+
+Before opening the solution for development, configure `config/repo.local.json` using the tracked
+example without overwriting existing machine settings. Set `msbuildPath`, `vstestPath`, `bveExecutable`
+and `bveExExtensionDirectory` to the authorized installed tools/host paths, then run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/setup-dev.ps1
+```
+
+The setup validates those paths and the BveEX 2 PluginHost assembly identity. It uses the configured
+Extensions directory's parent as `BveExRuntimeDirectory` and writes ignored
+`src/CommEx/CommEx.local.props`, imported by the project for IDE and CLI builds. Rerun setup and reload
+the IDE project after changing the installation path. Alternatively, an explicitly supplied MSBuild
+`BveExRuntimeDirectory` property can select the installed reference. The project fails with a setup
+instruction if that reference is missing. Do not commit local props or copy the installed host binaries
+into the repository or build output.
 
 Run `powershell -ExecutionPolicy Bypass -File scripts/build.ps1` (or add `-Clean` for rebuild).
 Use `-Configuration Debug` or `-Configuration Release` to override the local configuration for a single build.
 The script uses configured Visual Studio MSBuild and performs restore before build. Set local configuration
 `solutionPath` to `CommEx.slnx`; the Release `pluginOutputPath` is `src/CommEx/bin/Release/CommEx.dll`.
-Only these project paths were aligned in the existing local configuration; retain other machine settings.
+Retain other machine settings when updating these paths.
 
-The library currently contains the original scaffold only. Existing framework references are retained,
-and WinForms/Drawing references are supplied by the desktop SDK. No third-party DLL/package, host entry point,
-assembly merging, signing key, post-build deployment or automatic host launch is introduced.
-Choosing AtsEX/BveEX reference assemblies, exact versions, copy-local policy and host-specific release
-artifacts remains [B09/P010 work](../specs/000-product/tasks.md), including distribution/license verification.
-Do not deploy this scaffold as a working host plugin.
+The library contains `CommEx.CommExMain`, the resource-free Extension defined by the approved
+[configured-host bootstrap](../specs/001-host-bootstrap/spec.md). It uses `AssemblyPluginBase`,
+`Plugin(PluginType.Extension)` and `IExtension`; constructor, Tick and Dispose add no I/O, workers,
+events, UI or communication behavior. BveEX discovers the attributed type in its Extensions directory.
+The assembly description is `CommEx development bootstrap (no communication features)` and its version
+is 1.0.0.0. Framework references remain in place and the desktop SDK supplies WinForms/Drawing.
 
-Build success verifies infrastructure only. Unit/integration assemblies and the host E2E implementation
-are still missing; `scripts/verify.ps1` must report their failure rather than certify the product.
-See the [migration evidence](../reports/sdk-style-migration/summary.md).
+The configured BveEX 2.1.51225.1 installation provides PluginHost assembly version 2.0.50204.1;
+the host product and assembly versions are distinct. The project references the installed assembly with
+`Private=false`, and setup does not redistribute host binaries. AtsEX/legacy-mode references,
+host-specific release artifacts and distribution/license verification remain
+[B09/P010 work](../specs/000-product/tasks.md). No assembly merging, signing key, post-build deployment
+or automatic host launch is introduced. The entry contract follows the
+[official BveEX extension quickstart](https://bveex.okaoka-depot.com/wiki/quickstart).
+
+After a Release build, run the offline contract test against `pluginOutputPath`:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/test-bootstrap.ps1
+```
+
+It checks the net48 assembly's entry type/attribute/constructor and absence of copied host dependencies.
+It does not start BveTs or prove the host instantiated the plugin. Actual host load, artifact identity,
+responsiveness and graceful exit require the separate [bootstrap acceptance](../specs/001-host-bootstrap/spec.md)
+and retained evidence; task status is in the [bootstrap task list](../specs/001-host-bootstrap/tasks.md).
+
+Build/contract success does not certify the product. Application unit/transport integration assemblies
+and the full six-host E2E implementation are still missing; `scripts/test-bve.ps1` remains a deliberate
+failure placeholder and `scripts/verify.ps1` must retain the broader failures.
+The bootstrap does not complete F001 or implement communication features. The earlier project conversion
+is recorded in the [migration evidence](../reports/sdk-style-migration/summary.md).
 
 SDK behavior references: [Microsoft SDK properties](https://learn.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props)
 and [Microsoft desktop migration guidance](https://devblogs.microsoft.com/dotnet/how-to-port-desktop-applications-to-net-core-3-0/).
