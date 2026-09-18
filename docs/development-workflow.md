@@ -4,6 +4,12 @@
 機能の完了判定を置き換えるものではありません。新しい担当者やエージェントが会話履歴なしで
 次の一手を再現できる状態を保ちます。
 
+ユーザーはVisual Studio 2026でルートの `CommEx.slnx` を開いて開発します。
+agentはVS Codeで `CommEx.code-workspace` を開き、統合Windows PowerShellターミナルを
+リポジトリルートに置いて、既存の `scripts/` からビルド・検証・Git操作を行います。
+同じファイルと出力先を共有するため、編集の競合や同時ビルドを避けます。
+具体的な開き方と初期設定は [開発環境ガイド](build-configuration.md) を参照してください。
+
 ## goal と着手条件
 
 作業を始める前に `reports/<work-id>/goal.md` を作成・更新し、目的、承認された範囲、

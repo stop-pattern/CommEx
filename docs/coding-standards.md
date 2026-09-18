@@ -13,6 +13,33 @@ file-scoped namespace、nullable reference types、records などの採用を本
 Microsoft も再現性のために `latest` を避けるよう
 [説明しています](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version)。
 
+## ソースコードのフォルダ構成
+
+MicrosoftのC#/.NETの規約とプロジェクト分割例に従い、プロジェクト単位のディレクトリ、
+名前空間に対応するサブフォルダ、型名に対応するファイル名で整理します。
+C#の言語仕様が唯一のリポジトリ配置を定めているわけではないため、次の配置をCommExの標準とします。
+根拠はMicrosoftの [名前空間の説明](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/namespaces) と
+[プロジェクトとテストの整理例](https://learn.microsoft.com/en-us/dotnet/core/tutorials/testing-with-cli) です。
+
+| 対象 | 配置・命名 |
+|---|---|
+| ソリューション | ルートの `CommEx.slnx`。VS Codeも同じルートとプロジェクトを参照する |
+| 製品プロジェクト | `src/<ProjectName>/<ProjectName>.csproj`。現在は `src/CommEx/CommEx.csproj` |
+| 手書きの型 | 原則1ファイル1主要型とし、`TypeName.cs` に置く。型名・名前空間・C#のサブフォルダ名はPascalCase |
+| プロジェクト内部 | 実装する責任に応じて `Host`、`Core`、`Codecs`、`Communication`、`Configuration`、`UI`、`Diagnostics` へ整理する |
+| 名前空間 | プロジェクトのルート名前空間と相対フォルダを対応させる。例: `Codecs/ExampleCodec.cs` は `CommEx.Codecs.ExampleCodec` |
+| メタデータ | 現在の明示的なアセンブリ属性は `Properties/AssemblyInfo.cs` に置く |
+| WinForms | 手書きの `ExampleForm.cs`、生成される `ExampleForm.Designer.cs`、`ExampleForm.resx` は同じフォルダに置く |
+| テスト | `tests/Unit/<ProjectName>.Tests/`、`tests/Integration/<ProjectName>.IntegrationTests/`、`tests/BveE2E/` の責任別に配置する。未作成のプロジェクトは計画として扱う |
+| 出力・補助 | `bin/`、`obj/` は生成物。実行スクリプトは `scripts/`、独立テスト相手は `tools/TestPeer/` に置く |
+
+現在の `CommExMain.cs` はプロジェクト直下の `CommEx.CommExMain` として対応しています。
+この承認済みのエントリー型を配置のためだけに改名しません。将来の責任別サブフォルダは
+実装時に追加し、空のフォルダや空プロジェクトを先に量産しません。partial型、ネストされた補助型、
+アセンブリ属性、生成ファイルは1主要型1ファイルの例外です。PowerShellから単独コンパイルする
+`tests/BveE2E/ProcessFileMappings.cs` の `CommEx.Testing` はテスト補助専用の名前空間です。
+責任別フォルダの分割はDLLの分割を意味しません。新規プロジェクトの境界と依存関係は承認済み計画に従います。
+
 ## 書式と命名
 
 - インデントは必ず半角スペース4個とし、タブ文字を使いません。

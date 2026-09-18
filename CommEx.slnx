@@ -1,3 +1,32 @@
 <Solution>
-  <Project Path="src/CommEx/CommEx.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/CommEx/CommEx.csproj" />
+  </Folder>
+  <Folder Name="/Repository/">
+    <File Path="README.md" />
+    <File Path="AGENTS.md" />
+    <File Path=".editorconfig" />
+    <File Path="CommEx.code-workspace" />
+  </Folder>
+  <Folder Name="/docs/">
+    <File Path="docs/build-configuration.md" />
+    <File Path="docs/development-workflow.md" />
+    <File Path="docs/coding-standards.md" />
+  </Folder>
+  <Folder Name="/config/">
+    <File Path="config/repo.local.example.json" />
+  </Folder>
+  <Folder Name="/scripts/">
+    <File Path="scripts/setup-dev.ps1" />
+    <File Path="scripts/build.ps1" />
+    <File Path="scripts/test-bootstrap.ps1" />
+    <File Path="scripts/verify.ps1" />
+  </Folder>
+  <Folder Name="/tests/Integration/">
+    <File Path="tests/Integration/bootstrap-contract.ps1" />
+  </Folder>
+  <Folder Name="/tests/BveE2E/">
+    <File Path="tests/BveE2E/assert-bootstrap-ui.ps1" />
+    <File Path="tests/BveE2E/ProcessFileMappings.cs" />
+  </Folder>
 </Solution>

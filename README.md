@@ -39,7 +39,9 @@ Serial・UDP・TCP・MQTT・WebSocket を通して状態を取得し、仕様で
 | ホスト | AtsEX 1.0.41005.1、BveEX 2.1.51225.1の通常/レガシーモード |
 | 検証対象 | 上記BVE 2種類×ホスト3種類、計6組合せ |
 | ランタイム / UI | .NET Framework 4.8 / WinForms |
-| ビルド | Visual Studio付属MSBuild、.NET Framework 4.8用の開発環境 |
+| ユーザーの開発環境 | Visual Studio 2026でルートのCommEx.slnxを開く |
+| agentの作業環境 | VS CodeでCommEx.code-workspaceを開き、統合ターミナルから操作する |
+| ビルド | Visual Studio 2026付属MSBuild、.NET Framework 4.8用の開発環境 |
 | コマンド環境 | Windows PowerShell |
 | 外部検証 | 実Serialループバック、独立したTestPeer、LAN内MQTTブローカー、ホストUI自動化 |
 
@@ -56,6 +58,8 @@ planned は未作成の実装領域です。空のプロジェクトや大量の
 CommEx/
 |-- AGENTS.md                 # mandatory agent instructions
 |-- README.md                 # human entry point
+|-- CommEx.slnx               # Visual Studio 2026 solution
+|-- CommEx.code-workspace     # VS Code workspace and repository-script tasks
 |-- .editorconfig             # shared C# formatting and naming preferences
 |-- docs/                     # development and coding guides
 |-- specs/                    # product and approved feature contracts
@@ -76,6 +80,8 @@ CommEx/
 ```
 
 src/ 内はホストアダプター、Core、Codec/通信、設定、UI、診断等の責任で分けます。
+ソースの配置・ファイル名・名前空間はMicrosoftのC#/.NET規約に沿った
+[フォルダ構成ルール](docs/coding-standards.md#ソースコードのフォルダ構成) に従います。
 フォルダ分割とDLL分割は同義ではありません。テスト補助実行プログラムは tools/TestPeer/、
 製品の契約は specs/、共通の開発手順は docs/、再開記録・検証結果は reports/ に置きます。
 新しい最上位フォルダを追加する際は、人間向けとagent向けの構造説明を同時更新します。
@@ -106,6 +112,9 @@ setup-dev.ps1 は `bveExExtensionDirectory` の親ディレクトリにある `B
 Git管理外の `src/CommEx/CommEx.local.props` を作成します。ホストDLLはビルド出力へコピーしません。
 参照先を変更した場合は再実行し、IDEでプロジェクトを再読込みします。
 
+ユーザーはVisual Studio 2026で `CommEx.slnx` を開きます。agentはVS Codeで
+`CommEx.code-workspace` を開き、リポジトリルートの統合PowerShellターミナルから作業します。
+両方が同じ `src/CommEx/CommEx.csproj` と設定・スクリプトを使います。
 `CommEx.slnx` は `src/CommEx/CommEx.csproj` を参照します。Visual Studio 2026で開き、
 .NET SDKと.NET Framework 4.8開発ツールを含む.NETデスクトップ開発環境でビルドします。
 ローカル設定の `solutionPath` は `CommEx.slnx`、`pluginOutputPath` は

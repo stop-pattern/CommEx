@@ -93,6 +93,12 @@ Retain failed-attempt evidence before further changes. A session ending does not
 
 ## Repository layout
 
+The user develops in Visual Studio 2026 by opening root CommEx.slnx. The agent works from the
+VS Code integrated Windows PowerShell terminal after opening root CommEx.code-workspace.
+Use the repository root as the working directory and the existing scripts for build/test operations.
+Both editors share the same source/configuration; serialize builds and coordinate edits to avoid
+overwriting unsaved user changes. See the [editor setup guide](docs/build-configuration.md).
+
 The following tree is the canonical responsibility layout and must match the README tree. Entries
 marked planned are not claims of existing code. Do not scatter implementation, tools or evidence at
 the repository root. Exact project/assembly names and dependencies remain feature-plan decisions.
@@ -101,6 +107,8 @@ the repository root. Exact project/assembly names and dependencies remain featur
 CommEx/
 |-- AGENTS.md                 # mandatory agent instructions
 |-- README.md                 # human entry point
+|-- CommEx.slnx               # Visual Studio 2026 solution
+|-- CommEx.code-workspace     # VS Code workspace and repository-script tasks
 |-- .editorconfig             # shared C# formatting and naming preferences
 |-- docs/                     # development and coding guides
 |-- specs/                    # product and approved feature contracts
@@ -122,6 +130,9 @@ CommEx/
 
 - Put production code under `src/<project>/`, organized by host adapter, core, codec/communication,
   configuration, UI and diagnostics responsibilities. Logical folders do not require separate DLLs.
+  Follow the [source layout conventions](docs/coding-standards.md): one project directory per csproj,
+  PascalCase C# subfolders/types, namespaces matching project-relative folders, and TypeName.cs files.
+  Keep the approved root CommEx.CommExMain entry type and Properties/AssemblyInfo.cs in their current locations.
 - Put unit, integration and host E2E tests under the corresponding tests/ responsibility folder.
   Independent executable test peers belong under tools/TestPeer/.
 - Keep feature contracts in specs/, reusable development guidance in docs/, commands in scripts/,

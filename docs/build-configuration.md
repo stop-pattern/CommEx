@@ -1,8 +1,38 @@
 # CommEx build configuration
 
-Open `CommEx.slnx` in Visual Studio 2026. It contains the SDK-style project
-`src/CommEx/CommEx.csproj`. Install the .NET desktop development tools including a supported .NET SDK
+The user develops in **Visual Studio 2026**, opening root `CommEx.slnx` with File > Open > Project/Solution.
+The agent works in the **VS Code integrated Windows PowerShell terminal**, opening root
+`CommEx.code-workspace` with File > Open Workspace from File (or `code CommEx.code-workspace`).
+Both entry points use the same checkout and SDK-style project `src/CommEx/CommEx.csproj`.
+Install the .NET desktop development tools including a supported .NET SDK
 and the .NET Framework 4.8 targeting pack. The runtime target remains .NET Framework, not modern .NET.
+
+The physical folders remain `src/`, `tests/`, `scripts/`, `docs/`, `specs/`, `config/` and `reports/`.
+Visual Studio solution folders expose the production project plus selected shared guides, configuration
+example, scripts and test helpers. They are navigation entries; solution-item scripts are not compiled
+into CommEx.dll. Use VS Code Explorer or Visual Studio's folder view for the complete physical tree.
+Add future C# projects beneath their responsibility folder and reference them from CommEx.slnx.
+Follow the [C# source layout rules](coding-standards.md#ソースコードのフォルダ構成) for project folders,
+PascalCase file/type names and corresponding namespaces. The existing entry type and assembly metadata
+already follow the documented layout.
+
+The committed VS Code workspace opens the repository root, sets the integrated terminal to that root,
+and uses Windows PowerShell without a profile. Terminal > Run Task provides setup, Debug/Release
+builds and the configured DLL contract check; Ctrl+Shift+B runs the Debug build. Tasks call the same
+repository scripts with explicit process arguments, including when the checkout path contains spaces.
+The contract task reads `pluginOutputPath` (normally Release); a Debug build does not select Debug for
+that check. Build Release first when validating the default configured artifact.
+Opening the folder alone also permits terminal work, but does not load the tasks/settings in the
+workspace file. No VS Code C# extension is required for this terminal-based agent workflow.
+
+Complete local configuration/setup below before the first IDE build. Visual Studio and the agent share
+source and output directories: save and coordinate edits, and run only one build at a time. Keep personal
+IDE state in ignored `.vs/`, `.vscode/` or user settings; the tracked workspace contains portable shared
+settings only. Build tasks do not deploy or launch BVE.
+
+Workspace/task configuration follows the [VS Code workspace documentation](https://code.visualstudio.com/docs/editing/workspaces/multi-root-workspaces)
+and [task documentation](https://code.visualstudio.com/docs/debugtest/tasks). Solution folders follow
+Microsoft's [SLNX schema](https://github.com/microsoft/vs-solutionpersistence/blob/main/src/Microsoft.VisualStudio.SolutionPersistence/Serializer/Xml/Slnx.xsd).
 
 | Setting | Value and purpose |
 |---|---|

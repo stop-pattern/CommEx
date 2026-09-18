@@ -1,0 +1,54 @@
+{
+    "folders": [
+        { "name": "CommEx", "path": "." }
+    ],
+    "settings": {
+        "terminal.integrated.cwd": "${workspaceFolder:CommEx}",
+        "terminal.integrated.profiles.windows": {
+            "CommEx PowerShell": {
+                "path": "${env:windir}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "args": ["-NoProfile"]
+            }
+        },
+        "terminal.integrated.defaultProfile.windows": "CommEx PowerShell"
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "CommEx: setup development references",
+                "type": "process",
+                "command": "powershell.exe",
+                "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/setup-dev.ps1"],
+                "options": { "cwd": "${workspaceFolder:CommEx}" },
+                "problemMatcher": []
+            },
+            {
+                "label": "CommEx: build Debug",
+                "type": "process",
+                "command": "powershell.exe",
+                "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/build.ps1", "-Configuration", "Debug"],
+                "options": { "cwd": "${workspaceFolder:CommEx}" },
+                "group": { "kind": "build", "isDefault": true },
+                "problemMatcher": "$msCompile"
+            },
+            {
+                "label": "CommEx: build Release",
+                "type": "process",
+                "command": "powershell.exe",
+                "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/build.ps1", "-Configuration", "Release"],
+                "options": { "cwd": "${workspaceFolder:CommEx}" },
+                "group": "build",
+                "problemMatcher": "$msCompile"
+            },
+            {
+                "label": "CommEx: check configured bootstrap DLL (pluginOutputPath)",
+                "type": "process",
+                "command": "powershell.exe",
+                "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/test-bootstrap.ps1"],
+                "options": { "cwd": "${workspaceFolder:CommEx}" },
+                "problemMatcher": []
+            }
+        ]
+    }
+}
