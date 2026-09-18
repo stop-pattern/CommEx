@@ -7,6 +7,7 @@ completion is claimed.
 ## Tested implementation
 
 - Plugin/setup commit: `2b7042a1a8db94e1bd77e445f7b57758e28d4570`.
+- Verified host helpers and development/recovery instructions: `d561bd6`.
 - .NET Framework 4.8, C# 7.3, WinForms; Debug and Release repository builds passed.
 - BVE 6.0.7554.619; BveEX 2.1.51225.1; PluginHost assembly 2.0.50204.1.
 - Installed Release SHA256: `F1BD5B56CAE955E8FF05196EED873597414602EDF9AE54254D4467CAA36E0F66`.
