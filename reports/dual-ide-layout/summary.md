@@ -1,5 +1,7 @@
 # Shared IDE layout
 
+Verified configuration/documentation commit: `d421b38`.
+
 The user opens root `CommEx.slnx` in Visual Studio 2026. The agent opens root
 `CommEx.code-workspace` in VS Code and works in its integrated Windows PowerShell terminal.
 Both use `src/CommEx/CommEx.csproj`, root repository scripts and the same ignored local configuration.

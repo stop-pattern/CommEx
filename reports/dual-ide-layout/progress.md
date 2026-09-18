@@ -1,6 +1,6 @@
 # Workspace checkpoint
 
-- Base: develop / e6c021f; initial tree clean.
+- Base: develop / e6c021f; initial tree clean. Verified layout/conventions committed as d421b38.
 - State: build, structure checks and both editor openings passed (cycle 1/5; no source repair required).
 - Coordinator owns all writes/index. ide_layout_review completed read-only review with no material findings.
 - Existing configured host remains user-owned and will not be restarted, closed or redeployed.
@@ -10,4 +10,4 @@
   (CommExMain.cs, Properties and dependencies), vscode-workspace.json (CommEx workspace).
 - Clarification integrated: docs/coding-standards.md now defines Microsoft/C# source layout conventions,
   examples and exceptions. Current approved source paths already conform; no relocation or namespace change.
-- Next: final consistency/privacy checks and scoped commit. Full product verification limits are unchanged.
+- Next: infrastructure task complete; use the documented editor entry points. Full product verification limits are unchanged.
